@@ -3,7 +3,7 @@ import 'package:dental_app/core/utlis/app_string.dart';
 import 'package:dental_app/core/utlis/styles.dart';
 import 'package:dental_app/features/patient/widget/session_item.dart';
 import 'package:dental_app/features/patient/widget/user_info.dart';
-import 'package:dental_app/patiant_model.dart';
+import 'package:dental_app/features/appointment/model/patiant_model.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';

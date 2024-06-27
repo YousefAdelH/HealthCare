@@ -1,3 +1,4 @@
+import 'package:dental_app/features/home/widget/home_view.dart';
 import 'package:dental_app/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,7 @@ class AuthCtrl extends GetxController {
         }
         controllerPassword.clear();
         controllerEmail.clear();
-        Get.offAll(() => Home());
+        Get.offAll(() => HomeView());
       } else {
         // Handling case where user is null (should not happen with correct credentials)
         ScaffoldMessenger.of(context).showSnackBar(

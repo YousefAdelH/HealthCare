@@ -6,7 +6,7 @@ import 'package:dental_app/features/appointment/widget/card_date.dart';
 import 'package:dental_app/features/appointment/widget/circle_price_amount.dart';
 import 'package:dental_app/features/patient/widget/patient_screen.dart';
 import 'package:dental_app/features/patient/widget/user_info.dart';
-import 'package:dental_app/patiant_model.dart';
+import 'package:dental_app/features/appointment/model/patiant_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -31,11 +31,9 @@ class PatientCard extends StatelessWidget {
               padding: EdgeInsets.only(bottom: 10.h, left: 10.w, right: 10.w),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12.0),
-                border: const Border(
-                  bottom: BorderSide(
-                    color: AppColors.black,
-                    width: 1.0, // You can adjust the width as needed
-                  ),
+                border: Border.all(
+                  color: AppColors.black,
+                  width: 1.0, // You can adjust the width as needed
                 ),
                 color: Colors.white,
               ),
@@ -76,9 +74,12 @@ class PatientCard extends StatelessWidget {
                                     width: 10.w,
                                   ),
                                   CirclePriceAmount(
-                                    amount: double.parse(
-                                        item.remainingAmount ?? '0'),
-                                    total: double.parse(item.totalPrice ?? '0'),
+                                    amount: double.tryParse(
+                                            item.remainingAmount ?? "") ??
+                                        0.0,
+                                    total: double.tryParse(
+                                            item.totalPrice ?? "") ??
+                                        1.0,
                                   )
                                 ],
                               )

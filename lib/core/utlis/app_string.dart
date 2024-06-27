@@ -19,6 +19,7 @@ class AppStrings {
   static const String female = "Female";
   static const String gender = "Gender";
   static const String medicalhistory = "Medical history";
+  static const String sessionNote = "Session Note";
 
   static const String totalAmount = "TotalAmount";
   static const String amountPaid = "AmountPaid";

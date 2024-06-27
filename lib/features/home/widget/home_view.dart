@@ -1,6 +1,7 @@
 import 'package:dental_app/common/custom_text.dart';
 import 'package:dental_app/core/utlis/styles.dart';
 import 'package:dental_app/features/all_patient/widget/all_patient_screen.dart';
+import 'package:dental_app/features/appointment/widget/add_new_patient.dart';
 import 'package:dental_app/features/appointment/widget/appointment_screen.dart';
 import 'package:dental_app/features/home/widget/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -135,11 +136,11 @@ class HomeView extends StatelessWidget {
 }
 
 class _ScreensExample extends StatelessWidget {
-  const _ScreensExample({
+  _ScreensExample({
     Key? key,
     required this.controller,
   }) : super(key: key);
-
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   final SidebarXController controller;
 
   @override
@@ -151,9 +152,47 @@ class _ScreensExample extends StatelessWidget {
           case 0:
             return HomeScreen();
           case 1:
-            return Appointment();
+            return Stack(children: [
+              Navigator(
+                key: navigatorKey,
+                onGenerateRoute: (RouteSettings settings) {
+                  WidgetBuilder builder;
+                  switch (settings.name) {
+                    case '/':
+                      builder = (BuildContext context) => Appointment();
+                      break;
+                    case '/addNewPatient':
+                      builder = (BuildContext context) => AddNewPatient();
+                      break;
+                    default:
+                      throw Exception('Invalid route: ${settings.name}');
+                  }
+                  return MaterialPageRoute(
+                      builder: builder, settings: settings);
+                },
+              ),
+            ]);
           case 2:
-            return AllPatient();
+            return Stack(children: [
+              Navigator(
+                key: navigatorKey,
+                onGenerateRoute: (RouteSettings settings) {
+                  WidgetBuilder builder;
+                  switch (settings.name) {
+                    case '/':
+                      builder = (BuildContext context) => AllPatient();
+                      break;
+                    case '/addNewPatient':
+                      builder = (BuildContext context) => AddNewPatient();
+                      break;
+                    default:
+                      throw Exception('Invalid route: ${settings.name}');
+                  }
+                  return MaterialPageRoute(
+                      builder: builder, settings: settings);
+                },
+              ),
+            ]);
           case 3:
             return Text(
               'Favorites',
