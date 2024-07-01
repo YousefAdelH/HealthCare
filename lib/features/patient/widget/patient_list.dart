@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dental_app/features/appointment/controller/appointmemt_controller.dart';
-import 'package:dental_app/features/appointment/widget/patient_card.dart';
-import 'package:dental_app/features/appointment/model/patiant_model.dart';
+import 'package:dental_app/features/patient/controller/patient_controller.dart';
+import 'package:dental_app/features/patient/widget/patient_card.dart';
+import 'package:dental_app/features/patient/model/patiant_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -46,12 +47,12 @@ import 'package:get/get.dart';
 //   }
 // }
 
-class DisplayAllpatient extends StatelessWidget {
-  const DisplayAllpatient({super.key});
+class DisplayAllpatientList extends StatelessWidget {
+  const DisplayAllpatientList({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final con = Get.put(AppointmemtCtrl());
+    final con = Get.put(PaientCtrl());
     return Obx(
       () => Expanded(
         child: Scrollbar(

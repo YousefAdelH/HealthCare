@@ -13,4 +13,10 @@ class HelperFunction {
       return dateString;
     }
   }
+
+  static String remainingamount(String totalprice, String amount) {
+    double total = double.tryParse(totalprice) ?? 0.0;
+    double paid = double.tryParse(amount) ?? 0.0;
+    return (total - paid).toStringAsFixed(2);
+  }
 }

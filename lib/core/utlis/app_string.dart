@@ -22,6 +22,7 @@ class AppStrings {
   static const String sessionNote = "Session Note";
 
   static const String totalAmount = "TotalAmount";
+  static const String price = "Price";
   static const String amountPaid = "AmountPaid";
   static const String remainingAmount = "RemainingAmount";
   static const String selectGender = "selectGender";

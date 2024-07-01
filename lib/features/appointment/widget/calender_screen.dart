@@ -1,6 +1,8 @@
 import 'dart:collection';
 
+import 'package:dental_app/features/appointment/controller/appointmemt_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class Calenderscreen extends StatefulWidget {
@@ -12,61 +14,50 @@ class Calenderscreen extends StatefulWidget {
   State<Calenderscreen> createState() => _CalenderscreenState();
 }
 
+final AppointmemtCtrl sessionController = Get.put(AppointmemtCtrl());
 DateTime _selectedDate = DateTime.now();
 
 class _CalenderscreenState extends State<Calenderscreen> {
   @override
   Widget build(BuildContext context) {
-    // final _events = LinkedHashMap<DateTime, List>(
-    //   hashCode: getHashCode,
-    // )..addAll(_eventsList);
-
-    // List getEventForDay(DateTime day) {
-    //   // Filter events for the selected day
-    //   List eventsForDay = _events.entries
-    //       .where((entry) => isSameDay(entry.key, day))
-    //       .map((entry) => entry.value)
-    //       .expand((events) => events)
-    //       .toList();
-
-    //   return eventsForDay;
-    // }
-
     return Padding(
       padding: const EdgeInsets.only(left: 50.0),
-      child: Column(
-        children: [
-          Text(
-            'Selected Date: ${_selectedDate.toLocal()}'.split(' ')[0],
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-          TableCalendar(
-            firstDay: DateTime(2000),
-            lastDay: DateTime(2100),
-            focusedDay: _selectedDate,
-            selectedDayPredicate: (day) => isSameDay(_selectedDate, day),
-            onDaySelected: (selectedDay, focusedDay) {
-              setState(() {
-                _selectedDate = selectedDay;
-              });
-            },
-            calendarStyle: CalendarStyle(
-              selectedDecoration: BoxDecoration(
-                color: Colors.blue,
-                shape: BoxShape.circle,
+      child: Obx(
+        () => Column(
+          children: [
+            Text(
+              'Selected Date: ${_selectedDate.toLocal()}'.split(' ')[0],
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            TableCalendar(
+              firstDay: DateTime(2000),
+              lastDay: DateTime(2100),
+              focusedDay: sessionController.selectedDate.value,
+              selectedDayPredicate: (day) =>
+                  isSameDay(sessionController.selectedDate.value, day),
+              onDaySelected: (selectedDay, focusedDay) {
+                sessionController.updateSelectedDate(selectedDay);
+                print(selectedDay);
+                print(focusedDay);
+              },
+              calendarStyle: const CalendarStyle(
+                selectedDecoration: BoxDecoration(
+                  color: Colors.blue,
+                  shape: BoxShape.circle,
+                ),
+                todayDecoration: BoxDecoration(
+                  color: Colors.orange,
+                  shape: BoxShape.circle,
+                ),
               ),
-              todayDecoration: BoxDecoration(
-                color: Colors.orange,
-                shape: BoxShape.circle,
+              headerStyle: HeaderStyle(
+                formatButtonVisible: false,
+                titleCentered: true,
               ),
             ),
-            headerStyle: HeaderStyle(
-              formatButtonVisible: false,
-              titleCentered: true,
-            ),
-          ),
-          SizedBox(height: 20),
-        ],
+            SizedBox(height: 20),
+          ],
+        ),
       ),
     );
   }

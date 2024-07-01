@@ -2,20 +2,19 @@ import 'package:dental_app/common/custom_text.dart';
 import 'package:dental_app/common/inkwell_.dart';
 import 'package:dental_app/core/utlis/app_string.dart';
 import 'package:dental_app/core/utlis/styles.dart';
-import 'package:dental_app/features/appointment/widget/card_date.dart';
 import 'package:dental_app/features/appointment/widget/circle_price_amount.dart';
-import 'package:dental_app/features/patient/widget/patient_screen.dart';
+import 'package:dental_app/features/appointment/widget/date_card.dart';
+import 'package:dental_app/features/patient/model/patiant_model.dart';
+import 'package:dental_app/features/patient/widget/card_date.dart';
+import 'package:dental_app/features/patien_details/patient_details_screen.dart';
 import 'package:dental_app/features/patient/widget/user_info.dart';
-import 'package:dental_app/features/appointment/model/patiant_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class PatientCard extends StatelessWidget {
-  const PatientCard({Key? key, required this.item}) : super(key: key);
-  final PatientModel item;
+class PatientCardAppointment extends StatelessWidget {
+  PatientCardAppointment({Key? key, required this.item}) : super(key: key);
+  PatientModel item;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -25,7 +24,7 @@ class PatientCard extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => PatientScreen(item: item)));
+                    builder: (context) => PatientScreenDetails(item: item)));
           },
           child: Container(
               padding: EdgeInsets.only(bottom: 10.h, left: 10.w, right: 10.w),
@@ -69,18 +68,18 @@ class PatientCard extends StatelessWidget {
                                 icone: Icon(Icons.person),
                               ),
                               Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   SizedBox(
                                     width: 10.w,
                                   ),
-                                  CirclePriceAmount(
-                                    amount: double.tryParse(
-                                            item.remainingAmount ?? "") ??
-                                        0.0,
-                                    total: double.tryParse(
-                                            item.totalPrice ?? "") ??
-                                        1.0,
-                                  )
+                                  UserInfo(
+                                    subtitle: "price",
+                                    title:
+                                        item.selectedSession!.price ?? " 0.00",
+                                    icone:
+                                        const Icon(Icons.attach_money_outlined),
+                                  ),
                                 ],
                               )
                             ],
@@ -88,7 +87,7 @@ class PatientCard extends StatelessWidget {
                           SizedBox(
                             height: 2.h,
                           ),
-                          EventCardDates(
+                          CardDates(
                             itemcard: item,
                           )
                         ],

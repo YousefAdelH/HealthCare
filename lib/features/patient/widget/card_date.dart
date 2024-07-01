@@ -2,7 +2,7 @@ import 'package:dental_app/common/custom_text.dart';
 import 'package:dental_app/core/utlis/app_string.dart';
 import 'package:dental_app/core/utlis/helper_function.dart';
 import 'package:dental_app/core/utlis/styles.dart';
-import 'package:dental_app/features/appointment/model/patiant_model.dart';
+import 'package:dental_app/features/patient/model/patiant_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -26,26 +26,28 @@ class EventCardDates extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // DateCardInfo(
-          //   icon: const Icon(Icons.access_time),
-          //   title: AppStrings.time.tr,
-          //   subtitle: itemcard.time ?? "",
-          //   minWidth: 100.w,
-          // ),
-          // const VerticalSeperated(),
-          // if (itemcard.date != null)
-          //   DateCardInfo(
-          //     icon: const Icon(Icons.calendar_today),
-          //     title: AppStrings.date.tr,
-          //     subtitle: HelperFunction.formatDate(itemcard.date),
-          //     minWidth: 100.w,
-          //   ),
-
+          if (itemcard.session != null && itemcard.session!.isNotEmpty) ...[
+            DateCardInfo(
+              icon: const Icon(Icons.access_time),
+              title: AppStrings.time.tr,
+              subtitle: itemcard.session!.last.time ?? "",
+              minWidth: 100.w,
+            ),
+            const VerticalSeperated(),
+            DateCardInfo(
+              icon: const Icon(Icons.calendar_today),
+              title: AppStrings.date.tr,
+              subtitle: HelperFunction.formatDate(itemcard.session!.last.date!),
+              minWidth: 100.w,
+            ),
+          ] else
+            Text("No session"),
           const VerticalSeperated(),
-          // DateCardInfo(
-          //   title: AppStrings.age,
-          //   subtitle: itemcard. ?? "",
-          // ),
+          DateCardInfo(
+            title: AppStrings.age,
+            subtitle: itemcard.age ?? "",
+            icon: Icon(Icons.person),
+          ),
           const SizedBox(width: 1),
           DateCardInfo(
             icon: const Icon(Icons.phone),

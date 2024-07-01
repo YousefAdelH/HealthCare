@@ -1,9 +1,10 @@
 import 'package:dental_app/common/custom_text.dart';
 import 'package:dental_app/core/utlis/styles.dart';
-import 'package:dental_app/features/all_patient/widget/all_patient_screen.dart';
-import 'package:dental_app/features/appointment/widget/add_new_patient.dart';
+import 'package:dental_app/features/all_patient/widget/appointment_show.dart';
+import 'package:dental_app/features/patient/widget/add_new_patient.dart';
 import 'package:dental_app/features/appointment/widget/appointment_screen.dart';
 import 'package:dental_app/features/home/widget/home_screen.dart';
+import 'package:dental_app/features/patient/widget/all_patient_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -62,8 +63,8 @@ class HomeView extends StatelessWidget {
                 size: 20,
               ),
             ),
-            extendedTheme: const SidebarXTheme(
-              width: 200,
+            extendedTheme: SidebarXTheme(
+              width: MediaQuery.of(context).size.width / 4,
               decoration: BoxDecoration(
                 color: AppColors.primary,
               ),
@@ -141,6 +142,7 @@ class _ScreensExample extends StatelessWidget {
     required this.controller,
   }) : super(key: key);
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+  final GlobalKey<NavigatorState> navigatorKey2 = GlobalKey<NavigatorState>();
   final SidebarXController controller;
 
   @override
@@ -175,15 +177,15 @@ class _ScreensExample extends StatelessWidget {
           case 2:
             return Stack(children: [
               Navigator(
-                key: navigatorKey,
+                key: navigatorKey2,
                 onGenerateRoute: (RouteSettings settings) {
                   WidgetBuilder builder;
                   switch (settings.name) {
                     case '/':
-                      builder = (BuildContext context) => AllPatient();
+                      builder = (BuildContext context) => AllPatientScreen();
                       break;
                     case '/addNewPatient':
-                      builder = (BuildContext context) => AddNewPatient();
+                      builder = (BuildContext context) => const AddNewPatient();
                       break;
                     default:
                       throw Exception('Invalid route: ${settings.name}');
@@ -195,15 +197,15 @@ class _ScreensExample extends StatelessWidget {
             ]);
           case 3:
             return Text(
-              'Favorites',
+              'equipment',
             );
           case 4:
             return Text(
-              'Profile',
+              'Settings',
             );
           case 5:
             return Text(
-              'Settings',
+              'logout',
             );
           default:
             return Text(

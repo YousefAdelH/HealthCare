@@ -1,78 +1,51 @@
 import 'package:dental_app/common/custom_text_form_field.dart';
-import 'package:dental_app/core/utlis/styles.dart';
-import 'package:dental_app/features/appointment/widget/add_new_patient.dart';
+import 'package:dental_app/features/appointment/controller/appointmemt_controller.dart';
 import 'package:dental_app/features/appointment/widget/calender_screen.dart';
-import 'package:dental_app/features/appointment/widget/patient_list.dart';
+import 'package:dental_app/features/appointment/widget/card_patient_appointment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:universal_io/io.dart';
 
 class Appointment extends StatelessWidget {
   Appointment({Key? key}) : super(key: key);
   var searchController = TextEditingController();
+  final AppointmemtCtrl sessionController = Get.put(AppointmemtCtrl());
+
   @override
   Widget build(BuildContext context) {
+    sessionController
+        .searchSessionsOnDate(sessionController.selectedDate.value);
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Row(
         children: [
           Expanded(
             flex: 3,
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: CustomTextFormField(
-                        label: "Name or Username",
-                        controller: searchController,
-                        prefixIconPath: Icon(Icons.person_search_outlined),
-                        suffix: GestureDetector(
-                          child: const Padding(
-                              padding: EdgeInsets.all(12),
-                              child: Icon(Icons.search)),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 10.w),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: AppColors.primary, // Background color
-                        backgroundColor: Colors.white, // Text color
-                        side: BorderSide(
-                            color: AppColors.primary,
-                            width: 2), // Border color and width
-                        shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(12), // Border radius
-                        ),
-                        minimumSize: Size(150.w, 60.h),
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(Icons.add),
-                          SizedBox(
-                            width: 5.w,
-                          ),
-                          Text("Add new patient"),
-                        ],
-                      ),
-                      onPressed: () {
-                        // Handle button press
-                        // For example, you can navigate to another screen or show a dialog
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => AddNewPatient()),
-                        );
-                      },
-                    )
-                  ],
-                ),
-                SizedBox(height: 20.h),
-                DisplayAllpatient(),
-              ],
+            child: Obx(
+              () {
+                if (sessionController.isLoading.value) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (sessionController.errorMessage.isNotEmpty) {
+                  return Center(
+                      child: Text('Error: ${sessionController.errorMessage}'));
+                } else if (sessionController.sessionsOnDate.isEmpty) {
+                  return Center(
+                      child: Text('No sessions found on the specified date.'));
+                } else {
+                  return ListView.builder(
+                    itemCount: sessionController.sessionsOnDate.length,
+                    itemBuilder: (context, index) {
+                      var sessionData = sessionController.sessionsOnDate[index];
+
+                      return PatientCardAppointment(
+                        item: sessionData,
+                      );
+                    },
+                  );
+                }
+              },
             ),
           ),
           SizedBox(width: 20.w),

@@ -35,14 +35,17 @@ class MyApp extends StatelessWidget {
         splitScreenMode: true,
         builder: (context, child) {
           return GetMaterialApp(
-              scrollBehavior: MyCustomScrollBehavior(),
-              debugShowCheckedModeBanner: false,
-              theme: ThemeData(
-                colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-                useMaterial3: true,
-              ),
-              home: HomeView());
-          //  isDeviceRegistered ? const Home() : const MainView());
+            scrollBehavior: MyCustomScrollBehavior(),
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+              useMaterial3: true,
+            ),
+            home: HomeView(),
+            //  isDeviceRegistered ? const Home() : const MainView());
+            // localizationsDelegates: AppLocalizations.localizationsDelegates,
+            // supportedLocales: AppLocalizations.supportedLocales,
+          );
         });
   }
 

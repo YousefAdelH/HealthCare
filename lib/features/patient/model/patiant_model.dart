@@ -1,7 +1,7 @@
-import 'package:dental_app/features/appointment/model/class_session.dart';
+import 'package:dental_app/features/patient/model/class_session.dart';
 
 class PatientModel {
-  String id;
+  String? id;
   String? name;
   String? number;
   String? totalPrice;
@@ -11,34 +11,36 @@ class PatientModel {
   String? gender; // New field for gender
   String? age;
   String? medicalhistory;
-  final List<Session>? sessions;
+  List<Session>? session;
+  Session? selectedSession;
 
   PatientModel({
-    required this.id,
-    required this.name,
-    required this.number,
-    required this.totalPrice,
-    required this.amountPaid,
-    required this.remainingAmount,
+    this.id,
+    this.name,
+    this.number,
+    this.totalPrice,
+    this.amountPaid,
+    this.remainingAmount,
     // Initialize new field
     this.gender, // Initialize new field
     this.age, // Initialize new field
     this.medicalhistory, // Initialize new field
-    this.sessions,
+    this.session,
+    this.selectedSession,
   });
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
-      'name': name,
-      'number': number,
+      'id': id ?? "",
+      'name': name ?? "",
+      'number': number ?? "",
       'totalPrice': totalPrice ?? "0",
       'amountPaid': amountPaid ?? "0",
       'remainingAmount': remainingAmount ?? "0",
       'gender': gender,
       'age': age,
       'medicalhistory': medicalhistory,
-      'sessions': sessions?.map((session) => session.toJson()).toList(),
+      'session': session?.map((session) => session.toJson()).toList(),
     };
   }
 
@@ -56,10 +58,25 @@ class PatientModel {
         gender: json['gender'] ?? "", // Parse new field
         age: json['age'] ?? "", // Parse new field
         medicalhistory: json['medicalhistory'] ?? "", // Parse new field
-        sessions: json['sessions'] != null
-            ? (json['sessions'] as List<dynamic>?)
-                ?.map((item) => Session.fromJson(item as Map<String, dynamic>))
+        session: json['session'] != null
+            ? (json['session'] as List<dynamic>)
+                .map((item) => Session.fromJson(item))
                 .toList()
             : []);
+  }
+  PatientModel copyWithSelectedSession(Session selectedSession) {
+    return PatientModel(
+      id: id,
+      name: name,
+      amountPaid: amountPaid,
+      number: number,
+      remainingAmount: remainingAmount,
+      totalPrice: totalPrice,
+      age: age,
+      gender: gender,
+      medicalhistory: medicalhistory,
+      session: session,
+      selectedSession: selectedSession,
+    );
   }
 }
