@@ -1,8 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dental_app/core/utlis/helper_function.dart';
+import 'package:dental_app/core/utlis/styles.dart';
+import 'package:dental_app/features/patien_details/model/model_operations.dart';
+import 'package:dental_app/features/patien_details/widget/update_add_session.dart';
 import 'package:dental_app/features/patient/model/class_session.dart';
 import 'package:dental_app/features/patient/model/patiant_model.dart';
 import 'package:dental_app/features/patient/widget/show_add_new_note.dart';
+import 'package:dental_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -11,7 +15,7 @@ import 'package:uuid/uuid.dart';
 class PaientDetailsCtrl extends GetxController {
   final Rx<double> totalAmount = Rx<double>(0.0);
   var itemobserval = PatientModel().obs;
-
+  final _db = FirebaseFirestore.instance;
   final CollectionReference membersCollection =
       FirebaseFirestore.instance.collection('patient');
   final TextEditingController idController = TextEditingController();
@@ -44,6 +48,7 @@ class PaientDetailsCtrl extends GetxController {
       var patientData = docSnapshot.data() as Map<String, dynamic>;
       var patient = PatientModel.fromJson(patientData);
       itemobserval.value = patient;
+      itemobserval.refresh;
 
       // Update sessions list
       sessions.assignAll(patient.session ?? []);
@@ -58,78 +63,26 @@ class PaientDetailsCtrl extends GetxController {
     itemobserval.value = PatientModel();
   }
 
-  void setEdit() {
-    isEdit.value = !isEdit.value;
-    update();
-    if (isEdit.value) {
-      // Enter edit mode: load existing data into controllers
-      print(itemobserval.value);
-      nameController.text = itemobserval.value.name ?? "";
-      ageController.text = itemobserval.value.age ?? "";
-      medicalController.text = itemobserval.value.medicalhistory ?? "";
-      numberController.text = itemobserval.value.number ?? "";
-      totalpriceController.text = itemobserval.value.totalPrice ?? "";
-      amountController.text = itemobserval.value.amountPaid ?? "";
-      selectedGender = itemobserval.value.gender;
-    } else {
-      // Exit edit mode: save changes
-      saveEditedPatient();
-    }
-    update();
-  }
-
-  void saveEditedPatient() async {
-    PatientModel updatedPatient = PatientModel(
-        id: itemobserval.value.id,
-        name: nameController.text,
-        age: ageController.text,
-        medicalhistory: medicalController.text,
-        number: numberController.text,
-        totalPrice: totalpriceController.text,
-        amountPaid: amountController.text,
-        remainingAmount: HelperFunction.remainingamount(
-            totalpriceController.text, amountController.text),
-        gender: selectedGender,
-        session: sessions
-        // Include other necessary fields if there are any
-        );
-
-    itemobserval.value = updatedPatient;
-    // Refresh the observable to reflect the changes
-
-    print(itemobserval.value.name);
-    final updatedData = updatedPatient.toJson();
-    await docRef.update(updatedData).then((value) {
-      print("DocumentSnapshot successfully updated!");
-    }).catchError((e) {
-      print("Error updating document: $e");
-    });
-
-    update();
-    print(itemobserval.value.name);
-  }
-
   void showDeleteSessionDialog(BuildContext context, String sessionId) {
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Delete Session'),
-          content: Text(
-              'Are you sure you want to permanently delete this session ?'),
+          title: Text(S.of(context).deleteSession),
+          content: Text(S.of(context).deleteSessionConfirmation),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Cancel'),
+              child: Text(S.of(context).cancel),
             ),
             TextButton(
               onPressed: () {
                 deleteSession(sessionId);
                 Navigator.of(context).pop();
               },
-              child: Text('Delete'),
+              child: Text(S.of(context).delete),
             ),
           ],
         );
@@ -172,23 +125,60 @@ class PaientDetailsCtrl extends GetxController {
     update();
 
     Get.snackbar(
-      'Success',
-      'Session deleted successfully',
+      S.of(Get.context!).delete,
+      S.of(Get.context!).sessionDeletedSuccessfully,
       snackPosition: SnackPosition.BOTTOM,
     );
   }
 
+  var operations = <OperationModel>[].obs;
+  var selectedOperation = Rx<OperationModel?>(null);
+  void fetchOperations() {
+    _db.collection('operations').snapshots().listen((snapshot) {
+      operations.value = snapshot.docs
+          .map((doc) => OperationModel.fromMap(doc.data(), doc.id))
+          .toList();
+    });
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    fetchOperations();
+  }
+
 /////////////////////////////add session
+  var isOperations = false.obs;
+  void setOperations() {
+    isOperations.value = !isOperations.value;
+  }
+
   void addSession(BuildContext context, String patientId) async {
     final uuid = Uuid();
-    final sessionId = uuid.v4(); // Generate a unique ID for the session
+    final sessionId = uuid.v4();
+    double? priceitems;
 
+    if (selectedOperation.value != null) {
+      priceitems = selectedOperation.value!.price;
+      selectedOperation.value!.numOfTime += 1;
+
+      // Update operation in Firestore
+      await _db
+          .collection('operations')
+          .doc(selectedOperation.value!.id)
+          .update({'numOfTime': selectedOperation.value!.numOfTime});
+    }
     final session = Session(
+      operations: (selectedOperation?.value != null)
+          ? selectedOperation.value!.name
+          : "",
       id: sessionId, // Assign the unique ID to the session
       date: DateFormat('yyyy-MM-dd').format(sessionDate!),
       note: sessionNoteController.text,
       time: sessionTime!.format(context),
-      price: sessionPriceController.text,
+      price: (selectedOperation.value != null)
+          ? priceitems!.toStringAsFixed(2)
+          : sessionPriceController.text,
     );
 
     final docSnapshot = await docRef.get();
@@ -200,15 +190,19 @@ class PaientDetailsCtrl extends GetxController {
       final newSessions = patient.session ?? [];
       newSessions.add(session);
       double totalPrice = 0.0;
-      for (var s in newSessions) {
-        totalPrice += double.tryParse(s.price!) ?? 0.0;
-      }
-      totalAmount.value = totalPrice;
 
+      // for (var s in newSessions) {
+      //   totalPrice += double.tryParse(s.price!) ?? 0.0;
+      // }
+      String total =
+          HelperFunction.totalamount(session.price!, patient.totalPrice!);
+      totalAmount.value += totalPrice;
+      patientData['totalPrice'] = "0.00";
+      patientData['totalPrice'] = total;
       patientData['session'] = newSessions.map((s) => s.toJson()).toList();
-      patientData['totalPrice'] = totalAmount.toStringAsFixed(2);
-      String updateRemainamount = HelperFunction.remainingamount(
-          totalPrice.toStringAsFixed(2), patient.amountPaid ?? "0.0");
+
+      String updateRemainamount =
+          HelperFunction.remainingamount(total, patient.amountPaid ?? "0.0");
       patientData['remainingAmount'] = updateRemainamount;
 
       docRef.update(patientData).then((_) {
@@ -221,6 +215,9 @@ class PaientDetailsCtrl extends GetxController {
       sessions.assignAll(newSessions);
       itemobserval.update((val) {
         val?.session = newSessions;
+        val?.totalPrice = "0.00";
+        val?.totalPrice = total;
+        val?.remainingAmount = updateRemainamount;
       });
 
       var patientIndex = patients.indexWhere((p) => p.id == patientId);
@@ -233,14 +230,14 @@ class PaientDetailsCtrl extends GetxController {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('New Session'),
-            content: Text('New session added successfully.'),
+            title: Text(S.of(context).newSession),
+            content: Text(S.of(context).newSessionAddedSuccessfully),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text('Close'),
+                child: Text(S.of(context).close),
               ),
             ],
           );
@@ -264,9 +261,10 @@ class PaientDetailsCtrl extends GetxController {
       context: context1,
       builder: (context) {
         return AlertDialog(
-          title: Text('New Session'),
+          backgroundColor: AppColors.primary,
+          title: Text(S.of(context).newSession),
           content: SizedBox(
-            height: MediaQuery.of(context).size.height / 1,
+            height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width / 2,
             child: ShowAddNewNote(id: id),
           ),
@@ -276,7 +274,139 @@ class PaientDetailsCtrl extends GetxController {
                 addSession(context1, id);
                 Navigator.of(context).pop();
               },
-              child: Text('save'),
+              child: Text(S.of(context).save),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  ////////////////////update session
+  void initializeSessionData(Session session) {
+    sessionDate = DateFormat('yyyy-MM-dd').parse(session.date!);
+    sessionTime =
+        HelperFunction.sessionTimeFromFormatted(session.time!, DateTime.now());
+
+    sessionNoteController.text = session.note!;
+    sessionPriceController.text = session.price!;
+    selectedOperation.value = operations
+        .firstWhereOrNull((operation) => operation.name == session.operations);
+    isOperations.value = selectedOperation.value != null;
+  }
+
+  Future<void> updateSession(
+      BuildContext context, String patientId, String sessionId) async {
+    final sessionIndex = sessions.indexWhere((s) => s.id == sessionId);
+    if (sessionIndex == -1) return;
+
+    double? priceitems;
+    if (selectedOperation.value != null) {
+      priceitems = selectedOperation.value!.price;
+    }
+
+    final updatedSession = Session(
+      operations: selectedOperation.value?.name ?? "",
+      id: sessionId,
+      date: DateFormat('yyyy-MM-dd').format(sessionDate!),
+      note: sessionNoteController.text,
+      time: sessionTime!.format(context),
+      price: selectedOperation.value != null
+          ? priceitems!.toStringAsFixed(2)
+          : sessionPriceController.text,
+    );
+
+    sessions[sessionIndex] = updatedSession;
+
+    final docRef = _db.collection('patients').doc(patientId);
+    final docSnapshot = await docRef.get();
+
+    if (docSnapshot.exists) {
+      final patientData = docSnapshot.data() as Map<String, dynamic>;
+      final patient = PatientModel.fromJson(patientData);
+
+      final newSessions = patient.session ?? [];
+      newSessions[sessionIndex] = updatedSession;
+      patientData['session'] = newSessions.map((s) => s.toJson()).toList();
+
+      String total = HelperFunction.totalamount(
+          updatedSession.price!, patient.totalPrice!);
+      totalAmount.value += double.parse(updatedSession.price!);
+      patientData['totalPrice'] = total;
+
+      String updateRemainamount =
+          HelperFunction.remainingamount(total, patient.amountPaid ?? "0.0");
+      patientData['remainingAmount'] = updateRemainamount;
+
+      await docRef.update(patientData);
+
+      sessions.assignAll(newSessions);
+      itemobserval.update((val) {
+        val?.session = newSessions;
+        val?.totalPrice = total;
+        val?.remainingAmount = updateRemainamount;
+      });
+
+      var patientIndex = patients.indexWhere((p) => p.id == patientId);
+      if (patientIndex != -1) {
+        patients[patientIndex] = PatientModel.fromJson(patientData);
+        patients.refresh();
+      }
+
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text("update"),
+            content: Text(S.of(context).newSessionAddedSuccessfully),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text(S.of(context).close),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
+  void showScreenAddOrEditSession(BuildContext context1, String patientId,
+      {Session? session}) {
+    if (session != null) {
+      initializeSessionData(session);
+    }
+
+    showDialog(
+      context: context1,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: AppColors.primary,
+          title: Text(session == null
+              ? S.of(context).newSession
+              : S.of(context).editSession),
+          content: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width / 2,
+            child: ShowAddUpdateNewsession(
+              id: patientId,
+              isEditMode: session != null,
+              sessionId: session?.id,
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                if (session == null) {
+                  addSession(context1, patientId);
+                } else {
+                  updateSession(context1, patientId, session.id!);
+                }
+                Navigator.of(context).pop();
+              },
+              child: Text(S.of(context).save),
             ),
           ],
         );
@@ -285,15 +415,90 @@ class PaientDetailsCtrl extends GetxController {
   }
 
   //  controller edit      //
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController ageController = TextEditingController();
-  final TextEditingController medicalController = TextEditingController();
-  final TextEditingController numberController = TextEditingController();
-  final TextEditingController totalpriceController = TextEditingController();
-  final TextEditingController amountController = TextEditingController();
-  String? selectedGender;
+  TextEditingController nameController = TextEditingController();
+  TextEditingController ageController = TextEditingController();
+  TextEditingController medicalController = TextEditingController();
+  TextEditingController numberController = TextEditingController();
+  TextEditingController totalpriceController = TextEditingController();
+  TextEditingController amountController = TextEditingController();
+  var selectedGender = ''.obs;
   void setSelectedGender(String gender) {
-    selectedGender = gender;
+    selectedGender.value = gender;
     update();
+  }
+
+  Future<PatientModel> fetchPatienttoedit(String id) async {
+    if (itemobserval.value.id == id) {
+      return itemobserval.value;
+    }
+    // Get the patient document from Firestore
+    docRef = membersCollection.doc(id);
+
+    // Check if the document exists
+    final docSnapshot = await docRef.get();
+
+    if (docSnapshot.exists) {
+      var patientData = docSnapshot.data() as Map<String, dynamic>;
+      var patient = PatientModel.fromJson(patientData);
+      return itemobserval.value = patient;
+
+      // Update sessions list
+    } else {
+      // Handle the case where the document does not exist
+      throw Exception("patient not found");
+    }
+  }
+
+  void setEdit(String id) async {
+    await fetchPatienttoedit(id);
+    // isEdit.value = !isEdit.value;
+    // update();
+    if (isEdit.value) {
+      // Enter edit mode: load existing data into controllers
+      print(itemobserval.value);
+      nameController.text = itemobserval.value?.name ?? "";
+      ageController.text = itemobserval.value?.age ?? "";
+      medicalController.text = itemobserval.value.medicalhistory ?? "";
+      numberController.text = itemobserval.value.number ?? "";
+      totalpriceController.text = itemobserval.value.totalPrice ?? "";
+      amountController.text = itemobserval.value.amountPaid ?? "";
+      selectedGender.value = itemobserval.value.gender ?? "";
+    } else {
+      // Exit edit mode: save changes
+      saveEditedPatient(id);
+    }
+    isEdit.value = !isEdit.value;
+    update();
+  }
+
+  void saveEditedPatient(id) async {
+    PatientModel updatedPatient = PatientModel(
+        id: itemobserval.value.id,
+        name: nameController.text,
+        age: ageController.text,
+        medicalhistory: medicalController.text,
+        number: numberController.text,
+        totalPrice: totalpriceController.text,
+        amountPaid: amountController.text,
+        remainingAmount: HelperFunction.remainingamount(
+            totalpriceController.text, amountController.text),
+        gender: selectedGender.value,
+        session: sessions
+        // Include other necessary fields if there are any
+        );
+
+    itemobserval.value = updatedPatient;
+    // Refresh the observable to reflect the changes
+
+    print(itemobserval.value.name);
+    final updatedData = updatedPatient.toJson();
+    await docRef.update(updatedData).then((value) {
+      print("DocumentSnapshot successfully updated!");
+    }).catchError((e) {
+      print("Error updating document: $e");
+    });
+
+    update();
+    print(itemobserval.value.name);
   }
 }

@@ -42,47 +42,52 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyANiAXLDuZDnk_IVGq8npfmZSWGQ9Xsm88',
-    appId: '1:369573824652:web:a937af09a57063a31293a9',
+    appId: '1:369573824652:web:758f6d8382465e1b1293a9',
     messagingSenderId: '369573824652',
     projectId: 'dental-79d1b',
     authDomain: 'dental-79d1b.firebaseapp.com',
+    databaseURL: 'https://dental-79d1b-default-rtdb.firebaseio.com',
     storageBucket: 'dental-79d1b.appspot.com',
-    measurementId: 'G-5BZ7FGD4K0',
+    measurementId: 'G-RPE4PVP83F',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyD97s2BeRilF-F0jPJAFVH_K_XdYFOetqk',
-    appId: '1:369573824652:android:321bcc76141589871293a9',
+    appId: '1:369573824652:android:9bf29cca5de171501293a9',
     messagingSenderId: '369573824652',
     projectId: 'dental-79d1b',
+    databaseURL: 'https://dental-79d1b-default-rtdb.firebaseio.com',
     storageBucket: 'dental-79d1b.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDfeXXSAgvMfDhfp7tQPt6huAj1YJ66YYg',
-    appId: '1:369573824652:ios:88cb1eb938d096661293a9',
+    appId: '1:369573824652:ios:36c4a0da0efaa9501293a9',
     messagingSenderId: '369573824652',
     projectId: 'dental-79d1b',
+    databaseURL: 'https://dental-79d1b-default-rtdb.firebaseio.com',
     storageBucket: 'dental-79d1b.appspot.com',
-    iosBundleId: 'com.example.flutterProject',
+    iosBundleId: 'com.example.dentalApp',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyDfeXXSAgvMfDhfp7tQPt6huAj1YJ66YYg',
-    appId: '1:369573824652:ios:88cb1eb938d096661293a9',
+    appId: '1:369573824652:ios:36c4a0da0efaa9501293a9',
     messagingSenderId: '369573824652',
     projectId: 'dental-79d1b',
+    databaseURL: 'https://dental-79d1b-default-rtdb.firebaseio.com',
     storageBucket: 'dental-79d1b.appspot.com',
-    iosBundleId: 'com.example.flutterProject',
+    iosBundleId: 'com.example.dentalApp',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
     apiKey: 'AIzaSyANiAXLDuZDnk_IVGq8npfmZSWGQ9Xsm88',
-    appId: '1:369573824652:web:758f6d8382465e1b1293a9',
+    appId: '1:369573824652:web:b3b43de2f20ee05c1293a9',
     messagingSenderId: '369573824652',
     projectId: 'dental-79d1b',
     authDomain: 'dental-79d1b.firebaseapp.com',
+    databaseURL: 'https://dental-79d1b-default-rtdb.firebaseio.com',
     storageBucket: 'dental-79d1b.appspot.com',
-    measurementId: 'G-RPE4PVP83F',
+    measurementId: 'G-H58YY5H3B7',
   );
 }

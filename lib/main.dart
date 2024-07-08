@@ -1,13 +1,19 @@
 import 'package:dental_app/common/firebase_options.dart';
 import 'package:dental_app/features/home/widget/home_view.dart';
+import 'package:dental_app/features/main/widget/main_view.dart';
+import 'package:dental_app/features/setting/controller/setting_controller.dart';
+import 'package:dental_app/features/setting/widget/operation_setting.dart';
+import 'package:dental_app/features/setting/widget/setting_screen.dart';
+import 'package:dental_app/generated/l10n.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:universal_io/io.dart' show Platform;
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,8 +29,9 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   final bool isDeviceRegistered;
-  const MyApp({super.key, required this.isDeviceRegistered});
-
+  MyApp({super.key, required this.isDeviceRegistered});
+  final LocalizationController localizationController =
+      Get.put(LocalizationController());
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -34,18 +41,27 @@ class MyApp extends StatelessWidget {
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (context, child) {
-          return GetMaterialApp(
-            scrollBehavior: MyCustomScrollBehavior(),
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-              useMaterial3: true,
-            ),
-            home: HomeView(),
-            //  isDeviceRegistered ? const Home() : const MainView());
-            // localizationsDelegates: AppLocalizations.localizationsDelegates,
-            // supportedLocales: AppLocalizations.supportedLocales,
-          );
+          return Obx(() {
+            return GetMaterialApp(
+              locale: localizationController.locale.value,
+              scrollBehavior: MyCustomScrollBehavior(),
+              debugShowCheckedModeBanner: false,
+              theme: ThemeData(
+                colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+                useMaterial3: true,
+              ),
+
+              //  OperationSetting(),
+              home: isDeviceRegistered == false ? MainView() : HomeView(),
+              localizationsDelegates: const [
+                S.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: S.delegate.supportedLocales,
+            );
+          });
         });
   }
 

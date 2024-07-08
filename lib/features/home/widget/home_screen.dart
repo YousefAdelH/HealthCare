@@ -1,4 +1,7 @@
+import 'package:dental_app/features/home/widget/bar_chart_group.dart';
+import 'package:dental_app/features/home/widget/bit_chart.dart';
 import 'package:dental_app/features/home/widget/circle_percent.dart';
+import 'package:dental_app/features/home/widget/line_chart_sample.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -17,20 +20,31 @@ class HomeScreen extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const CirclePercentAmount(
-                total: 70000,
-                amount: 9000,
-                backColor: Colors.black,
-              ),
+              SizedBox(
+                  width: MediaQuery.of(context).size.width / 3,
+                  height: MediaQuery.of(context).size.height / 2,
+                  child: BarChartSample6()),
               SizedBox(
                 width: 50.w,
               ),
-              const CirclePercentAmount(
-                total: 15,
-                amount: 9,
-              )
+              SizedBox(
+                  width: MediaQuery.of(context).size.width / 2,
+                  height: MediaQuery.of(context).size.height / 2,
+                  child: const PieChartSample2()),
             ],
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 2,
+                height: MediaQuery.of(context).size.height / 3,
+                child: LineChartmain(
+                  isShowingMainData: true,
+                ),
+              )
+            ],
+          )
         ],
       ),
     );

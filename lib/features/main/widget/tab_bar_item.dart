@@ -32,7 +32,7 @@ class TapBarItem extends StatelessWidget {
                 child: CustomText(
                   textAlign: TextAlign.start,
                   text: text,
-                  size: 24.sp,
+                  size: 19.sp,
                   fontWeight: FontWeight.bold,
                   height: 1,
                   color: AppColors.primary,

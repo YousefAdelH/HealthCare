@@ -5,6 +5,7 @@ import 'package:dental_app/core/utlis/styles.dart';
 import 'package:dental_app/features/patien_details/controller/patient_details_controller.dart';
 import 'package:dental_app/features/patient/model/class_session.dart';
 import 'package:dental_app/features/patient/widget/user_info.dart';
+import 'package:dental_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -45,7 +46,7 @@ class PatientSessionItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CustomText(
-                        text: "Session",
+                        text: S.of(context).sessionNote,
                         size: 15.sp,
                         fontWeight: FontWeight.w700,
                         color: AppColors.black,
@@ -76,10 +77,24 @@ class PatientSessionItem extends StatelessWidget {
                           InkWellCustom(
                             onTap: () {
                               con.showDeleteSessionDialog(
-                                  context, itemsession!.id! ?? "0");
+                                  context, itemsession!.id!);
                             },
                             child: const SizedBox(
                               child: Icon(Icons.delete),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 5.w,
+                          ),
+                          InkWellCustom(
+                            onTap: () {
+                              con.showScreenAddOrEditSession(
+                                  session: itemsession,
+                                  context,
+                                  itemsession!.id!);
+                            },
+                            child: SizedBox(
+                              child: Icon(Icons.edit_document),
                             ),
                           ),
                         ],
@@ -93,7 +108,7 @@ class PatientSessionItem extends StatelessWidget {
                     height: 10.w,
                   ),
                   CustomText(
-                    text: "Notes",
+                    text: S.of(context).note,
                     size: 13.sp,
                     fontWeight: FontWeight.w400,
                     color: AppColors.black,
@@ -113,7 +128,7 @@ class PatientSessionItem extends StatelessWidget {
                     height: 10.w,
                   ),
                   UserInfo(
-                    subtitle: AppStrings.price,
+                    subtitle: S.of(context).price,
                     title: itemsession!.price ?? "",
                     icone: Icon(Icons.person),
                   ),

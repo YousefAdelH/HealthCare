@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dental_app/features/patient/model/class_session.dart';
 
 class PatientModel {

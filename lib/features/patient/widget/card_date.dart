@@ -3,6 +3,7 @@ import 'package:dental_app/core/utlis/app_string.dart';
 import 'package:dental_app/core/utlis/helper_function.dart';
 import 'package:dental_app/core/utlis/styles.dart';
 import 'package:dental_app/features/patient/model/patiant_model.dart';
+import 'package:dental_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -44,14 +45,14 @@ class EventCardDates extends StatelessWidget {
             Text("No session"),
           const VerticalSeperated(),
           DateCardInfo(
-            title: AppStrings.age,
+            title: S.of(context).age,
             subtitle: itemcard.age ?? "",
             icon: Icon(Icons.person),
           ),
           const SizedBox(width: 1),
           DateCardInfo(
             icon: const Icon(Icons.phone),
-            title: AppStrings.number,
+            title: S.of(context).number,
             subtitle: itemcard.number ?? "",
           ),
         ],

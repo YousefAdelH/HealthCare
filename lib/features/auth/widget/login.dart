@@ -2,6 +2,7 @@ import 'package:dental_app/common/button_large.dart';
 import 'package:dental_app/common/custom_text_form_field.dart';
 import 'package:dental_app/core/utlis/app_string.dart';
 import 'package:dental_app/features/auth/controller/auth_controller.dart';
+import 'package:dental_app/generated/l10n.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -39,11 +40,11 @@ class _LoginState extends State<Login> {
                         radius: 10.r,
                         prefixIconPath: const Icon(Icons.person_outline),
                         textInputType: TextInputType.emailAddress,
-                        label: AppStrings.email,
+                        label: S.of(context).email,
                         controller: con.controllerEmail,
                         validate: (value) {
                           if (value == null || value.isEmpty) {
-                            return AppStrings.pleaseEnteremail;
+                            return S.of(context).pleaseEnteremail;
                           } else if (!(value.contains('@') &&
                               value.contains('@'))) {
                             return AppStrings.invalidemail;
@@ -58,11 +59,11 @@ class _LoginState extends State<Login> {
                         radius: 10.r,
                         prefixIconPath: const Icon(Icons.password_outlined),
                         textInputType: TextInputType.emailAddress,
-                        label: AppStrings.password,
+                        label: S.of(context).password,
                         controller: con.controllerPassword,
                         validate: (value) {
                           if (value == null || value.isEmpty) {
-                            return AppStrings.pleaseEnterpassword;
+                            return S.of(context).pleaseEnterpassword;
                           }
                           return null;
                         },
@@ -80,7 +81,7 @@ class _LoginState extends State<Login> {
                         height: 20.h,
                       ),
                       CustomLargeButton(
-                        text: AppStrings.login,
+                        text: S.of(context).login,
                         backColor: Colors.blue,
                         onPressed: () {
                           if (formKey.currentState!.validate()) {

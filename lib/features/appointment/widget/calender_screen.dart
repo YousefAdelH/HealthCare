@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:dental_app/features/appointment/controller/appointmemt_controller.dart';
+import 'package:dental_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -26,8 +27,9 @@ class _CalenderscreenState extends State<Calenderscreen> {
         () => Column(
           children: [
             Text(
-              'Selected Date: ${_selectedDate.toLocal()}'.split(' ')[0],
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              S.of(context).selectDate +
+                  ' ${_selectedDate.toLocal()}'.split(' ')[0],
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             TableCalendar(
               firstDay: DateTime(2000),
@@ -50,12 +52,12 @@ class _CalenderscreenState extends State<Calenderscreen> {
                   shape: BoxShape.circle,
                 ),
               ),
-              headerStyle: HeaderStyle(
+              headerStyle: const HeaderStyle(
                 formatButtonVisible: false,
                 titleCentered: true,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
           ],
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:dental_app/features/home/widget/home_view.dart';
+import 'package:dental_app/features/main/widget/main_view.dart';
 import 'package:dental_app/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -56,5 +57,12 @@ class AuthCtrl extends GetxController {
         SnackBar(content: Text(errorMessage)),
       );
     }
+  }
+
+  Future<void> logout() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await auth.signOut();
+    await prefs.setBool('isDeviceRegistered', false);
+    Get.offAll(() => MainView());
   }
 }

@@ -1,4 +1,5 @@
 import 'package:dental_app/common/custom_text_form_field.dart';
+import 'package:dental_app/core/utlis/assets_paths.dart';
 import 'package:dental_app/features/appointment/controller/appointmemt_controller.dart';
 import 'package:dental_app/features/appointment/widget/calender_screen.dart';
 import 'package:dental_app/features/appointment/widget/card_patient_appointment.dart';
@@ -31,8 +32,7 @@ class Appointment extends StatelessWidget {
                   return Center(
                       child: Text('Error: ${sessionController.errorMessage}'));
                 } else if (sessionController.sessionsOnDate.isEmpty) {
-                  return Center(
-                      child: Text('No sessions found on the specified date.'));
+                  return Center(child: Image.asset(AssetPath.pagenotfound2));
                 } else {
                   return ListView.builder(
                     itemCount: sessionController.sessionsOnDate.length,
