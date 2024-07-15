@@ -78,10 +78,11 @@ class AddMaterialScreen extends StatelessWidget {
                   keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter a number';
+                      return S.of(context).pleaseEnterNumber;
                     }
-                    if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
-                      return 'Please enter a valid number';
+                    final numberRegExp = RegExp(r'^\d+$');
+                    if (!numberRegExp.hasMatch(value)) {
+                      return S.of(context).pleaseEnterValidNumber;
                     }
                     return null;
                   },
@@ -117,7 +118,7 @@ class AddMaterialScreen extends StatelessWidget {
                         id: material?.id ?? '',
                         name: con.nameController.text,
                         quantity: int.parse(con.quantityController.text),
-                        expirationDate: DateFormat('yyyy-MM-dd')
+                        expirationDate: DateFormat('yyyy-MM-dd', 'en')
                             .format(con.expirationDate!),
                         wholesalePrice:
                             double.parse(con.wholesalePriceController.text),

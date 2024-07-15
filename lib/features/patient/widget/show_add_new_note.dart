@@ -45,7 +45,7 @@ class ShowAddNewNote extends StatelessWidget {
                       ),
                       child: ListTile(
                         title: Text(
-                            '  ${con.sessionDate != null ? DateFormat.yMd().format(con.sessionDate!) : 'Select Session Date'}'),
+                            '  ${con.sessionDate != null ? DateFormat.yMd().format(con.sessionDate!) : S.of(context).selectDate}'),
                         trailing: Icon(Icons.calendar_today),
                         onTap: () async {
                           DateTime? picked = await showDatePicker(
@@ -89,7 +89,9 @@ class ShowAddNewNote extends StatelessWidget {
                       ),
                     ),
                   ),
-
+                  SizedBox(
+                    height: 10.h,
+                  ),
                   //adding operations/////////////////////////////////
                   Obx(
                     () => (!con.isOperations.value)
@@ -120,68 +122,74 @@ class ShowAddNewNote extends StatelessWidget {
                               ),
                             ),
                           )
-                        : SizedBox(
-                            width: 100.w,
-                            height: 100.h,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                CustomText(
-                                  text: " Adding operations",
-                                  fontWeight: FontWeight.w500,
-                                  bolUnderline: false,
-                                  color: AppColors.whiteff,
-                                  size: 15.sp,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                        color: AppColors.whiteF7,
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                        border: Border.all(
-                                          color: AppColors.black,
-                                          width:
-                                              1, // You can adjust the width as needed
-                                        ),
+                        : Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              CustomText(
+                                text: " Adding operations",
+                                fontWeight: FontWeight.w500,
+                                bolUnderline: false,
+                                color: AppColors.whiteff,
+                                size: 15.sp,
+                              ),
+                              SizedBox(
+                                width: 5.w,
+                              ),
+                              Container(
+                                  height: 40.h,
+                                  decoration: BoxDecoration(
+                                    color: AppColors.whiteF7,
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    border: Border.all(
+                                      color: AppColors.black,
+                                      width:
+                                          1, // You can adjust the width as needed
+                                    ),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: DropdownButton<String>(
+                                      padding: EdgeInsetsDirectional.all(0),
+                                      underline: Container(
+                                        height: 1,
+                                        color: Colors.transparent,
                                       ),
-                                      child: DropdownButton<String>(
-                                        padding: EdgeInsetsDirectional.all(8),
-                                        underline: Container(
-                                          height: 1,
-                                          color: Colors.transparent,
-                                        ),
-                                        borderRadius: BorderRadius.zero,
-                                        icon: Icon(Icons.shopping_bag,
-                                            color: Colors.black),
-                                        onChanged: (String? operationName) {
-                                          if (operationName != null) {
-                                            con.selectedOperation.value = con
-                                                .operations
-                                                .firstWhere((operation) =>
-                                                    operation.name ==
-                                                    operationName);
-                                          }
-                                        },
-                                        value:
-                                            con.selectedOperation.value?.name ??
-                                                (con.operations.isNotEmpty
-                                                    ? con.operations.first.name
-                                                    : ""),
-                                        items: con.operations
-                                            .map<DropdownMenuItem<String>>(
-                                                (operation) {
-                                          return DropdownMenuItem<String>(
-                                            value: operation.name,
-                                            child: Text(
-                                                '${operation.name} (\$${operation.price.toStringAsFixed(2)})'),
-                                          );
-                                        }).toList(),
-                                      )),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 10.0),
+                                      borderRadius: BorderRadius.zero,
+                                      icon: Icon(Icons.shopping_bag,
+                                          color: Colors.black),
+                                      onChanged: (String? operationName) {
+                                        if (operationName != null) {
+                                          con.selectedOperation.value = con
+                                              .operations
+                                              .firstWhere((operation) =>
+                                                  operation.name ==
+                                                  operationName);
+                                        }
+                                      },
+                                      value:
+                                          con.selectedOperation.value?.name ??
+                                              (con.operations.isNotEmpty
+                                                  ? con.operations.first.name
+                                                  : ""),
+                                      items: con.operations
+                                          .map<DropdownMenuItem<String>>(
+                                              (operation) {
+                                        return DropdownMenuItem<String>(
+                                          value: operation.name,
+                                          child: Text(
+                                              '${operation.name} (\$${operation.price.toStringAsFixed(2)})'),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  )),
+                              SizedBox(
+                                width: 5.w,
+                              ),
+                              SizedBox(
+                                height: 40.h,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 5.0),
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                       foregroundColor: AppColors.blueA1,
@@ -206,9 +214,9 @@ class ShowAddNewNote extends StatelessWidget {
                                       size: 10.sp,
                                     ),
                                   ),
-                                )
-                              ],
-                            ),
+                                ),
+                              )
+                            ],
                           ),
                   ),
                   Padding(

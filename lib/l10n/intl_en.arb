@@ -73,7 +73,7 @@
   "rent": "Rent",
   "other": "Other",
   "waterBill": "Water bill",
-  "employees": "Employees",
+  "employees": "employees",
   "selectType": "Select Type",
   "addExpense": "Add Expense",
   "updateExpense": "Update Expense",
@@ -89,5 +89,11 @@
   "filterExpenses": "Filter Expenses",
   "editExpense": "Edit Expense",
   "pleaseEnterValidNumber": "Please enter a valid number",
-  "pleaseEnterNumber": "Please enter a number"
+  "pleaseEnterNumber": "Please enter a number",
+  "end": "End",
+  "startDate": "Start",
+  "patientCode": "Patient Code",
+  "sessions": "Sessions",
+  "discardChanges": "discardChanges",
+  "confirm": "confirm"
 }

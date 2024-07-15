@@ -96,9 +96,17 @@ class PatientCard extends StatelessWidget {
                                       width: 80.w,
                                     ),
                                     UserInfo(
+                                      subtitle: S.of(context).patientCode,
+                                      title: item.code ?? "",
+                                      icone: const Icon(Icons.numbers_outlined),
+                                    ),
+                                    SizedBox(
+                                      width: 80.w,
+                                    ),
+                                    UserInfo(
                                       subtitle: S.of(context).gender,
                                       title: item.gender ?? "",
-                                      icone: Icon(Icons.person),
+                                      icone: const Icon(Icons.person),
                                     ),
                                     // Row(
                                     //   mainAxisAlignment:

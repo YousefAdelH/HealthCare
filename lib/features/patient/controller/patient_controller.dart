@@ -22,6 +22,7 @@ class PaientCtrl extends GetxController {
   final TextEditingController medicalhistoryController =
       TextEditingController();
   final TextEditingController numberController = TextEditingController();
+  final TextEditingController codeController = TextEditingController();
   final TextEditingController totalpriceController = TextEditingController();
   final TextEditingController amountController = TextEditingController();
   // DateTime? selectedDate;
@@ -136,6 +137,7 @@ class PaientCtrl extends GetxController {
 
     final member = PatientModel(
       id: docRef.id,
+      code: codeController.text,
       name: nameController.text,
       number: numberController.text,
       age: ageController.text,
@@ -152,6 +154,7 @@ class PaientCtrl extends GetxController {
     docRef.set(member.toJson()).then((_) {
       // Clear the text fields after adding the member
       nameController.clear();
+      codeController.clear();
       numberController.clear();
       medicalhistoryController.clear();
       ageController.clear();
@@ -180,7 +183,6 @@ class PaientCtrl extends GetxController {
     );
   }
 
-  
   void deletePatient(String patientId) async {
     try {
       await membersCollection.doc(patientId).delete();
@@ -249,25 +251,80 @@ class PaientCtrl extends GetxController {
     }
   }
 
-  Future<void> searchPatients(String name) async {
+  // Future<void> searchPatients(String name) async {
+  //   isLoading.value = true;
+  //   patientsearch.clear();
+  //   Query query = membersCollection
+  //       .where('name', isGreaterThanOrEqualTo: name)
+  //       .where('name', isLessThan: name + 'z');
+
+  //   final QuerySnapshot querySnapshot = await query.get();
+
+  //   if (querySnapshot.docs.isNotEmpty) {
+  //     List<PatientModel> searchedPatients = querySnapshot.docs.map((doc) {
+  //       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+  //       return PatientModel.fromJson(data);
+  //     }).toList();
+
+  //     patientsearch.addAll(searchedPatients);
+  //     patientsearch.refresh;
+  //     update();
+  //   } else {
+  //     hasMore.value = false;
+  //   }
+
+  //   isLoading.value = false;
+  // }
+  Future<void> searchPatients(String searchTerm) async {
     isLoading.value = true;
     patientsearch.clear();
-    Query query = membersCollection
-        .where('name', isGreaterThanOrEqualTo: name)
-        .where('name', isLessThan: name + 'z');
 
-    final QuerySnapshot querySnapshot = await query.get();
+    // Query to search by name
+    Query nameQuery = membersCollection
+        .where('name', isGreaterThanOrEqualTo: searchTerm)
+        .where('name', isLessThan: searchTerm + 'z');
 
-    if (querySnapshot.docs.isNotEmpty) {
-      List<PatientModel> searchedPatients = querySnapshot.docs.map((doc) {
+    // Query to search by patient code
+    Query codeQuery = membersCollection
+        .where('code', isGreaterThanOrEqualTo: searchTerm)
+        .where('code', isLessThan: searchTerm + 'z');
+
+    // Execute both queries
+    final QuerySnapshot nameQuerySnapshot = await nameQuery.get();
+    final QuerySnapshot codeQuerySnapshot = await codeQuery.get();
+
+    Set<String> patientIds = {}; // To avoid duplicate patients
+
+    List<PatientModel> searchedPatients = [];
+
+    // Process name query results
+    if (nameQuerySnapshot.docs.isNotEmpty) {
+      for (var doc in nameQuerySnapshot.docs) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-        return PatientModel.fromJson(data);
-      }).toList();
+        PatientModel patient = PatientModel.fromJson(data);
+        if (patientIds.add(patient.id!)) {
+          searchedPatients.add(patient);
+        }
+      }
+    }
 
-      patientsearch.addAll(searchedPatients);
-      patientsearch.refresh;
-      update();
-    } else {
+    // Process code query results
+    if (codeQuerySnapshot.docs.isNotEmpty) {
+      for (var doc in codeQuerySnapshot.docs) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        PatientModel patient = PatientModel.fromJson(data);
+        if (patientIds.add(patient.id!)) {
+          searchedPatients.add(patient);
+        }
+      }
+    }
+
+    // Update patient search list
+    patientsearch.addAll(searchedPatients);
+    patientsearch.refresh();
+    update();
+
+    if (searchedPatients.isEmpty) {
       hasMore.value = false;
     }
 

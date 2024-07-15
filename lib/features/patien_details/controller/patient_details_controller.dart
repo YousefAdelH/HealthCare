@@ -1,14 +1,20 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dental_app/core/utlis/helper_function.dart';
 import 'package:dental_app/core/utlis/styles.dart';
-import 'package:dental_app/features/patien_details/model/model_operations.dart';
+import 'package:dental_app/features/patien_details/widget_mob/patient_details_mob.dart';
+import 'package:dental_app/features/setting/model/model_operations.dart';
 import 'package:dental_app/features/patien_details/widget/update_add_session.dart';
 import 'package:dental_app/features/patient/model/class_session.dart';
 import 'package:dental_app/features/patient/model/patiant_model.dart';
 import 'package:dental_app/features/patient/widget/show_add_new_note.dart';
 import 'package:dental_app/generated/l10n.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
@@ -28,6 +34,20 @@ class PaientDetailsCtrl extends GetxController {
   var docRef;
   // bool?  = true;
   var isEdit = true.obs;
+  var mainScreenIndex = 0.obs;
+  changeIndex(int indx) {
+    mainScreenIndex.value = indx;
+    update();
+  }
+
+  List<Widget> mainScreenList = [
+    Container(
+      color: Colors.black,
+    ),
+    Container(
+      color: Colors.red,
+    )
+  ];
 
   void getPatientId({required String id}) async {
     // Fetch patient details from Firestore
@@ -160,20 +180,25 @@ class PaientDetailsCtrl extends GetxController {
 
     if (selectedOperation.value != null) {
       priceitems = selectedOperation.value!.price;
-      selectedOperation.value!.numOfTime += 1;
+      // selectedOperation.value!.numOfTime += 1;
+      final operation = selectedOperation.value!;
+      operation.numOfTime += 1;
+      operation.completedDates?.add(
+          DateFormat('yyyy-MM-dd', 'en').format(sessionDate ?? DateTime.now()));
 
-      // Update operation in Firestore
       await _db
           .collection('operations')
-          .doc(selectedOperation.value!.id)
-          .update({'numOfTime': selectedOperation.value!.numOfTime});
+          .doc(operation.id)
+          .set(operation.toMap());
+
+      // Update operation in Firestore
     }
     final session = Session(
       operations: (selectedOperation?.value != null)
           ? selectedOperation.value!.name
           : "",
       id: sessionId, // Assign the unique ID to the session
-      date: DateFormat('yyyy-MM-dd').format(sessionDate!),
+      date: DateFormat('yyyy-MM-dd', 'en').format(sessionDate!),
       note: sessionNoteController.text,
       time: sessionTime!.format(context),
       price: (selectedOperation.value != null)
@@ -308,7 +333,7 @@ class PaientDetailsCtrl extends GetxController {
     final updatedSession = Session(
       operations: selectedOperation.value?.name ?? "",
       id: sessionId,
-      date: DateFormat('yyyy-MM-dd').format(sessionDate!),
+      date: DateFormat('yyyy-MM-dd', 'en').format(sessionDate!),
       note: sessionNoteController.text,
       time: sessionTime!.format(context),
       price: selectedOperation.value != null
@@ -416,6 +441,7 @@ class PaientDetailsCtrl extends GetxController {
 
   //  controller edit      //
   TextEditingController nameController = TextEditingController();
+  TextEditingController codeController = TextEditingController();
   TextEditingController ageController = TextEditingController();
   TextEditingController medicalController = TextEditingController();
   TextEditingController numberController = TextEditingController();
@@ -455,9 +481,10 @@ class PaientDetailsCtrl extends GetxController {
     // update();
     if (isEdit.value) {
       // Enter edit mode: load existing data into controllers
-      print(itemobserval.value);
-      nameController.text = itemobserval.value?.name ?? "";
-      ageController.text = itemobserval.value?.age ?? "";
+
+      nameController.text = itemobserval.value.name ?? "";
+      codeController.text = itemobserval.value.code ?? "";
+      ageController.text = itemobserval.value.age ?? "";
       medicalController.text = itemobserval.value.medicalhistory ?? "";
       numberController.text = itemobserval.value.number ?? "";
       totalpriceController.text = itemobserval.value.totalPrice ?? "";
@@ -475,6 +502,7 @@ class PaientDetailsCtrl extends GetxController {
     PatientModel updatedPatient = PatientModel(
         id: itemobserval.value.id,
         name: nameController.text,
+        code: codeController.text,
         age: ageController.text,
         medicalhistory: medicalController.text,
         number: numberController.text,
@@ -490,7 +518,6 @@ class PaientDetailsCtrl extends GetxController {
     itemobserval.value = updatedPatient;
     // Refresh the observable to reflect the changes
 
-    print(itemobserval.value.name);
     final updatedData = updatedPatient.toJson();
     await docRef.update(updatedData).then((value) {
       print("DocumentSnapshot successfully updated!");
@@ -499,6 +526,66 @@ class PaientDetailsCtrl extends GetxController {
     });
 
     update();
-    print(itemobserval.value.name);
   }
+
+  // var images = <String>[].obs;
+
+  // Future<void> uploadImage() async {
+  //   FilePickerResult? pickedFile = await FilePicker.platform.pickFiles(
+  //     type: FileType.image,
+  //     allowMultiple: true,
+  //   );
+
+  //   if (pickedFile != null && itemobserval.value != null) {
+  //     for (PlatformFile imageFile in pickedFile.files) {
+  //       String fileName =
+  //           'images/${itemobserval.value.id}/${DateTime.now().millisecondsSinceEpoch}_${imageFile.name}';
+
+  //       try {
+  //         // Upload image to Firebase Storage
+  //         await FirebaseStorage.instance
+  //             .ref(fileName)
+  //             .putFile(File(imageFile.path!));
+  //         print('Selected file path: ${imageFile.path}');
+
+  //         // Get download URL of the uploaded image
+  //         String downloadURL =
+  //             await FirebaseStorage.instance.ref(fileName).getDownloadURL();
+
+  //         // Add the URL to the images list
+  //         images.add(downloadURL);
+
+  //         // Update the patient model
+  //         itemobserval.value.images!.add(downloadURL);
+
+  //         // Save the URL in Firestore under the current patient document
+  //         await FirebaseFirestore.instance
+  //             .collection('patient')
+  //             .doc(itemobserval.value.id)
+  //             .update({
+  //           'images': FieldValue.arrayUnion([downloadURL]),
+  //         });
+  //       } catch (e) {
+  //         print('Error uploading image: $e');
+  //       }
+  //     }
+  //   }
+  // }
+
+  // Future<void> fetchImages() async {
+  //   if (itemobserval.value != null) {
+  //     var doc = await FirebaseFirestore.instance
+  //         .collection('patient')
+  //         .doc(itemobserval.value.id)
+  //         .get();
+  //     if (doc.exists) {
+  //       var data = doc.data() as Map<String, dynamic>;
+  //       if (data.containsKey('images')) {
+  //         images.value = List<String>.from(data['images']);
+  //         itemobserval.value.images = images.value;
+  //       }
+  //     }
+  //   }
+  // }
+  //  detailsMob
 }

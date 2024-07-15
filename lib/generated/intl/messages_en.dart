@@ -32,6 +32,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "appointment": MessageLookupByLibrary.simpleMessage("appointment"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "close": MessageLookupByLibrary.simpleMessage("Close"),
+        "confirm": MessageLookupByLibrary.simpleMessage("confirm"),
         "costprice": MessageLookupByLibrary.simpleMessage("Cost price"),
         "date": MessageLookupByLibrary.simpleMessage("Date"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
@@ -41,11 +42,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "deleteSession": MessageLookupByLibrary.simpleMessage("Delete Session"),
         "deleteSessionConfirmation": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to permanently delete this session?"),
+        "discardChanges":
+            MessageLookupByLibrary.simpleMessage("discardChanges"),
         "editExpense": MessageLookupByLibrary.simpleMessage("Edit Expense"),
         "editSession": MessageLookupByLibrary.simpleMessage("Edit Session"),
         "electricity": MessageLookupByLibrary.simpleMessage("Electricity"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
-        "employees": MessageLookupByLibrary.simpleMessage("Employees"),
+        "employees": MessageLookupByLibrary.simpleMessage("employees"),
+        "end": MessageLookupByLibrary.simpleMessage("End"),
         "equipment": MessageLookupByLibrary.simpleMessage("equipment"),
         "error": MessageLookupByLibrary.simpleMessage("Error"),
         "errorUpdatingPatient":
@@ -87,6 +91,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "other": MessageLookupByLibrary.simpleMessage("Other"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "patient": MessageLookupByLibrary.simpleMessage("Patient"),
+        "patientCode": MessageLookupByLibrary.simpleMessage("Patient Code"),
         "patientDeletedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "Patient deleted successfully"),
         "patientDetails":
@@ -125,11 +130,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "sessionDeletedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "Patient deleted successfully"),
         "sessionNote": MessageLookupByLibrary.simpleMessage("Session Note"),
+        "sessions": MessageLookupByLibrary.simpleMessage("Sessions"),
         "setting": MessageLookupByLibrary.simpleMessage("Settings"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "signup": MessageLookupByLibrary.simpleMessage("Sign up"),
         "specialForAddingOperations": MessageLookupByLibrary.simpleMessage(
             "Special for adding operations"),
+        "startDate": MessageLookupByLibrary.simpleMessage("Start"),
         "success": MessageLookupByLibrary.simpleMessage("Success"),
         "time": MessageLookupByLibrary.simpleMessage("Time"),
         "title": MessageLookupByLibrary.simpleMessage("Home"),

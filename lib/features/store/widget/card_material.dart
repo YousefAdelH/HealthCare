@@ -130,9 +130,13 @@ class CardMaterial extends StatelessWidget {
                         ),
 
                         IconButton(
-                          icon: Icon(Icons.arrow_forward_ios, size: 18.h),
-                          onPressed: () {},
-                        )
+                          icon: Icon(Icons.remove),
+                          onPressed: () {
+                            if (material.quantity > 0) {
+                              con.adjustQuantity(material.id, 1, false);
+                            }
+                          },
+                        ),
                       ],
                     ))),
           );

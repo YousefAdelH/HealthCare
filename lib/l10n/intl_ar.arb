@@ -89,5 +89,10 @@
   "filterExpenses": "تصفية النفقات",
   "editExpense": "تعديل المصروفات",
   "pleaseEnterValidNumber": "يرجى إدخال رقم صالح",
-  "pleaseEnterNumber": "يرجى إدخال رقم"
+  "pleaseEnterNumber": "يرجى إدخال رقم",
+  "end": "نهاية",
+  "startDate": "بداية ",
+  "sessions": "الجلسات",
+  "discardChanges": "تجاهل التغيرات",
+  "confirm": "موافق"
 }

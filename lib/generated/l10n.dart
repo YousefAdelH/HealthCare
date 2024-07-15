@@ -790,10 +790,10 @@ class S {
     );
   }
 
-  /// `Employees`
+  /// `employees`
   String get employees {
     return Intl.message(
-      'Employees',
+      'employees',
       name: 'employees',
       desc: '',
       args: [],
@@ -955,6 +955,66 @@ class S {
     return Intl.message(
       'Please enter a number',
       name: 'pleaseEnterNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `End`
+  String get end {
+    return Intl.message(
+      'End',
+      name: 'end',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start`
+  String get startDate {
+    return Intl.message(
+      'Start',
+      name: 'startDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Patient Code`
+  String get patientCode {
+    return Intl.message(
+      'Patient Code',
+      name: 'patientCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sessions`
+  String get sessions {
+    return Intl.message(
+      'Sessions',
+      name: 'sessions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `discardChanges`
+  String get discardChanges {
+    return Intl.message(
+      'discardChanges',
+      name: 'discardChanges',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `confirm`
+  String get confirm {
+    return Intl.message(
+      'confirm',
+      name: 'confirm',
       desc: '',
       args: [],
     );

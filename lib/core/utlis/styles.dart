@@ -39,6 +39,15 @@ class AppColors {
   static const grayAA8 = Color(0xFF8F9AA8);
   static const blueA1 = Color(0xFF6880A1);
   static const grayfe = Color(0xFFE9F4FE);
+  static const color1 = Color(0xFF668eff);
+  static const color2 = Color(0xFF95d72d);
+  static const color3 = Color(0xFFf673b9);
+  static const color4 = Color(0xFF9e66fd);
+  static const color5 = Color(0xFFccc725);
+  static const blue2 = Color(0xFF5AB2FF);
+  static const blue3 = Color(0xFFA0DEFF);
+  static const blue4 = Color(0xFFCAF4FF);
+  static const matchblue = Color(0xFFFFF9D0);
   static const Color primary2 = contentColorCyan;
   static const Color menuBackground = Color(0xFF090912);
   static const Color itemsBackground = Color(0xFF1B2339);

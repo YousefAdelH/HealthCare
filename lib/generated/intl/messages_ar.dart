@@ -32,6 +32,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "appointment": MessageLookupByLibrary.simpleMessage("موعد"),
         "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
         "close": MessageLookupByLibrary.simpleMessage("إغلاق"),
+        "confirm": MessageLookupByLibrary.simpleMessage("موافق"),
         "costprice": MessageLookupByLibrary.simpleMessage("سعر التكلفه"),
         "date": MessageLookupByLibrary.simpleMessage("التاريخ"),
         "delete": MessageLookupByLibrary.simpleMessage("حذف"),
@@ -41,11 +42,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "deleteSession": MessageLookupByLibrary.simpleMessage("حذف الجلسة"),
         "deleteSessionConfirmation": MessageLookupByLibrary.simpleMessage(
             "هل أنت متأكد من أنك تريد حذف هذه الجلسة نهائيًا؟"),
+        "discardChanges":
+            MessageLookupByLibrary.simpleMessage("تجاهل التغيرات"),
         "editExpense": MessageLookupByLibrary.simpleMessage("تعديل المصروفات"),
         "editSession": MessageLookupByLibrary.simpleMessage("تعديل جلسه "),
         "electricity": MessageLookupByLibrary.simpleMessage("الكهرباء"),
         "email": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
         "employees": MessageLookupByLibrary.simpleMessage("الموظفين"),
+        "end": MessageLookupByLibrary.simpleMessage("نهاية"),
         "equipment": MessageLookupByLibrary.simpleMessage("المعدات"),
         "error": MessageLookupByLibrary.simpleMessage("خطأ"),
         "errorUpdatingPatient":
@@ -124,11 +128,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "sessionDeletedSuccessfully":
             MessageLookupByLibrary.simpleMessage("تم حذف الجلسة بنجاح"),
         "sessionNote": MessageLookupByLibrary.simpleMessage("ملاحظة الجلسة"),
+        "sessions": MessageLookupByLibrary.simpleMessage("الجلسات"),
         "setting": MessageLookupByLibrary.simpleMessage("الإعدادات"),
         "settings": MessageLookupByLibrary.simpleMessage("الإعدادات"),
         "signup": MessageLookupByLibrary.simpleMessage("تسجيل"),
         "specialForAddingOperations":
             MessageLookupByLibrary.simpleMessage("خاص بإضافة العمليات"),
+        "startDate": MessageLookupByLibrary.simpleMessage("بداية "),
         "success": MessageLookupByLibrary.simpleMessage("نجاح"),
         "time": MessageLookupByLibrary.simpleMessage("الوقت"),
         "title": MessageLookupByLibrary.simpleMessage("الرئيسية"),

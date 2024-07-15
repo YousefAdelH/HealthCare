@@ -36,7 +36,7 @@ class AllPatientScreen extends StatelessWidget {
                             Expanded(
                               flex: 2,
                               child: CustomTextFormField(
-                                label: "Name or Username",
+                                label: "Name or patient code",
                                 onChange: (value) {
                                   con.searchController.text = value;
                                   con.searchPatientsByName();

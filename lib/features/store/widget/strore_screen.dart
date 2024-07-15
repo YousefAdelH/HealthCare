@@ -21,27 +21,6 @@ class StroreScreen extends StatelessWidget {
           itemCount: materials.length,
           itemBuilder: (context, index) {
             return CardMaterial(material: materials[index]);
-            //  ListTile(
-            //   title: Text(material.name),
-            //   subtitle: Column(
-            //     crossAxisAlignment: CrossAxisAlignment.start,
-            //     children: [
-            //       Text('Quantity: ${material.quantity}'),
-            //       Text('Wholesale Price: ${material.wholesalePrice}'),
-            //       Text('Selling Price: ${material.sellingPrice}'),
-            //       Text('Gain Price: ${material.gainPrice}'),
-            //       Text('Expires: ${material.expirationDate}'),
-            //     ],
-            //   ),
-            //   trailing: isExpiringSoon
-            //       ? Icon(Icons.warning, color: Colors.red)
-            //       : IconButton(
-            //           icon: Icon(Icons.delete),
-            //           onPressed: () =>
-            //               materialController.deleteMaterial(material.id),
-            //         ),
-            //   onTap: () => Get.to(AddMaterialScreen(material: material)),
-            // );
           },
         );
       }),

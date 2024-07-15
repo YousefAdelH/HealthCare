@@ -4,7 +4,7 @@ import 'package:dental_app/core/utlis/app_string.dart';
 import 'package:dental_app/core/utlis/styles.dart';
 import 'package:dental_app/features/appointment/controller/appointmemt_controller.dart';
 import 'package:dental_app/features/patien_details/controller/patient_details_controller.dart';
-import 'package:dental_app/features/patien_details/model/model_operations.dart';
+import 'package:dental_app/features/setting/model/model_operations.dart';
 import 'package:dental_app/features/patient/controller/patient_controller.dart';
 import 'package:dental_app/features/setting/controller/setting_controller.dart';
 import 'package:dental_app/generated/l10n.dart';

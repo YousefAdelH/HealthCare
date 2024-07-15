@@ -5,6 +5,7 @@ class OperationModel {
   final double costPrice;
   final double priceGain;
   int numOfTime;
+  List<String>? completedDates;
 
   OperationModel({
     required this.id,
@@ -13,6 +14,7 @@ class OperationModel {
     required this.costPrice,
     required this.priceGain,
     required this.numOfTime,
+    this.completedDates,
   });
 
   factory OperationModel.fromMap(Map<String, dynamic> data, String id) {
@@ -23,6 +25,7 @@ class OperationModel {
       costPrice: (data['costPrice'] ?? 0).toDouble(),
       priceGain: (data['priceGain'] ?? 0).toDouble(),
       numOfTime: data['numOfTime'],
+      completedDates: List<String>.from(data['completedDates'] ?? []),
     );
   }
 
@@ -34,6 +37,7 @@ class OperationModel {
       'costPrice': costPrice,
       'priceGain': priceGain,
       'numOfTime': numOfTime,
+      'completedDates': completedDates,
     };
   }
 }

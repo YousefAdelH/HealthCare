@@ -25,14 +25,13 @@ class ExpenseController extends GetxController {
     super.onInit();
   }
 
-//  void fetchMaterials() {
-//     _db.collection('storehouse').snapshots().listen((snapshot) {
-//       materials.value = snapshot.docs
-//           .map((doc) => DentalMaterial.fromMap(doc.data(), doc.id))
-//           .toList();
-//       isLoading.value = false;
-//     });
-//   }
+  void clearControllers() {
+    expensesname.value = '';
+    expensesdate.value = DateTime.now();
+    expensestype.value = '';
+    expensesPrice.clear();
+  }
+
   Future<void> fetchExpenses() async {
     await _firestore.collection('expenses').snapshots().listen((snapshot) {
       expenses.value =
@@ -53,16 +52,18 @@ class ExpenseController extends GetxController {
     final newExpense = ExpenseModel(
       id: itemId,
       name: expensesname.value,
-      date: DateFormat('yyyy-MM-dd').format(expensesdate.value),
+      date: DateFormat('yyyy-MM-dd', 'en').format(expensesdate.value),
       type: expensestype.value,
       expensesPrice: expensesPrice.text,
     );
+
     await _firestore.collection('expenses').add(newExpense.toMap());
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(S.of(context).addExpense),
       ),
     );
+    clearControllers();
     fetchExpenses();
   }
 
@@ -75,7 +76,7 @@ class ExpenseController extends GetxController {
     final updatedExpense = ExpenseModel(
       id: expense.id,
       name: expensesname.value,
-      date: DateFormat('yyyy-MM-dd').format(expensesdate.value),
+      date: DateFormat('yyyy-MM-dd', 'en').format(expensesdate.value),
       type: expensestype.value,
       expensesPrice: expensesPrice.text,
     );
@@ -89,6 +90,7 @@ class ExpenseController extends GetxController {
         .collection('expenses')
         .doc(expense.id)
         .update(updatedExpense.toMap());
+    clearControllers();
     fetchExpenses();
   }
 
@@ -99,11 +101,33 @@ class ExpenseController extends GetxController {
   void filterExpensesByDate(DateTime selectedDate) {
     isLoading.value = true;
     filteredExpenses.value = expenses.where((expense) {
-      DateTime expenseDate = DateFormat('yyyy-MM-dd')
+      DateTime expenseDate = DateFormat('yyyy-MM-dd', 'en')
           .parse(expense.date); // Adjust format as per your date string
       return expenseDate.isSameDate(selectedDate);
     }).toList();
     isLoading.value = false;
+  }
+
+  String mapTypeToLocalizedString(BuildContext context, String type) {
+    switch (type) {
+      case 'Electricity':
+      case 'الكهرباء':
+        return S.of(context).electricity;
+      case 'Rent':
+      case "الإيجار":
+        return S.of(context).rent;
+      case 'Water bill':
+      case "فاتورة المياه":
+        return S.of(context).waterBill;
+      case 'Employees':
+      case "الموظفين":
+        return S.of(context).employees;
+      case 'Other':
+      case "أخرى":
+        return S.of(context).other;
+      default:
+        return type;
+    }
   }
 }
 

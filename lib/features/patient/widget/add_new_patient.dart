@@ -1,16 +1,13 @@
 import 'package:dental_app/common/custom_text.dart';
 import 'package:dental_app/common/custom_text_form_field.dart';
-import 'package:dental_app/common/inkwell_.dart';
 import 'package:dental_app/core/utlis/app_string.dart';
 import 'package:dental_app/core/utlis/assets_paths.dart';
 import 'package:dental_app/core/utlis/styles.dart';
-import 'package:dental_app/features/appointment/controller/appointmemt_controller.dart';
 import 'package:dental_app/features/patient/controller/patient_controller.dart';
 import 'package:dental_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
 
 class AddNewPatient extends StatelessWidget {
   const AddNewPatient({Key? key}) : super(key: key);
@@ -20,27 +17,60 @@ class AddNewPatient extends StatelessWidget {
     return GetBuilder<PaientCtrl>(
         init: PaientCtrl(),
         builder: (con) {
-          return Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              title: const Text(AppStrings.patient),
-            ),
-            body: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                color: Colors.transparent,
-                child: SingleChildScrollView(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        flex: 1,
+          return SafeArea(
+            child: Stack(children: [
+              Container(
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                  image: AssetImage(AssetPath
+                      .background2), // Your background image asset path
+                  fit: BoxFit.contain,
+                )),
+              ),
+              Scaffold(
+                backgroundColor: Colors.transparent,
+                appBar: AppBar(
+                  backgroundColor: Colors.transparent,
+                  title: const Text(AppStrings.patient),
+                ),
+                body: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    color: Colors.transparent,
+                    child: SingleChildScrollView(
+                      child: Expanded(
                         child: Obx(() {
                           return (con.isSuccess.value)
                               ? Center(child: Image.asset(AssetPath.successimg))
                               : Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
+                                    SizedBox(
+                                      width:
+                                          MediaQuery.of(context).size.width / 4,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: CustomTextFormField(
+                                          controller: con.codeController,
+                                          label: S.of(context).patientCode,
+                                          validate: (value) {
+                                            if (value == null ||
+                                                value.isEmpty) {
+                                              return S
+                                                  .of(context)
+                                                  .pleaseEnterNumber;
+                                            }
+                                            if (!RegExp(r'^[0-9]+$')
+                                                .hasMatch(value)) {
+                                              return S
+                                                  .of(context)
+                                                  .pleaseEnterValidNumber;
+                                            }
+                                            return null;
+                                          },
+                                        ),
+                                      ),
+                                    ),
                                     SizedBox(
                                       width:
                                           MediaQuery.of(context).size.width / 3,
@@ -58,6 +88,8 @@ class AddNewPatient extends StatelessWidget {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 8),
                                       child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
                                           Container(
                                             decoration: BoxDecoration(
@@ -234,7 +266,7 @@ class AddNewPatient extends StatelessWidget {
                                     ),
                                     Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.center,
                                       children: [
                                         Padding(
                                           padding: const EdgeInsets.only(
@@ -277,75 +309,12 @@ class AddNewPatient extends StatelessWidget {
                                 );
                         }),
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ),
-            ),
+            ]),
           );
         });
   }
 }
-//  Container(
-//                                             decoration: BoxDecoration(
-//                                               color: AppColors.whiteF7,
-//                                               borderRadius:
-//                                                   BorderRadius.circular(18.0),
-//                                               border: Border.all(
-//                                                 color: AppColors.primary,
-//                                                 width:
-//                                                     1, // You can adjust the width as needed
-//                                               ),
-//                                             ),
-//                                             child: Padding(
-//                                               padding:
-//                                                   const EdgeInsets.all(8.0),
-//                                               child: DropdownButton<String>(
-//                                                 borderRadius: BorderRadius.zero,
-//                                                 dropdownColor:
-//                                                     AppColors.whiteff,
-//                                                 elevation: 0,
-//                                                 underline: Container(
-//                                                   height: 1,
-//                                                   color: AppColors
-//                                                       .whiteff, // Replace with your underline color
-//                                                 ),
-//                                                 value: con.selectedGender,
-//                                                 onChanged: (String? newValue) {
-//                                                   con.setSelectedGender(
-//                                                       newValue!);
-//                                                 },
-//                                                 items: <String>[
-//                                                   S.of(context).male,
-//                                                   S.of(context).female
-//                                                 ].map<DropdownMenuItem<String>>(
-//                                                     (String value) {
-//                                                   return DropdownMenuItem<
-//                                                       String>(
-//                                                     value: value,
-//                                                     child: Text(value),
-//                                                   );
-//                                                 }).toList(),
-//                                                 hint: Text(
-//                                                     S.of(context).selectGender),
-//                                               ),
-//                                             ),
-//                                           ),
-//                                         ],
-//                                       ),
-//                                     ),
-//                                     SizedBox(
-//                                       width:
-//                                           MediaQuery.of(context).size.width / 4,
-//                                       child: Padding(
-//                                         padding: const EdgeInsets.all(8.0),
-//                                         child: CustomTextFormField(
-//                                           label: S.of(context).age,
-//                                           controller: con.ageController,
-
-//                                           // decoration: const InputDecoration(
-//                                           //     labelText: AppStrings.age),
-//                                         ),
-//                                       ),
-//                                     ),
-

@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dental_app/features/patien_details/model/model_operations.dart';
+import 'package:dental_app/features/setting/model/model_operations.dart';
 import 'package:dental_app/features/store/model/material_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

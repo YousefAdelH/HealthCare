@@ -5,6 +5,7 @@ import 'package:dental_app/core/utlis/styles.dart';
 import 'package:dental_app/features/expences/controller/expences_controller.dart';
 import 'package:dental_app/features/expences/model/expences_model.dart';
 import 'package:dental_app/features/expences/widget/add_new_expences.dart';
+import 'package:dental_app/features/expences/widget/matial_info.dart';
 import 'package:dental_app/features/patient/widget/user_info.dart';
 import 'package:dental_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
@@ -32,19 +33,27 @@ class CardExpences extends StatelessWidget {
                       padding: EdgeInsets.only(
                           bottom: 10.h, left: 10.w, right: 10.w),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12.0),
-                        border: Border.all(
-                          color: AppColors.black,
-                          width: 1.0, // You can adjust the width as needed
-                        ),
-                        color: (expencesItem.type == 'Electricity')
-                            ? Color.fromARGB(193, 245, 154, 147)
-                            : (expencesItem.type == 'Rent')
-                                ? const Color.fromARGB(255, 128, 191, 241)
-                                : (expencesItem.type == 'Other')
-                                    ? Colors.green
-                                    : Colors.white,
-                      ),
+                          borderRadius: BorderRadius.circular(12.0),
+                          border: Border.all(
+                            color: AppColors.black,
+                            width: 1.0, // You can adjust the width as needed
+                          ),
+                          color: (expencesItem.type == 'Electricity' ||
+                                  expencesItem.type == 'الكهرباء')
+                              ? AppColors.color3
+                              : (expencesItem.type == 'Rent' ||
+                                      expencesItem.type == 'الايجار')
+                                  ? AppColors.color2
+                                  : (expencesItem.type == 'Water bill' ||
+                                          expencesItem.type == "فاتورة المياه")
+                                      ? AppColors.color1
+                                      : (expencesItem.type == 'employees' ||
+                                              expencesItem.type == 'الموظفين')
+                                          ? AppColors.color5
+                                          : (expencesItem.type == "Other" ||
+                                                  expencesItem.type == "أخرى")
+                                              ? AppColors.color4
+                                              : Colors.white),
                       child: Row(
                         children: [
                           //+++++++++++++++++++++++++++++ profile circle image
@@ -83,12 +92,12 @@ class CardExpences extends StatelessWidget {
                                         size: 12.sp,
                                         fontWeight: FontWeight.w700,
                                         height: 1,
-                                        color: AppColors.primary,
+                                        color: AppColors.black,
                                       ),
                                       SizedBox(
                                         width: 10.w,
                                       ),
-                                      UserInfo(
+                                      UserInfo2(
                                         subtitle: S.of(context).type,
                                         title: expencesItem.type ?? "",
                                         icone:
@@ -104,7 +113,7 @@ class CardExpences extends StatelessWidget {
                                         MainAxisAlignment.spaceBetween,
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
-                                      UserInfo(
+                                      UserInfo2(
                                         subtitle: S.of(context).priceExpenses,
                                         title:
                                             expencesItem.expensesPrice ?? "0.0",
@@ -113,7 +122,7 @@ class CardExpences extends StatelessWidget {
                                       SizedBox(
                                         width: 10.w,
                                       ),
-                                      UserInfo(
+                                      UserInfo2(
                                         subtitle: S.of(context).date,
                                         title: HelperFunction.formatDate(
                                             expencesItem.date),

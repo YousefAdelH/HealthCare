@@ -1,5 +1,7 @@
 import 'package:dental_app/common/firebase_options.dart';
 import 'package:dental_app/features/home/widget/home_view.dart';
+import 'package:dental_app/features/home/widget_mobile/home_view.dart';
+import 'package:dental_app/features/main/mobile_widget/main_mobile.dart';
 import 'package:dental_app/features/main/widget/main_view.dart';
 import 'package:dental_app/features/setting/controller/setting_controller.dart';
 import 'package:dental_app/features/setting/widget/operation_setting.dart';
@@ -52,7 +54,7 @@ class MyApp extends StatelessWidget {
               ),
 
               //  OperationSetting(),
-              home: isDeviceRegistered == false ? MainView() : HomeView(),
+              home: _getHomeScreen(designSize, isDeviceRegistered),
               localizationsDelegates: const [
                 S.delegate,
                 GlobalMaterialLocalizations.delegate,
@@ -63,6 +65,14 @@ class MyApp extends StatelessWidget {
             );
           });
         });
+  }
+
+  Widget _getHomeScreen(Size designSize, bool isDeviceRegistered) {
+    if (designSize.width > 843) {
+      return isDeviceRegistered ? HomeView() : MainView();
+    } else {
+      return isDeviceRegistered ? HomeViewMobile() : MainViewMobile();
+    }
   }
 
   Size _getDesignSize(BuildContext context) {

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dental_app/features/appointment/controller/appointmemt_controller.dart';
 import 'package:dental_app/features/patient/controller/patient_controller.dart';
+import 'package:dental_app/features/patient/mobile_widget/patient_card_mob.dart';
 import 'package:dental_app/features/patient/widget/patient_card.dart';
 import 'package:dental_app/features/patient/model/patiant_model.dart';
 import 'package:flutter/material.dart';
@@ -52,6 +53,8 @@ class DisplayAllpatientList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
+    var isMobile = screenSize.width < 600;
     final con = Get.put(PaientCtrl());
     return Obx(
       () => Expanded(
@@ -71,7 +74,9 @@ class DisplayAllpatientList extends StatelessWidget {
                         : Center(child: Text('No more patients'));
               }
 
-              return PatientCard(item: con.patients[index]);
+              return isMobile
+                  ? PatientCardMobile(item: con.patients[index])
+                  : PatientCard(item: con.patients[index]);
             },
           ),
         ),
