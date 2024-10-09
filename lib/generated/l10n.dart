@@ -50,6 +50,76 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `Home`
+  String get sidebar_home {
+    return Intl.message(
+      'Home',
+      name: 'sidebar_home',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Appointment`
+  String get sidebar_appointment {
+    return Intl.message(
+      'Appointment',
+      name: 'sidebar_appointment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Patients`
+  String get sidebar_patients {
+    return Intl.message(
+      'Patients',
+      name: 'sidebar_patients',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Medications`
+  String get sidebar_medications {
+    return Intl.message(
+      'Medications',
+      name: 'sidebar_medications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Expenses`
+  String get sidebar_expenses {
+    return Intl.message(
+      'Expenses',
+      name: 'sidebar_expenses',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Budget management`
+  String get sidebar_budget_management {
+    return Intl.message(
+      'Budget management',
+      name: 'sidebar_budget_management',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Logout`
+  String get sidebar_logout {
+    return Intl.message(
+      'Logout',
+      name: 'sidebar_logout',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Time`
   String get time {
     return Intl.message(
@@ -840,10 +910,10 @@ class S {
     );
   }
 
-  /// `Special for adding operations`
+  /// `Special for adding procedures`
   String get specialForAddingOperations {
     return Intl.message(
-      'Special for adding operations',
+      'Special for adding procedures',
       name: 'specialForAddingOperations',
       desc: '',
       args: [],
@@ -1015,6 +1085,176 @@ class S {
     return Intl.message(
       'confirm',
       name: 'confirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `clear Data Confirmation`
+  String get clearDataConfirmation {
+    return Intl.message(
+      'clear Data Confirmation',
+      name: 'clearDataConfirmation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you want to save the changes?`
+  String get Doyouwanttosavethechanges {
+    return Intl.message(
+      'Do you want to save the changes?',
+      name: 'Doyouwanttosavethechanges',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No`
+  String get no {
+    return Intl.message(
+      'No',
+      name: 'no',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `yes`
+  String get yes {
+    return Intl.message(
+      'yes',
+      name: 'yes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add Procedures`
+  String get addProcedures {
+    return Intl.message(
+      'Add Procedures',
+      name: 'addProcedures',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Procedures`
+  String get procedures {
+    return Intl.message(
+      'Procedures',
+      name: 'procedures',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `close procedures`
+  String get closeprocedures {
+    return Intl.message(
+      'close procedures',
+      name: 'closeprocedures',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `please select date`
+  String get pleaseSelectDate {
+    return Intl.message(
+      'please select date',
+      name: 'pleaseSelectDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `please select time`
+  String get pleaseSelectTime {
+    return Intl.message(
+      'please select time',
+      name: 'pleaseSelectTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `0%`
+  String get zeroPercent {
+    return Intl.message(
+      '0%',
+      name: 'zeroPercent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Net Profit`
+  String get netProfit {
+    return Intl.message(
+      'Net Profit',
+      name: 'netProfit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total Price Material`
+  String get totalPriceMaterial {
+    return Intl.message(
+      'Total Price Material',
+      name: 'totalPriceMaterial',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total Price Expenses`
+  String get totalPriceExpenses {
+    return Intl.message(
+      'Total Price Expenses',
+      name: 'totalPriceExpenses',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total Price Patient`
+  String get totalPricePatient {
+    return Intl.message(
+      'Total Price Patient',
+      name: 'totalPricePatient',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Value`
+  String get value {
+    return Intl.message(
+      'Value',
+      name: 'value',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Description`
+  String get description {
+    return Intl.message(
+      'Description',
+      name: 'description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select a period for the budget`
+  String get selectBudgetPeriod {
+    return Intl.message(
+      'Select a period for the budget',
+      name: 'selectBudgetPeriod',
       desc: '',
       args: [],
     );

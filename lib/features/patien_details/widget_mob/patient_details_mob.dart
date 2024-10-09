@@ -5,7 +5,7 @@ import 'package:dental_app/core/utlis/assets_paths.dart';
 import 'package:dental_app/core/utlis/styles.dart';
 import 'package:dental_app/features/patien_details/controller/patient_details_controller.dart';
 import 'package:dental_app/features/patien_details/widget_mob/tap_bar_patient_details.dart';
-import 'package:dental_app/features/patient/widget/section_add_note.dart';
+import 'package:dental_app/features/patien_details/widget/section_add_note.dart';
 import 'package:dental_app/features/patient/widget/user_info.dart';
 import 'package:dental_app/features/patient/model/patiant_model.dart';
 import 'package:dental_app/generated/l10n.dart';
@@ -318,11 +318,6 @@ class patientInfoDetails extends StatelessWidget {
                                     padding: const EdgeInsets.all(8.0),
                                     child: CustomTextFormField(
                                       validate: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return S
-                                              .of(context)
-                                              .pleaseEnterNumber;
-                                        }
                                         if (!RegExp(r'^[0-9]+$')
                                             .hasMatch(value)) {
                                           return S
@@ -352,14 +347,8 @@ class patientInfoDetails extends StatelessWidget {
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: CustomTextFormField(
-                                      controller: con.numberController,
-                                      label: AppStrings.number,
+                                      textInputType: TextInputType.number,
                                       validate: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return S
-                                              .of(context)
-                                              .pleaseEnterNumber;
-                                        }
                                         if (!RegExp(r'^[0-9]+$')
                                             .hasMatch(value)) {
                                           return S
@@ -368,6 +357,8 @@ class patientInfoDetails extends StatelessWidget {
                                         }
                                         return null;
                                       },
+                                      controller: con.numberController,
+                                      label: AppStrings.number,
                                     ),
                                   ),
                                 ),
@@ -416,13 +407,8 @@ class patientInfoDetails extends StatelessWidget {
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: CustomTextFormField(
+                                          textInputType: TextInputType.number,
                                           validate: (value) {
-                                            if (value == null ||
-                                                value.isEmpty) {
-                                              return S
-                                                  .of(context)
-                                                  .pleaseEnterNumber;
-                                            }
                                             if (!RegExp(r'^[0-9]+$')
                                                 .hasMatch(value)) {
                                               return S
@@ -454,15 +440,10 @@ class patientInfoDetails extends StatelessWidget {
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: CustomTextFormField(
+                                          textInputType: TextInputType.number,
                                           label: S.of(context).amountPaid,
                                           controller: con.amountController,
                                           validate: (value) {
-                                            if (value == null ||
-                                                value.isEmpty) {
-                                              return S
-                                                  .of(context)
-                                                  .pleaseEnterNumber;
-                                            }
                                             if (!RegExp(r'^[0-9]+$')
                                                 .hasMatch(value)) {
                                               return S

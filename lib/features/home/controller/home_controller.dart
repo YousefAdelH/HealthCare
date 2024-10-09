@@ -2,10 +2,16 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeCtrl extends GetxController {
   var currentImage = 'assets/img/3.png'.obs;
   var currentName = 'Yousef Adel Habile'.obs;
+  @override
+  void onInit() {
+    super.onInit();
+    loadImage();
+  }
 
   void changeImage(String newImage) {
     currentImage.value = newImage;
@@ -26,9 +32,20 @@ class HomeCtrl extends GetxController {
       print('Selected file path: ${file.path}');
       // Example: update the current image in the controller
       changeImage(file.path!);
+      saveImage(file.path!);
     } else {
       // User canceled the file picker
     }
+  }
+
+  Future<void> saveImage(String path) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('imagePath', path);
+  }
+
+  Future<void> loadImage() async {
+    final prefs = await SharedPreferences.getInstance();
+    currentImage.value = prefs.getString('imagePath') ?? 'assets/img/3.png';
   }
 
   void showChangeName(BuildContext context) {
@@ -61,6 +78,11 @@ class HomeCtrl extends GetxController {
         );
       },
     );
+  }
+
+  var titleAppBar = 'Home'.obs;
+  void changeTitle(String title) {
+    titleAppBar.value = title;
   }
   // void showChangeImage(BuildContext context) {
   //   final TextEditingController nameController = TextEditingController();

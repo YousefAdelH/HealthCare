@@ -1,12 +1,9 @@
 import 'package:dental_app/common/custom_text.dart';
 import 'package:dental_app/common/inkwell_.dart';
-import 'package:dental_app/core/utlis/app_string.dart';
 import 'package:dental_app/core/utlis/assets_paths.dart';
 import 'package:dental_app/core/utlis/styles.dart';
-import 'package:dental_app/features/appointment/widget/circle_price_amount.dart';
 import 'package:dental_app/features/appointment/widget/date_card.dart';
 import 'package:dental_app/features/patient/model/patiant_model.dart';
-import 'package:dental_app/features/patient/widget/card_date.dart';
 import 'package:dental_app/features/patien_details/patient_details_screen.dart';
 import 'package:dental_app/features/patient/widget/user_info.dart';
 import 'package:dental_app/generated/l10n.dart';

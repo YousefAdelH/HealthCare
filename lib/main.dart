@@ -6,6 +6,7 @@ import 'package:dental_app/features/main/widget/main_view.dart';
 import 'package:dental_app/features/setting/controller/setting_controller.dart';
 import 'package:dental_app/features/setting/widget/operation_setting.dart';
 import 'package:dental_app/features/setting/widget/setting_screen.dart';
+import 'package:dental_app/features/splash/view/splash_page.dart';
 import 'package:dental_app/generated/l10n.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -16,6 +17,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:universal_io/io.dart' show Platform;
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'dart:ui' as ui;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,10 +36,10 @@ class MyApp extends StatelessWidget {
   MyApp({super.key, required this.isDeviceRegistered});
   final LocalizationController localizationController =
       Get.put(LocalizationController());
-  // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
-    final Size designSize = _getDesignSize(context);
+    final Size designSize = _getDesignSize();
     return ScreenUtilInit(
         designSize: designSize,
         minTextAdapt: true,
@@ -52,8 +54,6 @@ class MyApp extends StatelessWidget {
                 colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
                 useMaterial3: true,
               ),
-
-              //  OperationSetting(),
               home: _getHomeScreen(designSize, isDeviceRegistered),
               localizationsDelegates: const [
                 S.delegate,
@@ -71,14 +71,15 @@ class MyApp extends StatelessWidget {
     if (designSize.width > 843) {
       return isDeviceRegistered ? HomeView() : MainView();
     } else {
-      return isDeviceRegistered ? HomeViewMobile() : MainViewMobile();
+      return isDeviceRegistered ? HomeViewMobile() : SplashPage();
     }
   }
 
-  Size _getDesignSize(BuildContext context) {
+  Size _getDesignSize() {
     if (kIsWeb || Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
-      // Use larger design size for web or desktop
-      return const Size(1024, 768);
+      var window = ui.window;
+      final screenSize = window.physicalSize / window.devicePixelRatio;
+      return Size(screenSize.width, screenSize.height);
     } else {
       // Use mobile design size
       return const Size(390, 843);
@@ -87,7 +88,6 @@ class MyApp extends StatelessWidget {
 }
 
 class MyCustomScrollBehavior extends MaterialScrollBehavior {
-  // Override behavior methods and getters like dragDevices
   @override
   Set<PointerDeviceKind> get dragDevices => {
         PointerDeviceKind.touch,

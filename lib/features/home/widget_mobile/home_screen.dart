@@ -20,16 +20,16 @@ class HomeScreenMobile extends StatelessWidget {
       Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
-          image: AssetImage(
-              AssetPath.background2), // Your background image asset path
-          fit: BoxFit.contain,
+          image:
+              AssetImage(AssetPath.homemob), // Your background image asset path
+          fit: BoxFit.fill,
         )),
       ),
       Scaffold(
         backgroundColor: Colors.transparent,
         body: Padding(
           padding: EdgeInsets.symmetric(vertical: 20.h),
-          child: Column(
+          child: const Column(
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -45,10 +45,10 @@ class HomeScreenMobile extends StatelessWidget {
                   // SizedBox(
                   //   width: 30.w,
                   // ),
-                  SizedBox(
-                      width: MediaQuery.of(context).size.width / 2,
-                      height: MediaQuery.of(context).size.height / 2,
-                      child: PieChartOperation()),
+                  // SizedBox(
+                  //     width: MediaQuery.of(context).size.width / 2,
+                  //     height: MediaQuery.of(context).size.height / 2,
+                  //     child: PieChartOperation()),
                 ],
               ),
               // Row(

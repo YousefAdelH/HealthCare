@@ -38,277 +38,266 @@ class AddNewPatient extends StatelessWidget {
                   child: Container(
                     color: Colors.transparent,
                     child: SingleChildScrollView(
-                      child: Expanded(
-                        child: Obx(() {
-                          return (con.isSuccess.value)
-                              ? Center(child: Image.asset(AssetPath.successimg))
-                              : Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      width:
-                                          MediaQuery.of(context).size.width / 4,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: CustomTextFormField(
-                                          controller: con.codeController,
-                                          label: S.of(context).patientCode,
-                                          validate: (value) {
-                                            if (value == null ||
-                                                value.isEmpty) {
-                                              return S
-                                                  .of(context)
-                                                  .pleaseEnterNumber;
-                                            }
-                                            if (!RegExp(r'^[0-9]+$')
-                                                .hasMatch(value)) {
-                                              return S
-                                                  .of(context)
-                                                  .pleaseEnterValidNumber;
-                                            }
-                                            return null;
-                                          },
-                                        ),
+                      child: Obx(() {
+                        return (con.isSuccess.value)
+                            ? Center(child: Image.asset(AssetPath.successimg))
+                            : Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width / 4,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: CustomTextFormField(
+                                        controller: con.codeController,
+                                        label: S.of(context).patientCode,
+                                        validate: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return S
+                                                .of(context)
+                                                .pleaseEnterNumber;
+                                          }
+                                          if (!RegExp(r'^[0-9]+$')
+                                              .hasMatch(value)) {
+                                            return S
+                                                .of(context)
+                                                .pleaseEnterValidNumber;
+                                          }
+                                          return null;
+                                        },
                                       ),
                                     ),
-                                    SizedBox(
-                                      width:
-                                          MediaQuery.of(context).size.width / 3,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: CustomTextFormField(
-                                          controller: con.nameController,
-                                          label: S.of(context).name,
-                                          // decoration: const InputDecoration(
-                                          //     labelText: AppStrings.name),
-                                        ),
+                                  ),
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width / 3,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: CustomTextFormField(
+                                        controller: con.nameController,
+                                        label: S.of(context).name,
+                                        // decoration: const InputDecoration(
+                                        //     labelText: AppStrings.name),
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              color: AppColors.whiteF7,
-                                              borderRadius:
-                                                  BorderRadius.circular(18.0),
-                                              border: Border.all(
-                                                color: AppColors.primary,
-                                                width:
-                                                    1, // You can adjust the width as needed
-                                              ),
-                                            ),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: DropdownButton<String>(
-                                                borderRadius: BorderRadius.zero,
-                                                dropdownColor:
-                                                    AppColors.whiteff,
-                                                elevation: 0,
-                                                underline: Container(
-                                                  height: 1,
-                                                  color: AppColors
-                                                      .whiteff, // Replace with your underline color
-                                                ),
-                                                value: con.selectedGender,
-                                                onChanged: (String? newValue) {
-                                                  con.setSelectedGender(
-                                                      newValue!);
-                                                },
-                                                items: <String>[
-                                                  S.of(context).male,
-                                                  S.of(context).female
-                                                ].map<DropdownMenuItem<String>>(
-                                                    (String value) {
-                                                  return DropdownMenuItem<
-                                                      String>(
-                                                    value: value,
-                                                    child: Text(value),
-                                                  );
-                                                }).toList(),
-                                                hint: Text(
-                                                    S.of(context).selectGender),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width:
-                                          MediaQuery.of(context).size.width / 4,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: CustomTextFormField(
-                                          label: S.of(context).age,
-                                          controller: con.ageController,
-                                          validate: (value) {
-                                            if (value == null ||
-                                                value.isEmpty) {
-                                              return S
-                                                  .of(context)
-                                                  .pleaseEnterNumber;
-                                            }
-                                            if (!RegExp(r'^[0-9]+$')
-                                                .hasMatch(value)) {
-                                              return S
-                                                  .of(context)
-                                                  .pleaseEnterValidNumber;
-                                            }
-                                            return null;
-                                          },
-                                          // decoration: const InputDecoration(
-                                          //     labelText: AppStrings.age),
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width:
-                                          MediaQuery.of(context).size.width / 4,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: CustomTextFormField(
-                                          controller: con.numberController,
-                                          label: S.of(context).number,
-                                          validate: (value) {
-                                            if (value == null ||
-                                                value.isEmpty) {
-                                              return S
-                                                  .of(context)
-                                                  .pleaseEnterNumber;
-                                            }
-                                            if (!RegExp(r'^[0-9]+$')
-                                                .hasMatch(value)) {
-                                              return S
-                                                  .of(context)
-                                                  .pleaseEnterValidNumber;
-                                            }
-                                            return null;
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width /
-                                          2.5,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: CustomTextFormField(
-                                          label: S.of(context).medicalHistory,
-                                          maxLines: 10,
-                                          controller:
-                                              con.medicalhistoryController,
-                                          // decoration: const InputDecoration(
-                                          //     labelText: AppStrings.medicalhistory),
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width:
-                                          MediaQuery.of(context).size.width / 4,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: CustomTextFormField(
-                                          label: S.of(context).totalAmount,
-                                          controller: con.totalpriceController,
-                                          validate: (value) {
-                                            if (value == null ||
-                                                value.isEmpty) {
-                                              return S
-                                                  .of(context)
-                                                  .pleaseEnterNumber;
-                                            }
-                                            if (!RegExp(r'^[0-9]+$')
-                                                .hasMatch(value)) {
-                                              return S
-                                                  .of(context)
-                                                  .pleaseEnterValidNumber;
-                                            }
-                                            return null;
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width:
-                                          MediaQuery.of(context).size.width / 4,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: CustomTextFormField(
-                                          label: S.of(context).amountPaid,
-                                          controller: con.amountController,
-                                          validate: (value) {
-                                            if (value == null ||
-                                                value.isEmpty) {
-                                              return S
-                                                  .of(context)
-                                                  .pleaseEnterNumber;
-                                            }
-                                            if (!RegExp(r'^[0-9]+$')
-                                                .hasMatch(value)) {
-                                              return S
-                                                  .of(context)
-                                                  .pleaseEnterValidNumber;
-                                            }
-                                            return null;
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 20),
-                                    SizedBox(
-                                      height: 20.h,
-                                    ),
-                                    Row(
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8),
+                                    child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              right: 10.0),
-                                          child: ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                              foregroundColor: AppColors
-                                                  .success2, // Background color
-                                              backgroundColor: AppColors
-                                                  .success2, // Text color
-                                              side: const BorderSide(
-                                                  color: AppColors.primary,
-                                                  width:
-                                                      2), // Border color and width
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        12), // Border radius
-                                              ),
-                                              minimumSize: Size(150.w, 80.h),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: AppColors.whiteF7,
+                                            borderRadius:
+                                                BorderRadius.circular(18.0),
+                                            border: Border.all(
+                                              color: AppColors.primary,
+                                              width:
+                                                  1, // You can adjust the width as needed
                                             ),
-                                            onPressed: () {
-                                              con.addMember(context);
-                                            },
-                                            child: CustomText(
-                                              text: S.of(context).addPatient,
-                                              fontWeight: FontWeight.w500,
-                                              bolUnderline: false,
-                                              color: AppColors.whiteff,
-                                              size: 10.sp,
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: DropdownButton<String>(
+                                              borderRadius: BorderRadius.zero,
+                                              dropdownColor: AppColors.whiteff,
+                                              elevation: 0,
+                                              underline: Container(
+                                                height: 1,
+                                                color: AppColors
+                                                    .whiteff, // Replace with your underline color
+                                              ),
+                                              value: con.selectedGender,
+                                              onChanged: (String? newValue) {
+                                                con.setSelectedGender(
+                                                    newValue!);
+                                              },
+                                              items: <String>[
+                                                S.of(context).male,
+                                                S.of(context).female
+                                              ].map<DropdownMenuItem<String>>(
+                                                  (String value) {
+                                                return DropdownMenuItem<String>(
+                                                  value: value,
+                                                  child: Text(value),
+                                                );
+                                              }).toList(),
+                                              hint: Text(
+                                                  S.of(context).selectGender),
                                             ),
                                           ),
                                         ),
                                       ],
                                     ),
-                                    const SizedBox(
-                                      height: 20,
+                                  ),
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width / 4,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: CustomTextFormField(
+                                        label: S.of(context).age,
+                                        controller: con.ageController,
+                                        validate: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return S
+                                                .of(context)
+                                                .pleaseEnterNumber;
+                                          }
+                                          if (!RegExp(r'^[0-9]+$')
+                                              .hasMatch(value)) {
+                                            return S
+                                                .of(context)
+                                                .pleaseEnterValidNumber;
+                                          }
+                                          return null;
+                                        },
+                                        // decoration: const InputDecoration(
+                                        //     labelText: AppStrings.age),
+                                      ),
                                     ),
-                                  ],
-                                );
-                        }),
-                      ),
+                                  ),
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width / 4,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: CustomTextFormField(
+                                        controller: con.numberController,
+                                        label: S.of(context).number,
+                                        validate: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return S
+                                                .of(context)
+                                                .pleaseEnterNumber;
+                                          }
+                                          if (!RegExp(r'^[0-9]+$')
+                                              .hasMatch(value)) {
+                                            return S
+                                                .of(context)
+                                                .pleaseEnterValidNumber;
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width / 2.5,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: CustomTextFormField(
+                                        label: S.of(context).medicalHistory,
+                                        maxLines: 10,
+                                        controller:
+                                            con.medicalhistoryController,
+                                        // decoration: const InputDecoration(
+                                        //     labelText: AppStrings.medicalhistory),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width / 4,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: CustomTextFormField(
+                                        label: S.of(context).totalAmount,
+                                        controller: con.totalpriceController,
+                                        validate: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return S
+                                                .of(context)
+                                                .pleaseEnterNumber;
+                                          }
+                                          if (!RegExp(r'^[0-9]+$')
+                                              .hasMatch(value)) {
+                                            return S
+                                                .of(context)
+                                                .pleaseEnterValidNumber;
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width / 4,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: CustomTextFormField(
+                                        label: S.of(context).amountPaid,
+                                        controller: con.amountController,
+                                        validate: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return S
+                                                .of(context)
+                                                .pleaseEnterNumber;
+                                          }
+                                          if (!RegExp(r'^[0-9]+$')
+                                              .hasMatch(value)) {
+                                            return S
+                                                .of(context)
+                                                .pleaseEnterValidNumber;
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 20),
+                                  SizedBox(
+                                    height: 20.h,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 10.0),
+                                        child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            foregroundColor: AppColors
+                                                .success2, // Background color
+                                            backgroundColor: AppColors
+                                                .success2, // Text color
+                                            side: const BorderSide(
+                                                color: AppColors.primary,
+                                                width:
+                                                    2), // Border color and width
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                      12), // Border radius
+                                            ),
+                                            minimumSize: Size(150.w, 80.h),
+                                          ),
+                                          onPressed: () {
+                                            con.addMember(context);
+                                          },
+                                          child: CustomText(
+                                            text: S.of(context).addPatient,
+                                            fontWeight: FontWeight.w500,
+                                            bolUnderline: false,
+                                            color: AppColors.whiteff,
+                                            size: 10.sp,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                ],
+                              );
+                      }),
                     ),
                   ),
                 ),

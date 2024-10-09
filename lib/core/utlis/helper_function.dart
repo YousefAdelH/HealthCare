@@ -18,13 +18,13 @@ class HelperFunction {
   static String remainingamount(String totalprice, String amount) {
     double total = double.tryParse(totalprice) ?? 0.0;
     double paid = double.tryParse(amount) ?? 0.0;
-    return (total - paid).toStringAsFixed(2);
+    return (total - paid).toString();
   }
 
   static String totalamount(String totalnew, String totalold) {
     double totaln = double.tryParse(totalnew) ?? 0.0;
     double totalo = double.tryParse(totalold) ?? 0.0;
-    return (totaln + totalo).toStringAsFixed(2);
+    return (totaln + totalo).toString();
   }
 
   static TimeOfDay sessionTimeFromFormatted(

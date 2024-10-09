@@ -13,8 +13,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class CardExpences extends StatelessWidget {
-  CardExpences({Key? key, required this.expencesItem}) : super(key: key);
-  final ExpenseModel expencesItem;
+  CardExpences({Key? key, required this.expensesItem}) : super(key: key);
+  final ExpenseModel expensesItem;
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ExpenseController>(
@@ -26,7 +26,7 @@ class CardExpences extends StatelessWidget {
               child: InkWellCustom(
                   onTap: () {
                     Get.to(AddNewExpences(
-                      expense: expencesItem,
+                      expense: expensesItem,
                     ));
                   },
                   child: Container(
@@ -38,20 +38,20 @@ class CardExpences extends StatelessWidget {
                             color: AppColors.black,
                             width: 1.0, // You can adjust the width as needed
                           ),
-                          color: (expencesItem.type == 'Electricity' ||
-                                  expencesItem.type == 'الكهرباء')
+                          color: (expensesItem.type == 'Electricity' ||
+                                  expensesItem.type == 'الكهرباء')
                               ? AppColors.color3
-                              : (expencesItem.type == 'Rent' ||
-                                      expencesItem.type == 'الايجار')
+                              : (expensesItem.type == 'Rent' ||
+                                      expensesItem.type == 'الايجار')
                                   ? AppColors.color2
-                                  : (expencesItem.type == 'Water bill' ||
-                                          expencesItem.type == "فاتورة المياه")
+                                  : (expensesItem.type == 'Water bill' ||
+                                          expensesItem.type == "فاتورة المياه")
                                       ? AppColors.color1
-                                      : (expencesItem.type == 'employees' ||
-                                              expencesItem.type == 'الموظفين')
+                                      : (expensesItem.type == 'employees' ||
+                                              expensesItem.type == 'الموظفين')
                                           ? AppColors.color5
-                                          : (expencesItem.type == "Other" ||
-                                                  expencesItem.type == "أخرى")
+                                          : (expensesItem.type == "Other" ||
+                                                  expensesItem.type == "أخرى")
                                               ? AppColors.color4
                                               : Colors.white),
                       child: Row(
@@ -73,7 +73,7 @@ class CardExpences extends StatelessWidget {
                                     children: [
                                       InkWellCustom(
                                         onTap: () {
-                                          con.deleteExpense(expencesItem.id);
+                                          con.deleteExpense(expensesItem.id);
                                         },
                                         child: const SizedBox(
                                           child: Icon(Icons.delete),
@@ -88,7 +88,7 @@ class CardExpences extends StatelessWidget {
                                     children: [
                                       CustomText(
                                         textAlign: TextAlign.start,
-                                        text: expencesItem.name ?? "",
+                                        text: expensesItem.name ?? "",
                                         size: 12.sp,
                                         fontWeight: FontWeight.w700,
                                         height: 1,
@@ -99,9 +99,9 @@ class CardExpences extends StatelessWidget {
                                       ),
                                       UserInfo2(
                                         subtitle: S.of(context).type,
-                                        title: expencesItem.type ?? "",
+                                        title: expensesItem.type ?? "",
                                         icone:
-                                            Icon(Icons.manage_accounts_sharp),
+                                            const Icon(Icons.bookmark_rounded),
                                       ),
                                     ],
                                   ),
@@ -116,8 +116,8 @@ class CardExpences extends StatelessWidget {
                                       UserInfo2(
                                         subtitle: S.of(context).priceExpenses,
                                         title:
-                                            expencesItem.expensesPrice ?? "0.0",
-                                        icone: Icon(Icons.attach_money),
+                                            expensesItem.expensesPrice ?? "0.0",
+                                        icone: const Icon(Icons.attach_money),
                                       ),
                                       SizedBox(
                                         width: 10.w,
@@ -125,8 +125,8 @@ class CardExpences extends StatelessWidget {
                                       UserInfo2(
                                         subtitle: S.of(context).date,
                                         title: HelperFunction.formatDate(
-                                            expencesItem.date),
-                                        icone: Icon(Icons.date_range),
+                                            expensesItem.date),
+                                        icone: const Icon(Icons.date_range),
                                       ),
                                     ],
                                   ),

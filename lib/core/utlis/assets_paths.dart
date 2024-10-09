@@ -11,4 +11,8 @@ class AssetPath {
   static const String matrial = "assets/img/matrial.png";
   static const String netprofit = "assets/img/net_profit.png";
   static const String patient = "assets/img/patient_fees.png";
+  static const String mobMaster = "assets/img/backmob_master.png";
+  static const String homemob = "assets/img/home_mob.jpeg";
+  static const String home = "assets/img/home.png";
+  static const String klogo = "assets/img/splash_logo.png";
 }

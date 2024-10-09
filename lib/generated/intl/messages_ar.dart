@@ -22,16 +22,23 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "Doyouwanttosavethechanges":
+            MessageLookupByLibrary.simpleMessage("هل تريد حفظ التغييرات؟"),
         "addExpense": MessageLookupByLibrary.simpleMessage("إضافة مصروف"),
         "addNewSession":
             MessageLookupByLibrary.simpleMessage("إضافة جلسة جديدة"),
         "addPatient": MessageLookupByLibrary.simpleMessage("إضافة مريض"),
+        "addProcedures": MessageLookupByLibrary.simpleMessage("إضافة إجراءات"),
         "addanitem": MessageLookupByLibrary.simpleMessage("اضافة عنصر"),
         "age": MessageLookupByLibrary.simpleMessage("العمر"),
         "amountPaid": MessageLookupByLibrary.simpleMessage("المبلغ المدفوع"),
         "appointment": MessageLookupByLibrary.simpleMessage("موعد"),
         "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
+        "clearDataConfirmation":
+            MessageLookupByLibrary.simpleMessage("حذف المدخلات"),
         "close": MessageLookupByLibrary.simpleMessage("إغلاق"),
+        "closeprocedures":
+            MessageLookupByLibrary.simpleMessage("إغلاق الإجراءات"),
         "confirm": MessageLookupByLibrary.simpleMessage("موافق"),
         "costprice": MessageLookupByLibrary.simpleMessage("سعر التكلفه"),
         "date": MessageLookupByLibrary.simpleMessage("التاريخ"),
@@ -42,6 +49,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "deleteSession": MessageLookupByLibrary.simpleMessage("حذف الجلسة"),
         "deleteSessionConfirmation": MessageLookupByLibrary.simpleMessage(
             "هل أنت متأكد من أنك تريد حذف هذه الجلسة نهائيًا؟"),
+        "description": MessageLookupByLibrary.simpleMessage("الوصف"),
         "discardChanges":
             MessageLookupByLibrary.simpleMessage("تجاهل التغيرات"),
         "editExpense": MessageLookupByLibrary.simpleMessage("تعديل المصروفات"),
@@ -73,12 +81,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "male": MessageLookupByLibrary.simpleMessage("ذكر"),
         "medicalHistory": MessageLookupByLibrary.simpleMessage("التاريخ الطبي"),
         "name": MessageLookupByLibrary.simpleMessage("الاسم"),
+        "netProfit": MessageLookupByLibrary.simpleMessage("صافي الربح"),
         "newPatient": MessageLookupByLibrary.simpleMessage("مريض جديد"),
         "newPatientAddedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "تمت إضافة المريض الجديد بنجاح."),
         "newSession": MessageLookupByLibrary.simpleMessage("جلسة جديدة"),
         "newSessionAddedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "تمت إضافة الجلسه الجديد بنجاح."),
+        "no": MessageLookupByLibrary.simpleMessage("لا"),
         "noMorePatients":
             MessageLookupByLibrary.simpleMessage("لا يوجد المزيد من المرضى"),
         "noSession": MessageLookupByLibrary.simpleMessage("لا توجد جلسة"),
@@ -111,13 +121,20 @@ class MessageLookup extends MessageLookupByLibrary {
             "الرجاء إدخال البريد الإلكتروني"),
         "pleaseEnterpassword":
             MessageLookupByLibrary.simpleMessage("الرجاء إدخال كلمة المرور"),
+        "pleaseSelectDate":
+            MessageLookupByLibrary.simpleMessage("يرجى اختيار التاريخ"),
+        "pleaseSelectTime":
+            MessageLookupByLibrary.simpleMessage("يرجى اختيار الوقت"),
         "price": MessageLookupByLibrary.simpleMessage("السعر"),
         "priceExpenses": MessageLookupByLibrary.simpleMessage("نفقات السعر"),
+        "procedures": MessageLookupByLibrary.simpleMessage("إجراءات"),
         "quantity": MessageLookupByLibrary.simpleMessage("الكمية"),
         "remainingAmount":
             MessageLookupByLibrary.simpleMessage("المبلغ المتبقي"),
         "rent": MessageLookupByLibrary.simpleMessage("الإيجار"),
         "save": MessageLookupByLibrary.simpleMessage("حفظ"),
+        "selectBudgetPeriod":
+            MessageLookupByLibrary.simpleMessage("اختر فترة الميزانية"),
         "selectDate": MessageLookupByLibrary.simpleMessage("اختر التاريخ"),
         "selectExpirationDate":
             MessageLookupByLibrary.simpleMessage("اختر تاريخ الانتهاء"),
@@ -131,6 +148,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "sessions": MessageLookupByLibrary.simpleMessage("الجلسات"),
         "setting": MessageLookupByLibrary.simpleMessage("الإعدادات"),
         "settings": MessageLookupByLibrary.simpleMessage("الإعدادات"),
+        "sidebar_appointment": MessageLookupByLibrary.simpleMessage("المواعيد"),
+        "sidebar_budget_management":
+            MessageLookupByLibrary.simpleMessage("إدارة الميزانية"),
+        "sidebar_expenses": MessageLookupByLibrary.simpleMessage("المصاريف"),
+        "sidebar_home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
+        "sidebar_logout": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
+        "sidebar_medications": MessageLookupByLibrary.simpleMessage("الأدوية"),
+        "sidebar_patients": MessageLookupByLibrary.simpleMessage("المرضى"),
         "signup": MessageLookupByLibrary.simpleMessage("تسجيل"),
         "specialForAddingOperations":
             MessageLookupByLibrary.simpleMessage("خاص بإضافة العمليات"),
@@ -139,10 +164,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "time": MessageLookupByLibrary.simpleMessage("الوقت"),
         "title": MessageLookupByLibrary.simpleMessage("الرئيسية"),
         "totalAmount": MessageLookupByLibrary.simpleMessage("المبلغ الإجمالي"),
+        "totalPriceExpenses":
+            MessageLookupByLibrary.simpleMessage("إجمالي سعر المصاريف"),
+        "totalPriceMaterial":
+            MessageLookupByLibrary.simpleMessage("إجمالي سعر المواد"),
+        "totalPricePatient":
+            MessageLookupByLibrary.simpleMessage("إجمالي سعر المريض"),
         "type": MessageLookupByLibrary.simpleMessage("النوع"),
         "updateExpense": MessageLookupByLibrary.simpleMessage("تحديث المصروف"),
+        "value": MessageLookupByLibrary.simpleMessage("القيمة"),
         "waterBill": MessageLookupByLibrary.simpleMessage("فاتورة المياه"),
         "welcome": MessageLookupByLibrary.simpleMessage("أهلاً"),
-        "wholesalePrice": MessageLookupByLibrary.simpleMessage("سعر الجملة")
+        "wholesalePrice": MessageLookupByLibrary.simpleMessage("سعر الجملة"),
+        "yes": MessageLookupByLibrary.simpleMessage("نعم"),
+        "zeroPercent": MessageLookupByLibrary.simpleMessage("0%")
       };
 }

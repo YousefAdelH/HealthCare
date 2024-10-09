@@ -26,3 +26,4 @@ String testTermsConditions =
 
 String? darkMapStyle;
 Uint8List? mapPinIcon;
+const kRoboto = 'Roboto-Regular';

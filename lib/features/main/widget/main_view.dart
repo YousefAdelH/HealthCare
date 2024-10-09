@@ -38,6 +38,7 @@ class MainView extends StatelessWidget {
                   )),
                 ),
                 Scaffold(
+                  resizeToAvoidBottomInset: false,
                   appBar: AppBar(
                     actions: [
                       Padding(

@@ -8,12 +8,14 @@ class UserInfo2 extends StatelessWidget {
   final String subtitle;
   final String title;
   final Widget icone;
+  final double size;
 
   const UserInfo2({
     super.key,
     required this.subtitle,
     required this.title,
     required this.icone,
+    this.size = 14,
   });
 
   @override
@@ -30,7 +32,7 @@ class UserInfo2 extends StatelessWidget {
           ),
           CustomText(
             text: subtitle,
-            size: 14.sp,
+            size: size.sp,
             fontWeight: FontWeight.w700,
             color: AppColors.black,
             underline: false,
@@ -41,7 +43,7 @@ class UserInfo2 extends StatelessWidget {
           ),
           CustomText(
             text: title,
-            size: 14.sp,
+            size: size.sp,
             fontWeight: FontWeight.w400,
             color: AppColors.black,
             underLineColor: AppColors.whiteff,

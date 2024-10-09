@@ -186,7 +186,7 @@ class AppSetting extends StatelessWidget {
                             return DropdownMenuItem<String>(
                               value: operation.name,
                               child: Text(
-                                  '${operation.name} (\$${operation.price.toStringAsFixed(2)})'),
+                                  '${operation.name} (\$${operation.price!.toStringAsFixed(2)})'),
                             );
                           }).toList(),
                         )),
@@ -208,7 +208,7 @@ class AppSetting extends StatelessWidget {
                       ),
                       onPressed: () {
                         if (con.selectedOperation.value != null) {
-                          con.deleteOperation(con.selectedOperation.value!.id);
+                          con.deleteOperation(con.selectedOperation.value!.id!);
                         }
                       },
                       child: CustomText(

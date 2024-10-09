@@ -68,8 +68,8 @@ class PieChartOperation extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 4.0),
                     child: Indicator(
                       color: operationController
-                          .getColorForOperation(operation.name),
-                      text: operation.name,
+                          .getColorForOperation(operation.name!),
+                      text: operation.name!,
                       isSquare: true,
                     ),
                   )),

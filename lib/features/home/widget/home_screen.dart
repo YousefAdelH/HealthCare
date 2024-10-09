@@ -12,7 +12,7 @@ import 'package:get/get_core/src/get_main.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
-  // final BadgetCtrl controller = Get.put(BadgetCtrl());
+  final BadgetCtrl controller = Get.put(BadgetCtrl());
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -20,62 +20,61 @@ class HomeScreen extends StatelessWidget {
       Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
-          image: AssetImage(
-              AssetPath.background2), // Your background image asset path
-          fit: BoxFit.contain,
+          image: AssetImage(AssetPath.home), // Your background image asset path
+          fit: BoxFit.cover,
         )),
       ),
-      Scaffold(
+      const Scaffold(
         backgroundColor: Colors.transparent,
-        body: Padding(
-          padding: EdgeInsets.symmetric(vertical: 20.h),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // SizedBox(
-                  //     width: MediaQuery.of(context).size.width / 3,
-                  //     height: MediaQuery.of(context).size.height / 2,
-                  //     child: BarChartSample6()),
-                  // SizedBox(
-                  //   width: 30.w,
-                  // ),
-                  SizedBox(
-                      width: MediaQuery.of(context).size.width / 2.5,
-                      height: MediaQuery.of(context).size.height / 2,
-                      child: PieChartOperation()),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 2,
-                    height: MediaQuery.of(context).size.height / 3,
-                    child:
-                        //  Obx(() {
-                        //   return controller.totalPatients.isEmpty
-                        //       ? Center(child: CircularProgressIndicator())
-                        //       : Linebadget(
-                        //           patientsData: controller.totalPatients.value,
-                        //           expensesData: controller.totalExpenses.value,
-                        //           transactionsData: controller.totalMaterial.value,
-                        //         );
-                        // }),
-                        LineChartmain(
-                      isShowingMainData: true,
-                    ),
-                  )
-                ],
-              )
-            ],
-          ),
-        ),
+        // body: Padding(
+        //   padding: EdgeInsets.symmetric(vertical: 20.h),
+        //   child: Column(
+        //     mainAxisAlignment: MainAxisAlignment.start,
+        //     mainAxisSize: MainAxisSize.max,
+        //     children: [
+        //       // Row(
+        //       //   crossAxisAlignment: CrossAxisAlignment.start,
+        //       //   mainAxisSize: MainAxisSize.max,
+        //       //   mainAxisAlignment: MainAxisAlignment.center,
+        //       //   children: [
+        //       //     // SizedBox(
+        //       //     //     width: MediaQuery.of(context).size.width / 3,
+        //       //     //     height: MediaQuery.of(context).size.height / 2,
+        //       //     //     child: BarChartSample6()),
+        //       //     // SizedBox(
+        //       //     //   width: 30.w,
+        //       //     // ),
+        //     SizedBox(
+        //         width: MediaQuery.of(context).size.width / 2.5,
+        //         height: MediaQuery.of(context).size.height / 2,
+        //         child: PieChartOperation()),
+        //   ],
+        // ),
+        //       // Row(
+        //       //   mainAxisAlignment: MainAxisAlignment.center,
+        //       //   children: [
+        //       //     SizedBox(
+        //       //       width: MediaQuery.of(context).size.width / 2,
+        //       //       height: MediaQuery.of(context).size.height / 3,
+        //       //       child:
+        //       //           //  Obx(() {
+        //       //           //   return controller.totalPatients.isEmpty
+        //       //           //       ? Center(child: CircularProgressIndicator())
+        //       //           //       : Linebadget(
+        //       //           //           patientsData: controller.totalPatients.value,
+        //       //           //           expensesData: controller.totalExpenses.value,
+        //       //           //           transactionsData: controller.totalMaterial.value,
+        //       //           //         );
+        //       //           // }),
+        //       //           LineChartmain(
+        //       //         isShowingMainData: true,
+        //       //       ),
+        //       //     )
+        //       //   ],
+        //       // )
+        //     ],
+        //   ),
+        // ),
       ),
     ]));
   }

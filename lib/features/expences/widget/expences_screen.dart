@@ -91,14 +91,12 @@ class ExpencesScreen extends StatelessWidget {
                               : controller.expenses;
                           return Padding(
                             padding: const EdgeInsets.only(left: 15),
-                            child: Expanded(
-                              child: ListView.builder(
-                                itemCount: expenseslist.length,
-                                itemBuilder: (context, index) {
-                                  return CardExpences(
-                                      expencesItem: expenseslist[index]);
-                                },
-                              ),
+                            child: ListView.builder(
+                              itemCount: expenseslist.length,
+                              itemBuilder: (context, index) {
+                                return CardExpences(
+                                    expensesItem: expenseslist[index]);
+                              },
                             ),
                           );
                         }),

@@ -58,6 +58,7 @@ class MaterialController extends GetxController {
       materialId: material.id,
       date: DateTime.now(),
       quantity: material.quantity,
+      wholesalePrice: material.wholesalePrice.toStringAsFixed(2),
       isIncoming: true,
     ));
     nameController.clear();
@@ -80,12 +81,29 @@ class MaterialController extends GetxController {
   }
 
   Future<void> deleteMaterial(String id) async {
-    List<MaterialTransaction> transactions =
-        await getTransactionsForMaterial(id);
-    for (var transaction in transactions) {
-      await _db.collection('transaction').doc(transaction.id).delete();
+    if (id.isEmpty) {
+      throw ArgumentError("Material ID cannot be empty");
     }
-    await _db.collection('storehouse').doc(id).delete();
+
+    try {
+      List<MaterialTransaction> transactions =
+          await getTransactionsForMaterial(id);
+      print("Fetched ${transactions.length} transactions for material id: $id");
+
+      for (var transaction in transactions) {
+        if (transaction.id.isNotEmpty) {
+          print("Deleting transaction with id: ${transaction.id}");
+          await _db.collection('transaction').doc(transaction.id).delete();
+        } else {
+          print("Transaction ID is empty, skipping deletion");
+        }
+      }
+
+      await _db.collection('storehouse').doc(id).delete();
+      print("Deleted material with id: $id");
+    } catch (e) {
+      print("Error occurred while deleting material: $e");
+    }
   }
 
   Future<void> addTransaction(MaterialTransaction transaction) async {
@@ -101,16 +119,16 @@ class MaterialController extends GetxController {
     await updateMaterial(material);
   }
 
-  Future<void> adjustQuantity(
-      String materialId, int amount, bool isIncoming) async {
+  Future<void> adjustQuantity(String materialId, int amount, bool isIncoming,
+      String wholesaleprice) async {
     // Create a transaction
     MaterialTransaction transaction = MaterialTransaction(
-      id: '',
-      materialId: materialId,
-      date: DateTime.now(),
-      quantity: amount,
-      isIncoming: isIncoming,
-    );
+        id: '',
+        materialId: materialId,
+        date: DateTime.now(),
+        quantity: amount,
+        isIncoming: isIncoming,
+        wholesalePrice: wholesaleprice);
     await addTransaction(transaction);
   }
 

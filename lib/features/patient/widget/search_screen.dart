@@ -1,4 +1,5 @@
 import 'package:dental_app/features/patient/controller/patient_controller.dart';
+import 'package:dental_app/features/patient/mobile_widget/patient_card_mob.dart';
 import 'package:dental_app/features/patient/widget/patient_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -13,6 +14,8 @@ class SearchScreen extends StatelessWidget {
   final searchFormKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
+    var isMobile = screenSize.width < 600;
     return GetBuilder<PaientCtrl>(
       builder: (con) {
         return Form(
@@ -35,7 +38,9 @@ class SearchScreen extends StatelessWidget {
                               : Center(child: Text('No more patients'));
                     }
 
-                    return PatientCard(item: con.patientsearch[index]);
+                    return isMobile
+                        ? PatientCardMobile(item: con.patientsearch[index])
+                        : PatientCard(item: con.patientsearch[index]);
                   },
                 ),
               ),

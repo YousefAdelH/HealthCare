@@ -5,6 +5,7 @@ class MaterialTransaction {
   String materialId;
   DateTime date;
   int quantity;
+  String wholesalePrice;
   bool isIncoming;
 
   MaterialTransaction({
@@ -13,6 +14,7 @@ class MaterialTransaction {
     required this.date,
     required this.quantity,
     required this.isIncoming,
+    required this.wholesalePrice,
   });
 
   factory MaterialTransaction.fromFirestore(Map<String, dynamic> data) {
@@ -22,6 +24,7 @@ class MaterialTransaction {
       date: (data['date'] as Timestamp).toDate(),
       quantity: data['quantity'],
       isIncoming: data['isIncoming'],
+      wholesalePrice: data['wholesalePrice'],
     );
   }
 
@@ -32,6 +35,7 @@ class MaterialTransaction {
       'date': date,
       'quantity': quantity,
       'isIncoming': isIncoming,
+      'wholesalePrice': wholesalePrice,
     };
   }
 }

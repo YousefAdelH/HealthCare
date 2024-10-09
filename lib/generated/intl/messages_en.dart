@@ -22,16 +22,23 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "Doyouwanttosavethechanges": MessageLookupByLibrary.simpleMessage(
+            "Do you want to save the changes?"),
         "addExpense": MessageLookupByLibrary.simpleMessage("Add Expense"),
         "addNewSession":
             MessageLookupByLibrary.simpleMessage("Add New Session"),
         "addPatient": MessageLookupByLibrary.simpleMessage("Add Patient"),
+        "addProcedures": MessageLookupByLibrary.simpleMessage("Add Procedures"),
         "addanitem": MessageLookupByLibrary.simpleMessage("Add an item"),
         "age": MessageLookupByLibrary.simpleMessage("Age"),
         "amountPaid": MessageLookupByLibrary.simpleMessage("Amount Paid"),
         "appointment": MessageLookupByLibrary.simpleMessage("appointment"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "clearDataConfirmation":
+            MessageLookupByLibrary.simpleMessage("clear Data Confirmation"),
         "close": MessageLookupByLibrary.simpleMessage("Close"),
+        "closeprocedures":
+            MessageLookupByLibrary.simpleMessage("close procedures"),
         "confirm": MessageLookupByLibrary.simpleMessage("confirm"),
         "costprice": MessageLookupByLibrary.simpleMessage("Cost price"),
         "date": MessageLookupByLibrary.simpleMessage("Date"),
@@ -42,6 +49,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "deleteSession": MessageLookupByLibrary.simpleMessage("Delete Session"),
         "deleteSessionConfirmation": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to permanently delete this session?"),
+        "description": MessageLookupByLibrary.simpleMessage("Description"),
         "discardChanges":
             MessageLookupByLibrary.simpleMessage("discardChanges"),
         "editExpense": MessageLookupByLibrary.simpleMessage("Edit Expense"),
@@ -74,12 +82,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "medicalHistory":
             MessageLookupByLibrary.simpleMessage("Medical history"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
+        "netProfit": MessageLookupByLibrary.simpleMessage("Net Profit"),
         "newPatient": MessageLookupByLibrary.simpleMessage("New Patient"),
         "newPatientAddedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "New patient added successfully."),
         "newSession": MessageLookupByLibrary.simpleMessage("New Session"),
         "newSessionAddedSuccessfully": MessageLookupByLibrary.simpleMessage(
             "New Session added successfully."),
+        "no": MessageLookupByLibrary.simpleMessage("No"),
         "noMorePatients":
             MessageLookupByLibrary.simpleMessage("No more patients"),
         "noSession": MessageLookupByLibrary.simpleMessage("No session"),
@@ -113,13 +123,20 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("pleaseEnteremail"),
         "pleaseEnterpassword":
             MessageLookupByLibrary.simpleMessage("pleaseEnterpassword"),
+        "pleaseSelectDate":
+            MessageLookupByLibrary.simpleMessage("please select date"),
+        "pleaseSelectTime":
+            MessageLookupByLibrary.simpleMessage("please select time"),
         "price": MessageLookupByLibrary.simpleMessage("Price"),
         "priceExpenses": MessageLookupByLibrary.simpleMessage("Price Expenses"),
+        "procedures": MessageLookupByLibrary.simpleMessage("Procedures"),
         "quantity": MessageLookupByLibrary.simpleMessage("Quantity"),
         "remainingAmount":
             MessageLookupByLibrary.simpleMessage("Remaining Amount"),
         "rent": MessageLookupByLibrary.simpleMessage("Rent"),
         "save": MessageLookupByLibrary.simpleMessage("save"),
+        "selectBudgetPeriod": MessageLookupByLibrary.simpleMessage(
+            "Select a period for the budget"),
         "selectDate": MessageLookupByLibrary.simpleMessage("Select Date"),
         "selectExpirationDate":
             MessageLookupByLibrary.simpleMessage("Select Expiration Date"),
@@ -133,19 +150,38 @@ class MessageLookup extends MessageLookupByLibrary {
         "sessions": MessageLookupByLibrary.simpleMessage("Sessions"),
         "setting": MessageLookupByLibrary.simpleMessage("Settings"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "sidebar_appointment":
+            MessageLookupByLibrary.simpleMessage("Appointment"),
+        "sidebar_budget_management":
+            MessageLookupByLibrary.simpleMessage("Budget management"),
+        "sidebar_expenses": MessageLookupByLibrary.simpleMessage("Expenses"),
+        "sidebar_home": MessageLookupByLibrary.simpleMessage("Home"),
+        "sidebar_logout": MessageLookupByLibrary.simpleMessage("Logout"),
+        "sidebar_medications":
+            MessageLookupByLibrary.simpleMessage("Medications"),
+        "sidebar_patients": MessageLookupByLibrary.simpleMessage("Patients"),
         "signup": MessageLookupByLibrary.simpleMessage("Sign up"),
         "specialForAddingOperations": MessageLookupByLibrary.simpleMessage(
-            "Special for adding operations"),
+            "Special for adding procedures"),
         "startDate": MessageLookupByLibrary.simpleMessage("Start"),
         "success": MessageLookupByLibrary.simpleMessage("Success"),
         "time": MessageLookupByLibrary.simpleMessage("Time"),
         "title": MessageLookupByLibrary.simpleMessage("Home"),
         "totalAmount": MessageLookupByLibrary.simpleMessage("Total Amount"),
+        "totalPriceExpenses":
+            MessageLookupByLibrary.simpleMessage("Total Price Expenses"),
+        "totalPriceMaterial":
+            MessageLookupByLibrary.simpleMessage("Total Price Material"),
+        "totalPricePatient":
+            MessageLookupByLibrary.simpleMessage("Total Price Patient"),
         "type": MessageLookupByLibrary.simpleMessage("Type"),
         "updateExpense": MessageLookupByLibrary.simpleMessage("Update Expense"),
+        "value": MessageLookupByLibrary.simpleMessage("Value"),
         "waterBill": MessageLookupByLibrary.simpleMessage("Water bill"),
         "welcome": MessageLookupByLibrary.simpleMessage("Welcome"),
         "wholesalePrice":
-            MessageLookupByLibrary.simpleMessage("Wholesale Price")
+            MessageLookupByLibrary.simpleMessage("Wholesale Price"),
+        "yes": MessageLookupByLibrary.simpleMessage("yes"),
+        "zeroPercent": MessageLookupByLibrary.simpleMessage("0%")
       };
 }

@@ -2,7 +2,7 @@ import 'dart:ffi';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dental_app/core/utlis/helper_function.dart';
-import 'package:dental_app/features/patient/widget/show_add_new_note.dart';
+import 'package:dental_app/features/patien_details/widget/show_add_new_note.dart';
 import 'package:dental_app/features/patient/model/class_session.dart';
 import 'package:dental_app/features/patient/model/patiant_model.dart';
 import 'package:dental_app/generated/l10n.dart';

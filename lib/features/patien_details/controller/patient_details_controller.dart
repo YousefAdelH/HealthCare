@@ -3,16 +3,19 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dental_app/core/utlis/helper_function.dart';
 import 'package:dental_app/core/utlis/styles.dart';
+import 'package:dental_app/features/patien_details/widget_mob/add_new_session_mob.dart';
 import 'package:dental_app/features/patien_details/widget_mob/patient_details_mob.dart';
+import 'package:dental_app/features/patien_details/widget_mob/update_session_mob.dart';
 import 'package:dental_app/features/setting/model/model_operations.dart';
 import 'package:dental_app/features/patien_details/widget/update_add_session.dart';
 import 'package:dental_app/features/patient/model/class_session.dart';
 import 'package:dental_app/features/patient/model/patiant_model.dart';
-import 'package:dental_app/features/patient/widget/show_add_new_note.dart';
+import 'package:dental_app/features/patien_details/widget/show_add_new_note.dart';
 import 'package:dental_app/generated/l10n.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -25,8 +28,12 @@ class PaientDetailsCtrl extends GetxController {
   final CollectionReference membersCollection =
       FirebaseFirestore.instance.collection('patient');
   final TextEditingController idController = TextEditingController();
+  // DateTime? sessionDate;
+  // TimeOfDay? sessionTime;
   DateTime? sessionDate;
   TimeOfDay? sessionTime;
+  var isDateValid = true.obs;
+  var istimeValid = true.obs;
   final TextEditingController sessionNoteController = TextEditingController();
   final TextEditingController sessionPriceController = TextEditingController();
   var sessions = <Session>[].obs;
@@ -81,6 +88,8 @@ class PaientDetailsCtrl extends GetxController {
 // fetch patient id
   void clearPatientData() {
     itemobserval.value = PatientModel();
+
+    // sessions.clear();
   }
 
   void showDeleteSessionDialog(BuildContext context, String sessionId) {
@@ -158,6 +167,9 @@ class PaientDetailsCtrl extends GetxController {
       operations.value = snapshot.docs
           .map((doc) => OperationModel.fromMap(doc.data(), doc.id))
           .toList();
+      if (operations.isNotEmpty && selectedOperation.value == null) {
+        selectedOperation.value = operations.first;
+      }
     });
   }
 
@@ -171,6 +183,10 @@ class PaientDetailsCtrl extends GetxController {
   var isOperations = false.obs;
   void setOperations() {
     isOperations.value = !isOperations.value;
+    if (!isOperations.value) {
+      selectedOperation.value = null;
+    }
+    // selectedOperation.value = OperationModel();
   }
 
   void addSession(BuildContext context, String patientId) async {
@@ -178,11 +194,11 @@ class PaientDetailsCtrl extends GetxController {
     final sessionId = uuid.v4();
     double? priceitems;
 
-    if (selectedOperation.value != null) {
-      priceitems = selectedOperation.value!.price;
+    if (isOperations.value) {
+      priceitems = selectedOperation.value!.price ?? operations.first.price;
       // selectedOperation.value!.numOfTime += 1;
       final operation = selectedOperation.value!;
-      operation.numOfTime += 1;
+      operation.numOfTime = (operation.numOfTime ?? 0) + 1;
       operation.completedDates?.add(
           DateFormat('yyyy-MM-dd', 'en').format(sessionDate ?? DateTime.now()));
 
@@ -194,14 +210,17 @@ class PaientDetailsCtrl extends GetxController {
       // Update operation in Firestore
     }
     final session = Session(
-      operations: (selectedOperation?.value != null)
+      operations: (selectedOperation.value != null &&
+              selectedOperation.value!.name != "No operations available ")
           ? selectedOperation.value!.name
           : "",
       id: sessionId, // Assign the unique ID to the session
       date: DateFormat('yyyy-MM-dd', 'en').format(sessionDate!),
       note: sessionNoteController.text,
       time: sessionTime!.format(context),
-      price: (selectedOperation.value != null)
+      price: (isOperations.value &&
+              selectedOperation.value!.name != "No operations available " &&
+              selectedOperation.value != null)
           ? priceitems!.toStringAsFixed(2)
           : sessionPriceController.text,
     );
@@ -231,8 +250,7 @@ class PaientDetailsCtrl extends GetxController {
       patientData['remainingAmount'] = updateRemainamount;
 
       docRef.update(patientData).then((_) {
-        sessionNoteController.clear();
-        sessionPriceController.clear();
+        clearsession();
         update();
       });
 
@@ -273,12 +291,30 @@ class PaientDetailsCtrl extends GetxController {
 
   void setSessionDate(DateTime date) {
     sessionDate = date;
+    isDateValid.value = true;
     update();
   }
 
   void setSessionTime(TimeOfDay time) {
     sessionTime = time;
+    istimeValid.value = true;
     update();
+  }
+
+  void validateDate() {
+    if (sessionDate == null) {
+      isDateValid.value = false;
+    } else {
+      isDateValid.value = true;
+    }
+  }
+
+  void validateTime() {
+    if (sessionDate == null) {
+      isDateValid.value = false;
+    } else {
+      isDateValid.value = true;
+    }
   }
 
   void showScreenAddSession(BuildContext context1, String id) {
@@ -296,8 +332,11 @@ class PaientDetailsCtrl extends GetxController {
           actions: [
             TextButton(
               onPressed: () {
-                addSession(context1, id);
-                Navigator.of(context).pop();
+                validateDate();
+                if (isDateValid.value && istimeValid.value) {
+                  addSession(context1, id);
+                  Navigator.of(context).pop();
+                }
               },
               child: Text(S.of(context).save),
             ),
@@ -307,7 +346,58 @@ class PaientDetailsCtrl extends GetxController {
     );
   }
 
+  // add session mob/////////////////////
+  void showScreenAddSessionMob(BuildContext context1, String id) {
+    showModalBottomSheet<void>(
+      backgroundColor: AppColors.primary,
+      isScrollControlled: true,
+      context: context1,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(14.r),
+          topRight: Radius.circular(14.r),
+        ),
+      ),
+      builder: (BuildContext context) {
+        return ShowAddNewNoteMob(id: id);
+      },
+    );
+    // showDialog(
+    //   context: context1,
+    //   builder: (context) {
+    //     return AlertDialog(
+    //       backgroundColor: AppColors.primary,
+    //       title: Text(S.of(context).newSession),
+    //       content: SizedBox(
+    //         height: MediaQuery.of(context).size.height,
+    //         width: MediaQuery.of(context).size.width / 2,
+    //         child: ShowAddNewNote(id: id),
+    //       ),
+    //       actions: [
+    //         TextButton(
+    //           onPressed: () {
+    //             addSession(context1, id);
+    //             Navigator.of(context).pop();
+    //           },
+    //           child: Text(S.of(context).save),
+    //         ),
+    //       ],
+    //     );
+    //   },
+    // );
+  }
+
   ////////////////////update session
+  ///
+  void clearsession() {
+    // selectedOperation.value = OperationModel();
+    setOperations();
+    sessionDate = null;
+    sessionTime = null;
+    sessionNoteController.clear();
+    sessionPriceController.clear();
+  }
+
   void initializeSessionData(Session session) {
     sessionDate = DateFormat('yyyy-MM-dd').parse(session.date!);
     sessionTime =
@@ -326,16 +416,32 @@ class PaientDetailsCtrl extends GetxController {
     if (sessionIndex == -1) return;
 
     double? priceitems;
-    if (selectedOperation.value != null) {
-      priceitems = selectedOperation.value!.price;
+    if (isOperations.value) {
+      priceitems = selectedOperation.value!.price ?? operations.first.price;
+      if (isOperations.value) {
+        priceitems = selectedOperation.value!.price ?? operations.first.price;
+        // selectedOperation.value!.numOfTime += 1;
+        final operation = selectedOperation.value!;
+        operation.numOfTime = (operation.numOfTime ?? 0) + 1;
+        operation.completedDates?.add(DateFormat('yyyy-MM-dd', 'en')
+            .format(sessionDate ?? DateTime.now()));
+
+        await _db
+            .collection('operations')
+            .doc(operation.id)
+            .set(operation.toMap());
+
+        // Update operation in Firestore
+      }
     }
 
     final updatedSession = Session(
       operations: selectedOperation.value?.name ?? "",
       id: sessionId,
-      date: DateFormat('yyyy-MM-dd', 'en').format(sessionDate!),
+      date:
+          DateFormat('yyyy-MM-dd', 'en').format(sessionDate ?? DateTime.now()),
       note: sessionNoteController.text,
-      time: sessionTime!.format(context),
+      time: sessionTime!.toString(),
       price: selectedOperation.value != null
           ? priceitems!.toStringAsFixed(2)
           : sessionPriceController.text,
@@ -398,42 +504,119 @@ class PaientDetailsCtrl extends GetxController {
     }
   }
 
-  void showScreenAddOrEditSession(BuildContext context1, String patientId,
+  void showScreenEditSession(BuildContext context1, String patientId,
       {Session? session}) {
-    if (session != null) {
-      initializeSessionData(session);
-    }
+    initializeSessionData(session!);
 
     showDialog(
       context: context1,
       builder: (context) {
-        return AlertDialog(
-          backgroundColor: AppColors.primary,
-          title: Text(session == null
-              ? S.of(context).newSession
-              : S.of(context).editSession),
-          content: SizedBox(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width / 2,
-            child: ShowAddUpdateNewsession(
-              id: patientId,
-              isEditMode: session != null,
-              sessionId: session?.id,
+        return PopScope(
+          onPopInvoked: (didPop) {
+            // clearsession();
+          },
+          child: AlertDialog(
+            backgroundColor: AppColors.primary,
+            title: Text(session == null
+                ? S.of(context).newSession
+                : S.of(context).editSession),
+            content: SizedBox(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width / 2,
+              child: ShowAddUpdateNewsession(
+                id: patientId,
+                sessionId: session?.id,
+              ),
             ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                if (session == null) {
-                  addSession(context1, patientId);
-                } else {
+            actions: [
+              TextButton(
+                onPressed: () async {
+                  bool shouldClearData =
+                      await showClearDataConfirmationDialog(context);
+                  if (shouldClearData) {
+                    clearsession();
+                    Navigator.of(context).pop();
+                  }
+                },
+                child: Text(S.of(context).close),
+              ),
+              TextButton(
+                onPressed: () {
                   updateSession(context1, patientId, session.id!);
-                }
-                Navigator.of(context).pop();
-              },
-              child: Text(S.of(context).save),
-            ),
-          ],
+
+                  Navigator.of(context).pop();
+                },
+                child: Text(S.of(context).save),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Future<bool> showClearDataConfirmationDialog(BuildContext context) async {
+    return await showDialog<bool>(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text(S.of(context).confirm),
+              content: Text(S.of(context).Doyouwanttosavethechanges),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(true); // Clear data
+                  },
+                  child: Text(S.of(context).no),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(false); // Do not clear data
+                  },
+                  child: Text(S.of(context).yes),
+                ),
+              ],
+            );
+          },
+        ) ??
+        false; // Return false if dialog is dismissed without selection
+  }
+// add or update session mob //////////////////
+  // showBottomSheet(BuildContext context, Widget bottomSheet) {
+  //   return showModalBottomSheet<void>(
+  //     backgroundColor: AppColors.bottomSheetGrey,
+  //     isScrollControlled: true,
+  //     context: context,
+  //     shape: RoundedRectangleBorder(
+  //       borderRadius: BorderRadius.only(
+  //         topLeft: Radius.circular(14.r),
+  //         topRight: Radius.circular(14.r),
+  //       ),
+  //     ),
+  //     builder: (BuildContext context) {
+  //       return bottomSheet;
+  //     },
+  //   );
+  // }
+
+  void showScreenAddOrEditSessionMob(BuildContext context1, String patientId,
+      {Session? session}) {
+    if (session != null) {
+      initializeSessionData(session);
+    }
+    showModalBottomSheet<void>(
+      backgroundColor: AppColors.primary,
+      isScrollControlled: true,
+      context: context1,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(14.r),
+          topRight: Radius.circular(14.r),
+        ),
+      ),
+      builder: (BuildContext context) {
+        return ShowAddNewNoteMob(
+          id: patientId,
         );
       },
     );

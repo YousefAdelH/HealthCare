@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:dental_app/features/home/widget/home_view.dart';
+import 'package:dental_app/features/home/widget_mobile/home_view.dart';
+import 'package:dental_app/features/main/mobile_widget/main_mobile.dart';
 import 'package:dental_app/features/main/widget/main_view.dart';
 import 'package:dental_app/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -38,7 +42,11 @@ class AuthCtrl extends GetxController {
         }
         controllerPassword.clear();
         controllerEmail.clear();
-        Get.offAll(() => HomeView());
+        if (Platform.isAndroid || Platform.isIOS) {
+          Get.offAll(() => HomeViewMobile());
+        } else {
+          Get.offAll(() => HomeView());
+        }
       } else {
         // Handling case where user is null (should not happen with correct credentials)
         ScaffoldMessenger.of(context).showSnackBar(
@@ -63,6 +71,10 @@ class AuthCtrl extends GetxController {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await auth.signOut();
     await prefs.setBool('isDeviceRegistered', false);
-    Get.offAll(() => MainView());
+    if (Platform.isAndroid || Platform.isIOS) {
+      Get.offAll(() => MainViewMobile());
+    } else {
+      Get.offAll(() => MainView());
+    }
   }
 }

@@ -6,6 +6,7 @@ import 'package:dental_app/features/patient/widget/user_info.dart';
 import 'package:dental_app/features/store/controller/store_controller.dart';
 import 'package:dental_app/features/store/model/material_model.dart';
 import 'package:dental_app/features/store/widget/add_material_screen.dart';
+import 'package:dental_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -79,16 +80,17 @@ class CardMaterial extends StatelessWidget {
                                       width: 80.w,
                                     ),
                                     UserInfo(
-                                      subtitle: "quantity",
+                                      subtitle: S.of(context).quantity,
                                       title:
                                           material.quantity.toStringAsFixed(2),
-                                      icone: Icon(Icons.person),
+                                      icone: Icon(
+                                          Icons.production_quantity_limits),
                                     ),
                                     UserInfo(
-                                      subtitle: "expirationDate",
+                                      subtitle: S.of(context).expirationDate,
                                       title: HelperFunction.formatDate(
                                           material.expirationDate),
-                                      icone: Icon(Icons.person),
+                                      icone: Icon(Icons.date_range_sharp),
                                     ),
                                     materialExpirationDate.isBefore(
                                             DateTime.now()
@@ -106,18 +108,18 @@ class CardMaterial extends StatelessWidget {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     UserInfo(
-                                      subtitle: "wholesale Price",
+                                      subtitle: S.of(context).wholesalePrice,
                                       title: " ${material.wholesalePrice}",
                                       icone: Icon(Icons.money),
                                     ),
                                     UserInfo(
-                                      subtitle: "selling Price",
+                                      subtitle: S.of(context).sellingPrice,
                                       title: material.sellingPrice
                                           .toStringAsFixed(2),
                                       icone: Icon(Icons.money),
                                     ),
                                     UserInfo(
-                                      subtitle: "Gain Price",
+                                      subtitle: S.of(context).gainPrice,
                                       title:
                                           material.gainPrice.toStringAsFixed(2),
                                       icone: Icon(Icons.money_off_rounded),
@@ -133,7 +135,8 @@ class CardMaterial extends StatelessWidget {
                           icon: Icon(Icons.remove),
                           onPressed: () {
                             if (material.quantity > 0) {
-                              con.adjustQuantity(material.id, 1, false);
+                              con.adjustQuantity(material.id, 1, false,
+                                  material.wholesalePrice.toStringAsFixed(2));
                             }
                           },
                         ),

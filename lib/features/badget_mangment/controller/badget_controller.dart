@@ -19,6 +19,7 @@ class BadgetCtrl extends GetxController {
   var totalpatientprice = 0.0.obs;
   var totalExpensesPrice = 0.0.obs;
   var totalTransactionPrice = 0.0.obs;
+  var totalSum = 0.0.obs;
   RxList<FlSpot> totalPatients = <FlSpot>[].obs;
   RxList<FlSpot> totalExpenses = <FlSpot>[].obs;
   RxList<FlSpot> totalMaterial = <FlSpot>[].obs;
@@ -66,6 +67,10 @@ class BadgetCtrl extends GetxController {
     }).toList();
   }
 
+  double parseDouble(String value) {
+    return double.tryParse(value) ?? 0.0;
+  }
+
   Future<double> getTotalPriceWithinDateRangeForAllTransactions(
       DateTime startDate, DateTime endDate) async {
     List<MaterialTransaction> transactions = await getAllTransactions();
@@ -78,8 +83,8 @@ class BadgetCtrl extends GetxController {
           transaction.date.isBefore(
               DateTime(endDate.year, endDate.month, endDate.day)
                   .add(Duration(days: 1)))) {
-        totalPrice += transaction.quantity *
-            (await getMaterial(transaction.materialId)).wholesalePrice;
+        totalPrice +=
+            transaction.quantity * parseDouble(transaction.wholesalePrice);
       }
     }
 
@@ -145,6 +150,7 @@ class BadgetCtrl extends GetxController {
     }
   }
 
+  var isLoading = false.obs;
   Future<void> calculateNetProfit(DateTime startDate, DateTime endDate) async {
     totalpatientprice.value =
         await getTotalPriceWithinDateRangeForAllPatients(startDate, endDate);
@@ -158,6 +164,13 @@ class BadgetCtrl extends GetxController {
         (totalExpensesPrice.value + totalTransactionPrice.value);
     netProfit.value = netprofit;
     print("Net Profit: $netprofit");
+    totalSum.value = totalpatientprice.value +
+        totalExpensesPrice.value +
+        totalTransactionPrice.value +
+        netProfit.value;
+    isLoading.value = false;
+    // Helper function to calculate percentage
+
     // totalPatients.value =
     //     generateSpotsForMonth(startDate, endDate, totalpatientprice.value);
     // totalExpenses.value =
@@ -169,19 +182,24 @@ class BadgetCtrl extends GetxController {
     // print(totalMaterial.value);
   }
 
+  String calculatePercentage(double value) {
+    if (totalSum.value == 0) return '0%';
+    return '${((value / totalSum.value) * 100).toStringAsFixed(1)}%';
+  }
+
   void showScreenFilter(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
           backgroundColor: AppColors.whiteFE,
-          title: Text(S.of(context).newSession),
+          title: Text(S.of(context).selectDate),
           content: SizedBox(
             height: MediaQuery.of(context).size.height /
-                2, // Adjusted height to fit content
-            width: MediaQuery.of(context).size.width / 2,
+                3, // Adjusted height to fit content
+            width: MediaQuery.of(context).size.width / 1.2,
             child: Obx(() {
-              return Row(
+              return Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -249,6 +267,7 @@ class BadgetCtrl extends GetxController {
               onPressed: () {
                 if (startdate.value != null && enddate.value != null) {
                   calculateNetProfit(startdate.value!, enddate.value!);
+                  isLoading.value = true;
                 }
                 Navigator.of(context).pop();
                 enddate.value = null;

@@ -18,6 +18,7 @@ class AddNewExpences extends StatelessWidget {
     return GetBuilder<ExpenseController>(
       init: ExpenseController(),
       builder: (con) {
+        con.clearControllers();
         if (expense != null) {
           con.expensesname.value = expense!.name;
           con.expensesdate.value = DateTime.parse(expense!.date);

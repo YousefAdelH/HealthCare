@@ -29,10 +29,6 @@ class AddNewPatientMob extends StatelessWidget {
               ),
               Scaffold(
                 backgroundColor: Colors.transparent,
-                appBar: AppBar(
-                  backgroundColor: Colors.transparent,
-                  title: const Text(AppStrings.patient),
-                ),
                 body: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
@@ -46,8 +42,8 @@ class AddNewPatientMob extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     SizedBox(
-                                      width:
-                                          MediaQuery.of(context).size.width / 4,
+                                      width: MediaQuery.of(context).size.width /
+                                          1.2,
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: CustomTextFormField(
@@ -72,8 +68,8 @@ class AddNewPatientMob extends StatelessWidget {
                                       ),
                                     ),
                                     SizedBox(
-                                      width:
-                                          MediaQuery.of(context).size.width / 3,
+                                      width: MediaQuery.of(context).size.width /
+                                          1.2,
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: CustomTextFormField(
@@ -141,7 +137,7 @@ class AddNewPatientMob extends StatelessWidget {
                                     ),
                                     SizedBox(
                                       width:
-                                          MediaQuery.of(context).size.width / 4,
+                                          MediaQuery.of(context).size.width / 3,
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: CustomTextFormField(
@@ -168,8 +164,8 @@ class AddNewPatientMob extends StatelessWidget {
                                       ),
                                     ),
                                     SizedBox(
-                                      width:
-                                          MediaQuery.of(context).size.width / 4,
+                                      width: MediaQuery.of(context).size.width /
+                                          1.2,
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: CustomTextFormField(
@@ -194,8 +190,7 @@ class AddNewPatientMob extends StatelessWidget {
                                       ),
                                     ),
                                     SizedBox(
-                                      width: MediaQuery.of(context).size.width /
-                                          2.5,
+                                      width: MediaQuery.of(context).size.width,
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: CustomTextFormField(
@@ -210,7 +205,7 @@ class AddNewPatientMob extends StatelessWidget {
                                     ),
                                     SizedBox(
                                       width:
-                                          MediaQuery.of(context).size.width / 4,
+                                          MediaQuery.of(context).size.width / 2,
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: CustomTextFormField(
@@ -236,7 +231,7 @@ class AddNewPatientMob extends StatelessWidget {
                                     ),
                                     SizedBox(
                                       width:
-                                          MediaQuery.of(context).size.width / 4,
+                                          MediaQuery.of(context).size.width / 2,
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: CustomTextFormField(
