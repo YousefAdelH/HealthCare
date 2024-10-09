@@ -34,7 +34,6 @@ The clinic management program is the ideal solution for dentists seeking to mana
    <img src="assets/img/1.png" alt="Screenshot 1" width="100">
     <img src="assets/img/2.png" alt="Screenshot 2" width="100">
     <img src="assets/img//33.png" alt="Screenshot 3" width="100">
-   
     <img src="assets/img/6.png" alt="Screenshot 6" width="100">
     <img src="assets/img/7.png" alt="Screenshot 7" width="100">
     <img src="assets/img/8.png" alt="Screenshot 8" width="100">
