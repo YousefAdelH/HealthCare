@@ -41,6 +41,14 @@ The clinic management program is the ideal solution for dentists seeking to mana
      <img src="assets/img/4.png" alt="Screenshot 4" width="300",>
     <img src="assets/img/5.png" alt="Screenshot 5" width="300">
     
+
+
+https://github.com/user-attachments/assets/d26dc292-5234-4641-9745-9c27fde1cfb5
+
+
+https://github.com/user-attachments/assets/2cf77f5f-bc79-4c9d-beb1-d830e33a3ec9
+
+
   <!-- Add more screenshots... -->
 </p>
 
