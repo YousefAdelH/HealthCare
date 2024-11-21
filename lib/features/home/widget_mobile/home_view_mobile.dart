@@ -12,10 +12,10 @@ import 'package:dental_app/features/expences/widget_mob/add_expenses_mob.dart';
 import 'package:dental_app/features/expences/widget_mob/expenses_screen_mob.dart';
 import 'package:dental_app/features/home/controller/home_controller.dart';
 import 'package:dental_app/features/home/controller/operation_controller.dart';
+import 'package:dental_app/features/home/widget/home_screen.dart';
 import 'package:dental_app/features/home/widget_mobile/home_screen.dart';
 import 'package:dental_app/features/patient/mobile_widget/add_patient_mob.dart';
 import 'package:dental_app/features/patient/mobile_widget/all_patient_mobile.dart';
-import 'package:dental_app/features/setting/widget/setting_screen.dart';
 import 'package:dental_app/features/setting/widget_mob/setting_mob.dart';
 import 'package:dental_app/features/store/widget/add_material_screen.dart';
 import 'package:dental_app/features/store/widget/strore_screen.dart';
@@ -266,7 +266,7 @@ class _ScreensExample extends StatelessWidget {
       builder: (context, child) {
         switch (controller.selectedIndex) {
           case 0:
-            return HomeScreenMobile();
+            return HomeScreen();
           case 1:
             return Stack(children: [
               Navigator(

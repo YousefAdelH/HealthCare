@@ -73,7 +73,7 @@ class CardExpences extends StatelessWidget {
                                     children: [
                                       InkWellCustom(
                                         onTap: () {
-                                          con.deleteExpense(expensesItem.id);
+                                          con.deleteExpense( context,expensesItem.id);
                                         },
                                         child: const SizedBox(
                                           child: Icon(Icons.delete),

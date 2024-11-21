@@ -4,6 +4,7 @@ import 'package:dental_app/common/inkwell_.dart';
 import 'package:dental_app/core/utlis/assets_paths.dart';
 import 'package:dental_app/core/utlis/styles.dart';
 import 'package:dental_app/features/badget_mangment/controller/badget_controller.dart';
+import 'package:dental_app/features/badget_mangment/controller/new_controller.dart';
 import 'package:dental_app/generated/l10n.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';

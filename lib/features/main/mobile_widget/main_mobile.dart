@@ -2,7 +2,7 @@ import 'package:dental_app/common/custom_text.dart';
 import 'package:dental_app/common/inkwell_.dart';
 import 'package:dental_app/core/utlis/assets_paths.dart';
 import 'package:dental_app/core/utlis/styles.dart';
-import 'package:dental_app/features/home/widget_mobile/home_view.dart';
+import 'package:dental_app/features/home/widget_mobile/home_view_mobile.dart';
 import 'package:dental_app/features/main/comtroller/main_controller.dart';
 import 'package:dental_app/features/main/widget/tab_bar_item.dart';
 import 'package:dental_app/features/setting/controller/setting_controller.dart';

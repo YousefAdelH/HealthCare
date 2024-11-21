@@ -2,8 +2,11 @@ import 'package:dental_app/common/custom_text.dart';
 import 'package:dental_app/common/custom_text_form_field.dart';
 import 'package:dental_app/core/utlis/app_string.dart';
 import 'package:dental_app/core/utlis/assets_paths.dart';
+import 'package:dental_app/core/utlis/helper_function.dart';
 import 'package:dental_app/core/utlis/styles.dart';
 import 'package:dental_app/features/patien_details/controller/patient_details_controller.dart';
+import 'package:dental_app/features/patien_details/widget/all_medical_history.dart';
+import 'package:dental_app/features/patien_details/widget/display_image_and_upload.dart';
 import 'package:dental_app/features/patien_details/widget_mob/tap_bar_patient_details.dart';
 import 'package:dental_app/features/patien_details/widget/section_add_note.dart';
 import 'package:dental_app/features/patient/widget/user_info.dart';
@@ -203,15 +206,11 @@ class patientInfoDetails extends StatelessWidget {
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: CustomTextFormField(
-                                      validate: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return S
-                                              .of(context)
-                                              .pleaseEnterNumber;
-                                        }
-
-                                        return null;
-                                      },
+                                      validate: (value) =>
+                                          FormValidators.validateNumber(
+                                        value,
+                                        S.of(context).pleaseEnterValidNumber,
+                                      ),
                                       label: S.of(context).patientCode,
                                       controller: con.codeController,
 
@@ -317,15 +316,11 @@ class patientInfoDetails extends StatelessWidget {
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: CustomTextFormField(
-                                      validate: (value) {
-                                        if (!RegExp(r'^[0-9]+$')
-                                            .hasMatch(value)) {
-                                          return S
-                                              .of(context)
-                                              .pleaseEnterValidNumber;
-                                        }
-                                        return null;
-                                      },
+                                      validate: (value) =>
+                                          FormValidators.validateNumber(
+                                        value,
+                                        S.of(context).pleaseEnterValidNumber,
+                                      ),
                                       label: S.of(context).age,
                                       controller: con.ageController,
 
@@ -348,191 +343,28 @@ class patientInfoDetails extends StatelessWidget {
                                     padding: const EdgeInsets.all(8.0),
                                     child: CustomTextFormField(
                                       textInputType: TextInputType.number,
-                                      validate: (value) {
-                                        if (!RegExp(r'^[0-9]+$')
-                                            .hasMatch(value)) {
-                                          return S
-                                              .of(context)
-                                              .pleaseEnterValidNumber;
-                                        }
-                                        return null;
-                                      },
+                                      validate: (value) =>
+                                          FormValidators.validateNumber(
+                                        value,
+                                        S.of(context).pleaseEnterValidNumber,
+                                      ),
                                       controller: con.numberController,
                                       label: AppStrings.number,
                                     ),
                                   ),
                                 ),
                           ////////////////////medical hostory ///////////
-                          (con.isEdit.value)
-                              ? UserInfo(
-                                  subtitle: S.of(context).medicalHistory,
-                                  title:
-                                      con.itemobserval.value.medicalhistory ??
-                                          "",
-                                  icone: const Icon(Icons.text_fields),
-                                )
-                              : SizedBox(
-                                  width: MediaQuery.of(context).size.width,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: CustomTextFormField(
-                                      maxLines: 10,
 
-                                      controller: con.medicalController,
-                                      label: S.of(context).medicalHistory,
-                                      // decoration: const InputDecoration(
-                                      //     labelText: AppStrings.number),
-                                    ),
-                                  ),
-                                ),
+                          SizedBox(
+                            height: 20.h,
+                          ),
+                          AllmedicalHistory(con: con),
 
                           SizedBox(
                             height: 50.h,
                           ),
-                          Column(
-                            children: [
-                              ////////////////////total amount ///////////
-                              (con.isEdit.value)
-                                  ? UserInfo(
-                                      subtitle: S.of(context).totalAmount,
-                                      title:
-                                          con.itemobserval.value.totalPrice ??
-                                              "",
-                                      icone: const Icon(Icons.attach_money),
-                                    )
-                                  : SizedBox(
-                                      height: 80.h,
-                                      width:
-                                          MediaQuery.of(context).size.width / 3,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: CustomTextFormField(
-                                          textInputType: TextInputType.number,
-                                          validate: (value) {
-                                            if (!RegExp(r'^[0-9]+$')
-                                                .hasMatch(value)) {
-                                              return S
-                                                  .of(context)
-                                                  .pleaseEnterValidNumber;
-                                            }
-                                            return null;
-                                          },
-                                          label: S.of(context).totalAmount,
-                                          controller: con.totalpriceController,
-                                          // decoration: const InputDecoration(
-                                          //     labelText: AppStrings.totalAmount),
-                                        ),
-                                      ),
-                                    ),
-                              ////////////////////total amount ///////////
-                              (con.isEdit.value)
-                                  ? UserInfo(
-                                      subtitle: S.of(context).amountPaid,
-                                      title:
-                                          con.itemobserval.value.amountPaid ??
-                                              "",
-                                      icone: const Icon(Icons.money_off),
-                                    )
-                                  : SizedBox(
-                                      height: 80.h,
-                                      width:
-                                          MediaQuery.of(context).size.width / 3,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: CustomTextFormField(
-                                          textInputType: TextInputType.number,
-                                          label: S.of(context).amountPaid,
-                                          controller: con.amountController,
-                                          validate: (value) {
-                                            if (!RegExp(r'^[0-9]+$')
-                                                .hasMatch(value)) {
-                                              return S
-                                                  .of(context)
-                                                  .pleaseEnterValidNumber;
-                                            }
-                                            return null;
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                              SizedBox(
-                                height: 80.h,
-                                child: UserInfo(
-                                  subtitle: S.of(context).remainingAmount,
-                                  title:
-                                      con.itemobserval.value.remainingAmount ??
-                                          "",
-                                  icone: const Icon(Icons.attach_money),
-                                ),
-                              ),
-                              // IconButton(
-                              //   icon: const Icon(Icons.upload_file),
-                              //   onPressed: () => con.uploadImage(),
-                              // ),
-                              // Padding(
-                              //   padding: const EdgeInsets.all(20.0),
-                              //   child: Column(
-                              //     crossAxisAlignment:
-                              //         CrossAxisAlignment.start,
-                              //     children: [
-                              //       // Existing fields...
-
-                              //       const SizedBox(height: 20),
-                              //       const Text('Uploaded Images:',
-                              //           style:
-                              //               TextStyle(fontSize: 18)),
-                              //       GridView.builder(
-                              //         shrinkWrap: true,
-                              //         physics:
-                              //             const NeverScrollableScrollPhysics(),
-                              //         gridDelegate:
-                              //             const SliverGridDelegateWithFixedCrossAxisCount(
-                              //           crossAxisCount: 3,
-                              //           crossAxisSpacing: 10,
-                              //           mainAxisSpacing: 10,
-                              //         ),
-                              //         itemCount: con.images.length,
-                              //         itemBuilder: (context, index) {
-                              //           return GestureDetector(
-                              //             onTap: () {
-                              //               showDialog(
-                              //                 context: context,
-                              //                 builder: (_) => Dialog(
-                              //                   child: Column(
-                              //                     mainAxisSize:
-                              //                         MainAxisSize
-                              //                             .min,
-                              //                     children: [
-                              //                       Image.network(
-                              //                           con.images[
-                              //                               index]),
-                              //                       TextButton(
-                              //                         onPressed: () {
-                              //                           Navigator.of(
-                              //                                   context)
-                              //                               .pop();
-                              //                         },
-                              //                         child:
-                              //                             const Text(
-                              //                                 'Close'),
-                              //                       ),
-                              //                     ],
-                              //                   ),
-                              //                 ),
-                              //               );
-                              //             },
-                              //             child: Image.network(
-                              //               con.images[index],
-                              //               fit: BoxFit.cover,
-                              //             ),
-                              //           );
-                              //         },
-                              //       ),
-                              //     ],
-                              //   ),
-                              // )
-                            ],
-                          ),
+                          Manage_amount(con: con),
+                          UploadImageAndDisplay(con: con)
                         ],
                       ),
                     );
@@ -543,6 +375,79 @@ class patientInfoDetails extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class Manage_amount extends StatelessWidget {
+  const Manage_amount({
+    super.key,
+    required this.con,
+  });
+
+  final PaientDetailsCtrl con;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ////////////////////total amount ///////////
+        (con.isEdit.value)
+            ? UserInfo(
+                subtitle: S.of(context).totalAmount,
+                title: con.itemobserval.value.totalPrice ?? "",
+                icone: const Icon(Icons.attach_money),
+              )
+            : SizedBox(
+                height: 80.h,
+                width: MediaQuery.of(context).size.width / 3,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CustomTextFormField(
+                    textInputType: TextInputType.number,
+                    validate: (value) => FormValidators.validateNumber(
+                      value,
+                      S.of(context).pleaseEnterValidNumber,
+                    ),
+                    label: S.of(context).totalAmount,
+                    controller: con.totalpriceController,
+                    // decoration: const InputDecoration(
+                    //     labelText: AppStrings.totalAmount),
+                  ),
+                ),
+              ),
+        ////////////////////total amount ///////////
+        (con.isEdit.value)
+            ? UserInfo(
+                subtitle: S.of(context).amountPaid,
+                title: con.itemobserval.value.amountPaid ?? "",
+                icone: const Icon(Icons.money_off),
+              )
+            : SizedBox(
+                height: 80.h,
+                width: MediaQuery.of(context).size.width / 3,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CustomTextFormField(
+                    textInputType: TextInputType.number,
+                    label: S.of(context).amountPaid,
+                    controller: con.amountController,
+                    validate: (value) => FormValidators.validateNumber(
+                      value,
+                      S.of(context).pleaseEnterValidNumber,
+                    ),
+                  ),
+                ),
+              ),
+        SizedBox(
+          height: 80.h,
+          child: UserInfo(
+            subtitle: S.of(context).remainingAmount,
+            title: con.itemobserval.value.remainingAmount ?? "",
+            icone: const Icon(Icons.attach_money),
+          ),
+        ),
+      ],
     );
   }
 }

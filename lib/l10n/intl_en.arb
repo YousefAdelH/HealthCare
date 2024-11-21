@@ -119,5 +119,12 @@
   "totalPricePatient": "Total Price Patient",
   "value": "Value",
   "description": "Description",
-  "selectBudgetPeriod": "Select a period for the budget"
+  "selectBudgetPeriod": "Select a period for the budget",
+  "Prescription": "Prescription",
+  "DownloadPrescription": "Save & Download Prescription",
+  "habits": "Habits",
+  "surgicalHistory": "Surgical History",
+  "lab": "Lab",
+  "diagnosis": "Diagnosis",
+  "notes": "Notes"
 }

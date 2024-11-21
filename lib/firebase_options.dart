@@ -42,18 +42,18 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyANiAXLDuZDnk_IVGq8npfmZSWGQ9Xsm88',
-    appId: '1:369573824652:web:758f6d8382465e1b1293a9',
+    appId: '1:369573824652:web:570f40c6caca34411293a9',
     messagingSenderId: '369573824652',
     projectId: 'dental-79d1b',
     authDomain: 'dental-79d1b.firebaseapp.com',
     databaseURL: 'https://dental-79d1b-default-rtdb.firebaseio.com',
     storageBucket: 'dental-79d1b.appspot.com',
-    measurementId: 'G-RPE4PVP83F',
+    measurementId: 'G-57TLVB6CF0',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyD97s2BeRilF-F0jPJAFVH_K_XdYFOetqk',
-    appId: '1:369573824652:android:9bf29cca5de171501293a9',
+    appId: '1:369573824652:android:d330489f3d6903bd1293a9',
     messagingSenderId: '369573824652',
     projectId: 'dental-79d1b',
     databaseURL: 'https://dental-79d1b-default-rtdb.firebaseio.com',
@@ -82,12 +82,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions windows = FirebaseOptions(
     apiKey: 'AIzaSyANiAXLDuZDnk_IVGq8npfmZSWGQ9Xsm88',
-    appId: '1:369573824652:web:b3b43de2f20ee05c1293a9',
+    appId: '1:369573824652:web:a50821904dbc39f01293a9',
     messagingSenderId: '369573824652',
     projectId: 'dental-79d1b',
     authDomain: 'dental-79d1b.firebaseapp.com',
     databaseURL: 'https://dental-79d1b-default-rtdb.firebaseio.com',
     storageBucket: 'dental-79d1b.appspot.com',
-    measurementId: 'G-H58YY5H3B7',
+    measurementId: 'G-6RBQSJVBMW',
   );
 }

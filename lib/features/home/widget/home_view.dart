@@ -232,11 +232,11 @@ class _ScreensExample extends StatelessWidget {
     Key? key,
     required this.controller,
   }) : super(key: key);
-  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-  final GlobalKey<NavigatorState> navigatorKey2 = GlobalKey<NavigatorState>();
-  final GlobalKey<NavigatorState> navigatorKey3 = GlobalKey<NavigatorState>();
-  final GlobalKey<NavigatorState> navigatorKey4 = GlobalKey<NavigatorState>();
-  final SidebarXController controller;
+  GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+  GlobalKey<NavigatorState> navigatorKey2 = GlobalKey<NavigatorState>();
+  GlobalKey<NavigatorState> navigatorKey3 = GlobalKey<NavigatorState>();
+  GlobalKey<NavigatorState> navigatorKey4 = GlobalKey<NavigatorState>();
+  SidebarXController controller;
 
   @override
   Widget build(BuildContext context) {

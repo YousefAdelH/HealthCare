@@ -1,6 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dental_app/features/patient/model/class_session.dart';
-import 'package:get/get.dart';
 
 class PatientModel {
   String? id;
@@ -10,13 +8,17 @@ class PatientModel {
   String? totalPrice;
   String? amountPaid;
   String? remainingAmount;
-  String? gender; // New field for gender
+  String? gender;
   String? age;
+  String? habits;
+  String? surgicalhistory;
+  String? notes;
+  String? diagnosis;
+  String? lab;
   String? medicalhistory;
   List<Session>? session;
   Session? selectedSession;
   List<String>? images;
-
   PatientModel({
     this.id,
     this.name,
@@ -31,6 +33,11 @@ class PatientModel {
     this.session,
     this.selectedSession,
     this.images,
+    this.habits,
+    this.surgicalhistory,
+    this.notes,
+    this.diagnosis,
+    this.lab,
   });
 
   Map<String, dynamic> toJson() {
@@ -44,9 +51,14 @@ class PatientModel {
       'remainingAmount': remainingAmount ?? "0",
       'gender': gender,
       'age': age,
+      'habits': habits,
+      'surgicalhistory': surgicalhistory,
+      'notes': notes,
+      'diagnosis': diagnosis,
+      'lab': lab,
       'medicalhistory': medicalhistory,
       'session': session?.map((session) => session.toJson()).toList(),
-      'images': images ?? [],
+      'imageUrls': images ?? [],
     };
   }
 
@@ -83,24 +95,30 @@ class PatientModel {
 
     //     sessionsFromJson.map((i) => Session.fromJson(i)).toList() as ;
     return PatientModel(
-        id: json['id'] ?? "",
-        name: json['name'] ?? "",
-        code: json['code'] ?? "",
-        number: json['number'] ?? "",
-        totalPrice: json['totalPrice'] ?? "",
-        amountPaid: json['amountPaid'] ?? "",
-        remainingAmount: json['remainingAmount'] ?? "",
-        gender: json['gender'] ?? "", // Parse new field
-        age: json['age'] ?? "", // Parse new field
-        medicalhistory: json['medicalhistory'] ?? "",
-        images: json['images'] != null
-            ? List<String>.from(json['images'])
-            : [], // Parse new field // Parse new field
-        session: json['session'] != null
-            ? (json['session'] as List<dynamic>)
-                .map((item) => Session.fromJson(item))
-                .toList()
-            : []);
+      id: json['id'] ?? "",
+      name: json['name'] ?? "",
+      code: json['code'] ?? "",
+      number: json['number'] ?? "",
+      totalPrice: json['totalPrice'] ?? "",
+      amountPaid: json['amountPaid'] ?? "",
+      remainingAmount: json['remainingAmount'] ?? "",
+      gender: json['gender'] ?? "", // Parse new field
+      age: json['age'] ?? "", // Parse new field
+      habits: json['habits'] ?? "",
+      surgicalhistory: json['surgicalhistory'] ?? "",
+      notes: json['notes'] ?? "",
+      diagnosis: json['diagnosis'] ?? "",
+      lab: json['lab'] ?? "",
+      medicalhistory: json['medicalhistory'] ?? "",
+      images:
+          json['imageUrls'] != null ? List<String>.from(json['imageUrls']) : [],
+      // Parse new field // Parse new field
+      session: json['session'] != null
+          ? (json['session'] as List<dynamic>)
+              .map((item) => Session.fromJson(item))
+              .toList()
+          : [],
+    );
   }
   PatientModel copyWithSelectedSession(Session selectedSession) {
     return PatientModel(
@@ -112,6 +130,11 @@ class PatientModel {
       remainingAmount: remainingAmount,
       totalPrice: totalPrice,
       age: age,
+      habits: habits,
+      surgicalhistory: surgicalhistory,
+      notes: notes,
+      diagnosis: diagnosis,
+      lab: lab,
       gender: gender,
       medicalhistory: medicalhistory,
       session: session,

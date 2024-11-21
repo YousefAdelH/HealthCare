@@ -25,15 +25,18 @@ class StroreScreen extends StatelessWidget {
         final materials = materialController.materials;
         return Padding(
           padding: const EdgeInsets.all(20.0),
-          child: ListView.builder(
-            itemCount: materials.length,
-            itemBuilder: (context, index) {
-              if (isMobile()) {
-                return CardMaterialMob(material: materials[index]);
-              } else {
-                return CardMaterial(material: materials[index]);
-              }
-            },
+          child: SizedBox(
+            // width: MediaQuery.of(context).size.width / 0.2,
+            child: ListView.builder(
+              itemCount: materials.length,
+              itemBuilder: (context, index) {
+                if (isMobile()) {
+                  return CardMaterialMob(material: materials[index]);
+                } else {
+                  return CardMaterial(material: materials[index]);
+                }
+              },
+            ),
           ),
         );
       }),

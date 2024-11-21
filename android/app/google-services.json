@@ -8,28 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:369573824652:android:9bf29cca5de171501293a9",
+        "mobilesdk_app_id": "1:369573824652:android:45226518021e31921293a9",
         "android_client_info": {
-          "package_name": "com.example.dental_app"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyD97s2BeRilF-F0jPJAFVH_K_XdYFOetqk"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:369573824652:android:321bcc76141589871293a9",
-        "android_client_info": {
-          "package_name": "com.example.flutter_project"
+          "package_name": "com.healthcare.healthcarecl"
         }
       },
       "oauth_client": [],

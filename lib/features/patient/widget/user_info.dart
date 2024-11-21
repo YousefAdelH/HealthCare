@@ -42,6 +42,7 @@ class UserInfo extends StatelessWidget {
           CustomText(
             text: title,
             size: 14.sp,
+            overflow: TextOverflow.ellipsis,
             fontWeight: FontWeight.w400,
             color: AppColors.blueA1,
             underLineColor: AppColors.whiteff,

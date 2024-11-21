@@ -22,8 +22,11 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "DownloadPrescription": MessageLookupByLibrary.simpleMessage(
+            "Save & Download Prescription"),
         "Doyouwanttosavethechanges": MessageLookupByLibrary.simpleMessage(
             "Do you want to save the changes?"),
+        "Prescription": MessageLookupByLibrary.simpleMessage("Prescription"),
         "addExpense": MessageLookupByLibrary.simpleMessage("Add Expense"),
         "addNewSession":
             MessageLookupByLibrary.simpleMessage("Add New Session"),
@@ -50,6 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "deleteSessionConfirmation": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to permanently delete this session?"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
+        "diagnosis": MessageLookupByLibrary.simpleMessage("Diagnosis"),
         "discardChanges":
             MessageLookupByLibrary.simpleMessage("discardChanges"),
         "editExpense": MessageLookupByLibrary.simpleMessage("Edit Expense"),
@@ -72,10 +76,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Filter Expenses"),
         "gainPrice": MessageLookupByLibrary.simpleMessage("Gain Price"),
         "gender": MessageLookupByLibrary.simpleMessage("Gender"),
+        "habits": MessageLookupByLibrary.simpleMessage("Habits"),
         "hello": MessageLookupByLibrary.simpleMessage("Hello"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "invalidEmail": MessageLookupByLibrary.simpleMessage("Invalid email"),
         "inventory": MessageLookupByLibrary.simpleMessage("Inventory"),
+        "lab": MessageLookupByLibrary.simpleMessage("Lab"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "logout": MessageLookupByLibrary.simpleMessage("logout"),
         "male": MessageLookupByLibrary.simpleMessage("Male"),
@@ -97,6 +103,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No sessions available"),
         "notFoundPage": MessageLookupByLibrary.simpleMessage("Not found page"),
         "note": MessageLookupByLibrary.simpleMessage("note"),
+        "notes": MessageLookupByLibrary.simpleMessage("Notes"),
         "number": MessageLookupByLibrary.simpleMessage("Number"),
         "other": MessageLookupByLibrary.simpleMessage("Other"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
@@ -165,6 +172,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Special for adding procedures"),
         "startDate": MessageLookupByLibrary.simpleMessage("Start"),
         "success": MessageLookupByLibrary.simpleMessage("Success"),
+        "surgicalHistory":
+            MessageLookupByLibrary.simpleMessage("Surgical History"),
         "time": MessageLookupByLibrary.simpleMessage("Time"),
         "title": MessageLookupByLibrary.simpleMessage("Home"),
         "totalAmount": MessageLookupByLibrary.simpleMessage("Total Amount"),

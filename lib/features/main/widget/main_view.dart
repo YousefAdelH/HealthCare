@@ -1,6 +1,8 @@
 import 'package:dental_app/common/custom_text.dart';
+import 'package:dental_app/common/inkwell_.dart';
 import 'package:dental_app/core/utlis/assets_paths.dart';
 import 'package:dental_app/core/utlis/styles.dart';
+import 'package:dental_app/features/home/widget/home_view.dart';
 import 'package:dental_app/features/main/comtroller/main_controller.dart';
 import 'package:dental_app/features/main/widget/line_tap_bar.dart';
 import 'package:dental_app/features/main/widget/tab_bar_item.dart';
@@ -149,6 +151,16 @@ class MainView extends StatelessWidget {
                               children: [
                                 con.mainScreenList[con.mainScreenIndex]
                               ],
+                            ),
+                            InkWellCustom(
+                              onTap: () {
+                                Get.offAll(() => HomeView());
+                              },
+                              child: CustomText(
+                                size: 18.sp,
+                                text: "Skip as a guest ",
+                                underline: true,
+                              ),
                             )
                           ],
                         ),

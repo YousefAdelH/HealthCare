@@ -16,15 +16,15 @@ class HelperFunction {
   }
 
   static String remainingamount(String totalprice, String amount) {
-    double total = double.tryParse(totalprice) ?? 0.0;
-    double paid = double.tryParse(amount) ?? 0.0;
-    return (total - paid).toString();
+    double total = double.tryParse(totalprice) ?? 0;
+    double paid = double.tryParse(amount) ?? 0;
+    return (total - paid).toStringAsFixed(0);
   }
 
   static String totalamount(String totalnew, String totalold) {
-    double totaln = double.tryParse(totalnew) ?? 0.0;
-    double totalo = double.tryParse(totalold) ?? 0.0;
-    return (totaln + totalo).toString();
+    double totaln = double.tryParse(totalnew) ?? 0;
+    double totalo = double.tryParse(totalold) ?? 0;
+    return (totaln + totalo).toStringAsFixed(0);
   }
 
   static TimeOfDay sessionTimeFromFormatted(
@@ -44,5 +44,19 @@ class HelperFunction {
     }
 
     return TimeOfDay(hour: hour, minute: minute);
+  }
+}
+
+class FormValidators {
+  // Static method for number validation
+  static String? validateNumber(String? value, String errorMessage) {
+    if (value == null || value.isEmpty) {
+      return null; // Allow empty values
+    }
+    // Ensure only numbers are entered
+    if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+      return errorMessage;
+    }
+    return null;
   }
 }

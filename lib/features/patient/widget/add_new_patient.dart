@@ -1,5 +1,7 @@
 import 'package:dental_app/common/custom_text.dart';
 import 'package:dental_app/common/custom_text_form_field.dart';
+import 'package:dental_app/common/custom_text_type_field.dart';
+import 'package:dental_app/common/formulas.dart';
 import 'package:dental_app/core/utlis/app_string.dart';
 import 'package:dental_app/core/utlis/assets_paths.dart';
 import 'package:dental_app/core/utlis/styles.dart';
@@ -186,16 +188,97 @@ class AddNewPatient extends StatelessWidget {
                                       ),
                                     ),
                                   ),
+                                  CustomTypeAheadField(
+                                    controller: con.habitsController,
+                                    label: "habits",
+                                    widthFactor: 0.5,
+                                    suggestionsCallback: (pattern) async {
+                                      return MedicalFormulas.habitsFormulas
+                                          .where((formula) => formula
+                                              .toLowerCase()
+                                              .contains(pattern.toLowerCase()))
+                                          .toList();
+                                    },
+                                    onSuggestionSelected: (suggestion) {
+                                      con.habitsController.text = suggestion;
+                                    },
+                                  ),
+                                  CustomTypeAheadField(
+                                    controller: con.medicalhistoryController,
+                                    label: S.of(context).medicalHistory,
+                                    widthFactor: 0.5,
+                                    maxLines: 10,
+                                    suggestionsCallback: (pattern) async {
+                                      return MedicalFormulas
+                                          .medicalHistoryFormulas
+                                          .where((formula) => formula
+                                              .toLowerCase()
+                                              .contains(pattern.toLowerCase()))
+                                          .toList();
+                                    },
+                                    onSuggestionSelected: (suggestion) {
+                                      con.medicalhistoryController =
+                                          suggestion as TextEditingController;
+                                    },
+                                  ),
+                                  CustomTypeAheadField(
+                                    controller: con.surgicalhistoryController,
+                                    label: "Surgical History",
+                                    maxLines: 10,
+                                    widthFactor: 0.5,
+                                    suggestionsCallback: (pattern) async {
+                                      return MedicalFormulas
+                                          .surgicalHistoryFormulas
+                                          .where((formula) => formula
+                                              .toLowerCase()
+                                              .contains(pattern.toLowerCase()))
+                                          .toList();
+                                    },
+                                    onSuggestionSelected: (suggestion) {
+                                      con.surgicalhistoryController.text =
+                                          suggestion;
+                                    },
+                                  ),
+                                  CustomTypeAheadField(
+                                    controller: con.labController,
+                                    label: "Lab",
+                                    maxLines: 10,
+                                    widthFactor: 0.5,
+                                    suggestionsCallback: (pattern) async {
+                                      return MedicalFormulas.labFormulas
+                                          .where((formula) => formula
+                                              .toLowerCase()
+                                              .contains(pattern.toLowerCase()))
+                                          .toList();
+                                    },
+                                    onSuggestionSelected: (suggestion) {
+                                      con.labController.text = suggestion;
+                                    },
+                                  ),
+                                  CustomTypeAheadField(
+                                    controller: con.diagnosisController,
+                                    label: "Diagnosis",
+                                    widthFactor: 0.5,
+                                    suggestionsCallback: (pattern) async {
+                                      return MedicalFormulas.diagnosisFormulas
+                                          .where((formula) => formula
+                                              .toLowerCase()
+                                              .contains(pattern.toLowerCase()))
+                                          .toList();
+                                    },
+                                    onSuggestionSelected: (suggestion) {
+                                      con.diagnosisController.text = suggestion;
+                                    },
+                                  ),
                                   SizedBox(
                                     width:
-                                        MediaQuery.of(context).size.width / 2.5,
+                                        MediaQuery.of(context).size.width / 2,
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: CustomTextFormField(
-                                        label: S.of(context).medicalHistory,
+                                        label: "Notes",
                                         maxLines: 10,
-                                        controller:
-                                            con.medicalhistoryController,
+                                        controller: con.notesController,
                                         // decoration: const InputDecoration(
                                         //     labelText: AppStrings.medicalhistory),
                                       ),

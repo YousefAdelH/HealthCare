@@ -1259,6 +1259,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Prescription`
+  String get Prescription {
+    return Intl.message(
+      'Prescription',
+      name: 'Prescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save & Download Prescription`
+  String get DownloadPrescription {
+    return Intl.message(
+      'Save & Download Prescription',
+      name: 'DownloadPrescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Habits`
+  String get habits {
+    return Intl.message(
+      'Habits',
+      name: 'habits',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Surgical History`
+  String get surgicalHistory {
+    return Intl.message(
+      'Surgical History',
+      name: 'surgicalHistory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lab`
+  String get lab {
+    return Intl.message(
+      'Lab',
+      name: 'lab',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Diagnosis`
+  String get diagnosis {
+    return Intl.message(
+      'Diagnosis',
+      name: 'diagnosis',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Notes`
+  String get notes {
+    return Intl.message(
+      'Notes',
+      name: 'notes',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

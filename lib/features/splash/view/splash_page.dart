@@ -3,6 +3,7 @@ import 'package:dental_app/core/utlis/assets_paths.dart';
 import 'package:dental_app/core/utlis/styles.dart';
 import 'package:dental_app/features/splash/view/about_us.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -16,16 +17,20 @@ class SplashPage extends StatelessWidget {
       splashIconSize: 400,
       splash: Column(
         children: [
-          const SizedBox(
-            height: 140,
+          SizedBox(
+            height: 100.h,
           ),
-          Image.asset(AssetPath.klogo),
-          const SizedBox(
-            height: 95,
+          Image.asset(
+            AssetPath.klogo,
+            height: MediaQuery.of(context).size.width / 2,
+            width: MediaQuery.of(context).size.width / 2,
+          ),
+          SizedBox(
+            height: 70.h,
           ),
           LoadingAnimationWidget.hexagonDots(
             color: Colors.white,
-            size: 45,
+            size: 30,
           ),
         ],
       ),

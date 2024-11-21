@@ -1,11 +1,12 @@
 import 'dart:io';
 
 import 'package:dental_app/features/home/widget/home_view.dart';
-import 'package:dental_app/features/home/widget_mobile/home_view.dart';
+import 'package:dental_app/features/home/widget_mobile/home_view_mobile.dart';
 import 'package:dental_app/features/main/mobile_widget/main_mobile.dart';
 import 'package:dental_app/features/main/widget/main_view.dart';
 import 'package:dental_app/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -31,9 +32,6 @@ class AuthCtrl extends GetxController {
 
       // Checking if the user is successfully signed in
       if (userCredential.user != null) {
-        Get.snackbar('Success', 'Login successful!',
-            snackPosition: SnackPosition.BOTTOM);
-
         bool isDeviceRegistered = prefs.getBool('isDeviceRegistered') ?? false;
 
         if (!isDeviceRegistered) {
@@ -42,11 +40,24 @@ class AuthCtrl extends GetxController {
         }
         controllerPassword.clear();
         controllerEmail.clear();
-        if (Platform.isAndroid || Platform.isIOS) {
-          Get.offAll(() => HomeViewMobile());
-        } else {
+        if (kIsWeb) {
           Get.offAll(() => HomeView());
+          Get.snackbar('Success', 'Login successful!',
+              snackPosition: SnackPosition.BOTTOM);
+        } else if (Platform.isAndroid || Platform.isIOS) {
+          Get.offAll(() => HomeViewMobile());
+          Get.snackbar('Success', 'Login successful!',
+              snackPosition: SnackPosition.BOTTOM);
         }
+        // if (Platform.isAndroid || Platform.isIOS) {
+        //   Get.offAll(() => HomeViewMobile());
+        //   Get.snackbar('Success', 'Login successful!',
+        //       snackPosition: SnackPosition.BOTTOM);
+        // } else {
+        //   Get.offAll(() => HomeView());
+        //   Get.snackbar('Success', 'Login successful!',
+        //       snackPosition: SnackPosition.BOTTOM);
+        // }
       } else {
         // Handling case where user is null (should not happen with correct credentials)
         ScaffoldMessenger.of(context).showSnackBar(

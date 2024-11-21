@@ -119,5 +119,12 @@
   "totalPricePatient": "إجمالي سعر المريض",
   "value": "القيمة",
   "description": "الوصف",
-  "selectBudgetPeriod": "اختر فترة الميزانية"
+  "selectBudgetPeriod": "اختر فترة الميزانية",
+  "Prescription": "الروشته",
+  "DownloadPrescription": "حفظ وتنزيل الروشته",
+  "habits": "العادات",
+  "surgicalHistory": "التاريخ الجراحي",
+  "lab": "الفحوصات",
+  "diagnosis": "التشخيص",
+  "notes": "ملاحظات"
 }

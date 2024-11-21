@@ -22,8 +22,11 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "DownloadPrescription":
+            MessageLookupByLibrary.simpleMessage("حفظ وتنزيل الروشته"),
         "Doyouwanttosavethechanges":
             MessageLookupByLibrary.simpleMessage("هل تريد حفظ التغييرات؟"),
+        "Prescription": MessageLookupByLibrary.simpleMessage("الروشته"),
         "addExpense": MessageLookupByLibrary.simpleMessage("إضافة مصروف"),
         "addNewSession":
             MessageLookupByLibrary.simpleMessage("إضافة جلسة جديدة"),
@@ -50,6 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "deleteSessionConfirmation": MessageLookupByLibrary.simpleMessage(
             "هل أنت متأكد من أنك تريد حذف هذه الجلسة نهائيًا؟"),
         "description": MessageLookupByLibrary.simpleMessage("الوصف"),
+        "diagnosis": MessageLookupByLibrary.simpleMessage("التشخيص"),
         "discardChanges":
             MessageLookupByLibrary.simpleMessage("تجاهل التغيرات"),
         "editExpense": MessageLookupByLibrary.simpleMessage("تعديل المصروفات"),
@@ -71,11 +75,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "filterExpenses": MessageLookupByLibrary.simpleMessage("تصفية النفقات"),
         "gainPrice": MessageLookupByLibrary.simpleMessage("سعر الربح"),
         "gender": MessageLookupByLibrary.simpleMessage("الجنس"),
+        "habits": MessageLookupByLibrary.simpleMessage("العادات"),
         "hello": MessageLookupByLibrary.simpleMessage("مرحبًا"),
         "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
         "invalidEmail":
             MessageLookupByLibrary.simpleMessage("بريد إلكتروني غير صالح"),
         "inventory": MessageLookupByLibrary.simpleMessage("المخزون"),
+        "lab": MessageLookupByLibrary.simpleMessage("الفحوصات"),
         "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "logout": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
         "male": MessageLookupByLibrary.simpleMessage("ذكر"),
@@ -97,6 +103,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "notFoundPage":
             MessageLookupByLibrary.simpleMessage("الصفحة غير موجودة"),
         "note": MessageLookupByLibrary.simpleMessage("ملاحظة"),
+        "notes": MessageLookupByLibrary.simpleMessage("ملاحظات"),
         "number": MessageLookupByLibrary.simpleMessage("الرقم"),
         "other": MessageLookupByLibrary.simpleMessage("أخرى"),
         "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
@@ -161,6 +168,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("خاص بإضافة العمليات"),
         "startDate": MessageLookupByLibrary.simpleMessage("بداية "),
         "success": MessageLookupByLibrary.simpleMessage("نجاح"),
+        "surgicalHistory":
+            MessageLookupByLibrary.simpleMessage("التاريخ الجراحي"),
         "time": MessageLookupByLibrary.simpleMessage("الوقت"),
         "title": MessageLookupByLibrary.simpleMessage("الرئيسية"),
         "totalAmount": MessageLookupByLibrary.simpleMessage("المبلغ الإجمالي"),

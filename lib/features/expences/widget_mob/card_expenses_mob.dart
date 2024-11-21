@@ -32,8 +32,10 @@ class CardExpencesMob extends StatelessWidget {
                     ));
                   },
                   child: Container(
-                      padding: EdgeInsets.only(
-                          bottom: 10.h, left: 10.w, right: 10.w),
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height / 4,
+                      padding:
+                          EdgeInsets.only(bottom: 10.h, left: 4.w, right: 4.w),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12.0),
                           border: Border.all(
@@ -75,7 +77,8 @@ class CardExpencesMob extends StatelessWidget {
                                     children: [
                                       InkWellCustom(
                                         onTap: () {
-                                          con.deleteExpense(expensesItem.id);
+                                          con.deleteExpense(
+                                              context, expensesItem.id);
                                         },
                                         child: const SizedBox(
                                           child: Icon(Icons.delete),
@@ -120,14 +123,14 @@ class CardExpencesMob extends StatelessWidget {
                                             expensesItem.expensesPrice ?? "0.0",
                                         icone: const Icon(Icons.attach_money),
                                       ),
-                                      UserInfo2(
-                                        size: 10,
-                                        subtitle: S.of(context).date,
-                                        title: HelperFunction.formatDate(
-                                            expensesItem.date),
-                                        icone: const Icon(Icons.date_range),
-                                      ),
                                     ],
+                                  ),
+                                  UserInfo2(
+                                    size: 10,
+                                    subtitle: S.of(context).date,
+                                    title: HelperFunction.formatDate(
+                                        expensesItem.date),
+                                    icone: const Icon(Icons.date_range),
                                   ),
                                 ],
                               ),

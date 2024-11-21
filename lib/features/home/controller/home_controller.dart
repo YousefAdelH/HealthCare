@@ -47,6 +47,54 @@ class HomeCtrl extends GetxController {
     final prefs = await SharedPreferences.getInstance();
     currentImage.value = prefs.getString('imagePath') ?? 'assets/img/3.png';
   }
+  // void pickImage() async {
+  //   FilePickerResult? result = await FilePicker.platform.pickFiles(
+  //     type: FileType.image,
+  //     allowMultiple: false,
+  //   );
+
+  //   if (result != null) {
+  //     PlatformFile file = result.files.first;
+  //     Uint8List? imageBytes = file.bytes;
+
+  //     if (imageBytes != null) {
+  //       print('Selected image size: ${imageBytes.length}');
+  //       changeImage(imageBytes as String);
+  //       saveImage(imageBytes);
+  //     }
+  //   } else {
+  //     // User canceled the file picker
+  //   }
+  // }
+
+  // // Save image bytes in SharedPreferences
+  // Future<void> saveImage(Uint8List imageBytes) async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   prefs.setString('imageBytes', base64Encode(imageBytes));
+  // }
+
+  // // Load image bytes from SharedPreferences
+  // Future<void> loadImage() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   String? imageBytesStr = prefs.getString('imageBytes');
+
+  //   if (imageBytesStr != null) {
+  //     Uint8List imageBytes = base64Decode(imageBytesStr);
+  //     currentImage.value = imageBytes as String;
+  //   } else {
+  //     // Default image as bytes
+  //     currentImage.value = (await rootBundle.load('assets/img/3.png'))
+  //         .buffer
+  //         .asUint8List() as String;
+  //   }
+  // }
+
+  // // Display image with Image.memory
+  // Widget buildImage() {
+  //   return Obx(() => currentImage.value != null
+  //       ? Image.memory(currentImage.value as Uint8List)
+  //       : Image.asset('assets/img/3.png'));
+  // }
 
   void showChangeName(BuildContext context) {
     final TextEditingController nameController = TextEditingController();

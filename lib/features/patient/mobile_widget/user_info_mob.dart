@@ -18,35 +18,37 @@ class UserInfoMob extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10.h),
-      child: Row(
-        children: [
-          SizedBox(
-            child: icone,
-          ),
-          SizedBox(
-            width: 5.w,
-          ),
-          CustomText(
-            text: subtitle,
-            size: 8.sp,
-            fontWeight: FontWeight.w700,
-            color: AppColors.black,
-            underline: false,
-            underLineColor: AppColors.whiteff,
-          ),
-          SizedBox(
-            width: 10.w,
-          ),
-          CustomText(
-            text: title,
-            size: 10.sp,
-            fontWeight: FontWeight.w400,
-            color: AppColors.blueA1,
-            underLineColor: AppColors.whiteff,
-          ),
-        ],
+    return SizedBox(
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 10.h),
+        child: Row(
+          children: [
+            SizedBox(
+              child: icone,
+            ),
+            SizedBox(
+              width: 5.w,
+            ),
+            CustomText(
+              text: subtitle,
+              size: 8.sp,
+              fontWeight: FontWeight.w700,
+              color: AppColors.black,
+              underline: false,
+              underLineColor: AppColors.whiteff,
+            ),
+            SizedBox(
+              width: 10.w,
+            ),
+            CustomText(
+              text: title,
+              size: 10.sp,
+              fontWeight: FontWeight.w400,
+              color: AppColors.blueA1,
+              underLineColor: AppColors.whiteff,
+            ),
+          ],
+        ),
       ),
     );
   }

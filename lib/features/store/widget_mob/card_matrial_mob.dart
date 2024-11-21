@@ -28,7 +28,7 @@ class CardMaterialMob extends StatelessWidget {
                 },
                 child: Container(
                     padding:
-                        EdgeInsets.only(bottom: 10.h, left: 10.w, right: 10.w),
+                        EdgeInsets.only(bottom: 10.h, left: 5.w, right: 5.w),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12.0),
                       border: Border.all(
@@ -111,16 +111,16 @@ class CardMaterialMob extends StatelessWidget {
                                 SizedBox(
                                   height: 2.h,
                                 ),
+                                UserInfoMob(
+                                  subtitle: S.of(context).wholesalePrice,
+                                  title: " ${material.wholesalePrice}",
+                                  icone: Icon(Icons.money),
+                                ),
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    UserInfoMob(
-                                      subtitle: S.of(context).wholesalePrice,
-                                      title: " ${material.wholesalePrice}",
-                                      icone: Icon(Icons.money),
-                                    ),
                                     UserInfoMob(
                                       subtitle: S.of(context).expirationDate,
                                       title: HelperFunction.formatDate(

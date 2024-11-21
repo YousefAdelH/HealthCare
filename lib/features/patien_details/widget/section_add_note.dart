@@ -5,6 +5,7 @@ import 'package:dental_app/common/inkwell_.dart';
 import 'package:dental_app/core/utlis/assets_paths.dart';
 import 'package:dental_app/core/utlis/styles.dart';
 import 'package:dental_app/features/patien_details/controller/patient_details_controller.dart';
+import 'package:dental_app/features/prescription/widget/addprescription.dart';
 import 'package:dental_app/features/patient/controller/patient_controller.dart';
 import 'package:dental_app/features/patient/model/patiant_model.dart';
 import 'package:dental_app/features/patien_details/widget/session_item.dart';
@@ -30,48 +31,102 @@ class SectionAddNote extends StatelessWidget {
 
     return Column(
       children: [
-        InkWellCustom(
-          onTap: () {
-            if (Platform.isAndroid) {
-              con.showScreenAddOrEditSessionMob(
-                  session: null, context, item.id!);
-            } else {
-              con.showScreenAddSession(context, item.id!);
-            }
-          },
-          child: Container(
-            width: MediaQuery.of(context).size.width / 2.5,
-            height: 80.h,
-            decoration: BoxDecoration(
-              color: AppColors.whiteff,
-              borderRadius: BorderRadius.circular(18.0),
-              border: Border.all(
-                color: AppColors.primary,
-                width: 1,
+        SizedBox(
+          width: MediaQuery.of(context).size.width,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              InkWellCustom(
+                onTap: () => Get.to(AddPrescription(
+                  patient: item,
+                )),
+                child: Container(
+                  width: (Platform.isAndroid || Platform.isIOS)
+                      ? MediaQuery.of(context).size.width / 3
+                      : MediaQuery.of(context).size.width / 4,
+                  height: 80.h,
+                  decoration: BoxDecoration(
+                    color: AppColors.whiteff,
+                    borderRadius: BorderRadius.circular(18.0),
+                    border: Border.all(
+                      color: AppColors.primary,
+                      width: 1,
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(3.0),
+                    child: Column(
+                      children: [
+                        const Icon(
+                          Icons.add,
+                          size: 30,
+                          color: AppColors.blueA1,
+                        ),
+                        SizedBox(
+                          height: 5.h,
+                        ),
+                        CustomText(
+                          text: S.of(context).Prescription,
+                          fontWeight: FontWeight.w500,
+                          bolUnderline: false,
+                          color: AppColors.blueA1,
+                          size: 10.sp,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(6.0),
-              child: Column(
-                children: [
-                  const Icon(
-                    Icons.add,
-                    size: 30,
-                    color: AppColors.blueA1,
-                  ),
-                  SizedBox(
-                    height: 5.h,
-                  ),
-                  CustomText(
-                    text: S.of(context).addNewSession,
-                    fontWeight: FontWeight.w500,
-                    bolUnderline: false,
-                    color: AppColors.blueA1,
-                    size: 10.sp,
-                  ),
-                ],
+              SizedBox(
+                width: 10.w,
               ),
-            ),
+              InkWellCustom(
+                onTap: () {
+                  if (Platform.isAndroid) {
+                    con.showScreenAddOrEditSessionMob(
+                        session: null, context, item.id!);
+                  } else {
+                    con.showScreenAddSession(context, item.id!);
+                  }
+                },
+                child: Container(
+                  width: (Platform.isAndroid || Platform.isIOS)
+                      ? MediaQuery.of(context).size.width / 3
+                      : MediaQuery.of(context).size.width / 4,
+                  height: 80.h,
+                  decoration: BoxDecoration(
+                    color: AppColors.whiteff,
+                    borderRadius: BorderRadius.circular(18.0),
+                    border: Border.all(
+                      color: AppColors.primary,
+                      width: 1,
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(3.0),
+                    child: Column(
+                      children: [
+                        const Icon(
+                          Icons.add,
+                          size: 30,
+                          color: AppColors.blueA1,
+                        ),
+                        SizedBox(
+                          height: 5.h,
+                        ),
+                        CustomText(
+                          text: S.of(context).addNewSession,
+                          fontWeight: FontWeight.w500,
+                          bolUnderline: false,
+                          color: AppColors.blueA1,
+                          size: 10.sp,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
         Obx(() {

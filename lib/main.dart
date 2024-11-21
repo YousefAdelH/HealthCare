@@ -1,12 +1,12 @@
-import 'package:dental_app/common/firebase_options.dart';
+import 'package:dental_app/core/utlis/service_lecator.dart';
 import 'package:dental_app/features/home/widget/home_view.dart';
-import 'package:dental_app/features/home/widget_mobile/home_view.dart';
+import 'package:dental_app/features/home/widget_mobile/home_view_mobile.dart';
 import 'package:dental_app/features/main/mobile_widget/main_mobile.dart';
 import 'package:dental_app/features/main/widget/main_view.dart';
 import 'package:dental_app/features/setting/controller/setting_controller.dart';
 import 'package:dental_app/features/setting/widget/operation_setting.dart';
-import 'package:dental_app/features/setting/widget/setting_screen.dart';
 import 'package:dental_app/features/splash/view/splash_page.dart';
+import 'package:dental_app/firebase_options.dart';
 import 'package:dental_app/generated/l10n.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -20,6 +20,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'dart:ui' as ui;
 
 Future<void> main() async {
+  setupDependencies();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
